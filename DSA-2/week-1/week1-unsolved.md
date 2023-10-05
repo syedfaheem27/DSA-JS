@@ -15,5 +15,7 @@
 <dt>Find a triplet that sums up to a target</dt>
 <dd>not done</dd>
 <br />
-
+<dt>The Dutch national flag algorithm</dt>
+<dd>Do on gfg</dd>
+<br />
 </dl>

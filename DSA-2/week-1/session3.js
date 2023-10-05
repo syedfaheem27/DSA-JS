@@ -127,9 +127,37 @@ Print the indices in increasing order.
 5.Problem Description
 Given a sorted array, remove the duplicates in-place,
  such that each element in the array appears at most 
- twice, and return the new length.
+ twice, and return the new length and the required array in an object
+ {newLength,newArr}
 
 Do not allocate extra space for another array, 
 you must do this by modifying the input array 
 in-place with O(1) extra memory.
 */
+
+// function removeDuplicates1(n, nums) {
+//   let reqIndex = 0;
+//   let count = 1;
+
+//   for (let i = 1; i < n; i++) {
+//     if (nums[i] === nums[i - 1]) {
+//       count++;
+//     } else {
+//       count = 1;
+//     }
+
+//     if (count <= 2) {
+//       //   reqIndex++;
+//       //   nums[reqIndex] = nums[i];
+//       //single line instead of the above two lines
+//       nums[++reqIndex] = nums[i];
+//     }
+//   }
+
+//   return {
+//     newLength: reqIndex + 1,
+//     newArr: nums.slice(0, reqIndex + 1),
+//   };
+// }
+
+// removeDuplicates1(7, [2, 2, 2, 3, 4, 4, 9]);
