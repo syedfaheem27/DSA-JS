@@ -61,7 +61,93 @@ function sortColouredObjects(nums) {
 
   console.log(nums);
 }
-sortColouredObjects([2, 0, 1, 2, 0, 1, 0, 2]);
+// sortColouredObjects([2, 0, 1, 2, 0, 1, 0, 2]);
 
 //---------------------------------------------------
 //Finish everything from session 3 on crio before proceeding
+
+//Intersection of two arrays
+//TC-O(N) and SC-O(N)
+
+function intersectionOfTwoArrays(N, M, nums1, nums2) {
+  let map = new Map();
+  for (let i = 0; i < N; i++) map.set(nums1[i], map.get(nums1[i]) + 1 || 1);
+
+  let resArr = [];
+  for (let i = 0; i < M; i++) {
+    if (map.has(nums2[i]) && map.get(nums2[i]) > 0) {
+      resArr.push(nums2[i]);
+      map.set(nums2[i], map.get(nums2[i]) - 1);
+    }
+  }
+
+  console.log(resArr);
+}
+
+// intersectionOfTwoArrays(4, 2, [1, 2, 2, 1], [2, 2]);
+
+//Optimizing the problem if the arrays were sorted
+function intersectionOfTwoArrays2(N, M, nums1, nums2) {
+  let resArr = [];
+  let i = 0,
+    j = 0;
+  while (i < N && j < M) {
+    if (nums1[i] < nums2[j]) {
+      i++;
+    } else if (nums1[i] > nums2[j]) {
+      j++;
+    } else {
+      resArr.push(nums1[i]);
+      i++;
+      j++;
+    }
+  }
+
+  console.log(resArr);
+}
+
+// intersectionOfTwoArrays2(8, 5, [1, 2, 2, 2, 3, 3, 3, 4], [2, 2, 3, 3, 4]);
+
+//----------------------------------------------
+//Group angrams together
+// Input- an array of words
+//Output - an array of arrays with similar anagrams in one
+
+function groupAnagrams(n, strings) {
+  let map = new Map();
+  let temp;
+  for (let i = 0; i < strings.length; i++) {
+    temp = strings[i].split("").sort().join("");
+    if (map.has(temp)) {
+      map.set(temp, map.get(temp).concat([strings[i]]));
+    } else {
+      map.set(temp, [strings[i]]);
+    }
+  }
+  let groupArr = [];
+  for (let [_, value] of map) {
+    groupArr.push(value);
+  }
+
+  console.log(groupArr);
+}
+
+// groupAnagrams(5, ["act", "god", "cat", "dog", "tac"]);
+//SC - O(NM) and TC-O(NMlogM) - M the max length of the word in a string
+
+//-----------------------------------------------------
+
+// Remove Duplicates from a sorted array
+function removeDuplicates1(n, arr) {
+  let reqIdx = 0;
+  let i = 1;
+  while (i < n) {
+    if (arr[i] !== arr[i - 1]) arr[++reqIdx] = arr[i];
+
+    i++;
+  }
+  console.log(reqIdx + 1);
+  console.log(arr);
+}
+
+removeDuplicates1(7, [2, 4, 4, 4, 6, 8, 8]);
