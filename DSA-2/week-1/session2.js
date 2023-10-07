@@ -110,7 +110,7 @@
 //   console.log(resStr);
 // }
 
-// reverseWords("i.like.this.program.very.much");
+reverseWords("i.like.this.program.very.much");
 // reverseWords("my.name.is");
 
 //------------------------------------

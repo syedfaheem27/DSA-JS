@@ -1,9 +1,12 @@
 <h1>Unsolved Questions</h1>
 <dl>
 <dt>First Missing Positive </dt>
-<dd> Do it in TC-O(n) and SC-O(1). Did it in TC-O(n) and SC-O(n)</dd>
+<dd> Do it in TC-O(n) and SC-O(1). Did it in TC-O(n) and SC-O(n)
+Did in TC - O(m*n) and SC-O(1). Further optimise runtime-expected 
+runtime - O((m+n)log(m+n))
+</dd>
 <br />
-<dt>Reverse each word in a string</dt>
+<dt>Reverse each word in a string 🚀</dt>
 <dd> partially done - check session2.js Q4 for more details<dd>
 <br />
 <dt>Find max sum of triplets in an array containing integers (positive as well as negative)</dt>
@@ -15,9 +18,11 @@
 <dt>Find a triplet that sums up to a target</dt>
 <dd>not done</dd>
 <br />
-<dt>The Dutch national flag algorithm</dt>
+<dt>The Dutch national flag algorithm 🚀</dt>
 <dd>Do on gfg</dd>
 <br />
 </dl>
 
 <p>Go through space and time complexities videos of abdul bhari</p>
+
+<p>Solved Questions 🚀</p>
