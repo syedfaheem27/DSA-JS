@@ -68,3 +68,50 @@ function mergeTwoArrays(arr1, arr2, n, m) {
 // mergeTwoArrays([0, 1, 2], [0, 1, 2, 3], 3, 4);
 
 //--------------------------------------
+/*
+Merge two sorted arrays
+Tc-(n+m)log(n+m) and SC - O(1)
+*/
+function mergetTwoSortedArrays2(a, b, n, m) {
+  let i = 0,
+    j = 0,
+    k = n - 1;
+  let temp;
+
+  while (i < k && j < m) {
+    if (a[i] < b[j]) i++;
+    else {
+      temp = a[k];
+      a[k] = b[j];
+      b[j] = temp;
+      k--;
+      j++;
+    }
+  }
+
+  a.sort((a, b) => a - b);
+  b.sort((a, b) => a - b);
+
+  console.log(a);
+  console.log(b);
+}
+// mergetTwoSortedArrays2([1, 3, 5, 7], [0, 2, 6, 8, 9], 4, 5);
+
+//--------------------
+//Find first missing positive integer - another approach without a map
+function firstPositive(arr) {
+  let resArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] > 0) {
+      resArr[arr[i] - 1] = arr[i];
+    }
+  }
+
+  for (let i = 0; i < resArr.length; i++) {
+    if (!resArr[i]) return i + 1;
+  }
+
+  return resArr.length + 1;
+}
+
+// console.log(firstPositive([1, 2, 3, 4, 5, 7]));

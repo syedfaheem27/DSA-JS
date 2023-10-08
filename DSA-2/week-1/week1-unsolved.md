@@ -2,8 +2,7 @@
 <dl>
 <dt>First Missing Positive </dt>
 <dd> Do it in TC-O(n) and SC-O(1). Did it in TC-O(n) and SC-O(n)
-Did in TC - O(m*n) and SC-O(1). Further optimise runtime-expected 
-runtime - O((m+n)log(m+n))
+
 </dd>
 <br />
 <dt>Reverse each word in a string 🚀</dt>
@@ -12,8 +11,10 @@ runtime - O((m+n)log(m+n))
 <dt>Find max sum of triplets in an array containing integers (positive as well as negative)</dt>
 <dd> done for positive - do it for all integers</dd>
 <br />
-<dt>Merge two sorted arrays</dt>
-<dd> done in TC - O(M+N) and SC-O(M+N). do it in constant space</dd>
+<dt>Merge two sorted arrays 🚀</dt>
+<dd> done in TC - O(M+N) and SC-O(M+N). do it in constant space
+Did in TC - O(m*n) and SC-O(1). Further optimise runtime-expected 
+runtime - O((m+n)log(m+n))</dd>
 <br />
 <dt>Find a triplet that sums up to a target</dt>
 <dd>not done</dd>
