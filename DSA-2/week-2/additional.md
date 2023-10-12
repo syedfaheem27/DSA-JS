@@ -1,8 +1,8 @@
 <h1>Additional Questions to try</h1>
 <ul>
 <li>Find largest sub-array formed by consecutive integers with distinct integers ✅</li>
-<li>Find duplicate element in a limited range array</li>
-<li>Find maximum length sub-array having equal number of 0’s and 1's</li>
+<li>Find duplicate element in a limited range array ✅</li>
+<li>Find maximum length sub-array having equal number of 0’s and 1's ✅</li>
 <li>Find pair with given sum in an array</li>
 <li>Print all sub-arrays with 0 sum</li>
 <li>Find longest subsequence formed by consecutive integers</li>
