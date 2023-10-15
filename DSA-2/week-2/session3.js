@@ -86,3 +86,107 @@ function kDistinctChars(s, k) {
 // kDistinctChars("abacdddefg", 3);
 
 //-----------------------------
+
+/*
+Problem Description
+Given an array of integers and a number k, find the maximum sum of a subarray of size k.
+*/
+
+function maxSumSubArray(N, A, K) {
+  let currSum = 0;
+  for (let i = 0; i < K; i++) currSum += A[i];
+
+  let maxSum = currSum;
+
+  let r = K,
+    l = 0;
+  while (r < N) {
+    currSum += A[r] - A[l];
+    maxSum = Math.max(currSum, maxSum);
+    r++;
+    l++;
+  }
+
+  console.log(maxSum);
+}
+// maxSumSubArray(5, [100, 200, 300, 400, 500], 2);
+
+//--------------------------------------
+
+/*
+ Maximum Sum of Distinct Subarrays With Length K
+
+You are given an integer array nums and an integer k.
+ Find the maximum subarray sum of all the subarrays of nums 
+ that meet the following conditions:
+
+The length of the subarray is k, and
+All the elements of the subarray are distinct.
+*/
+
+function maxSumSubAr2(nums, k) {
+  let n = nums.length;
+  let map = new Map();
+
+  let currSum = 0,
+    maxSum = 0;
+
+  for (let i = 0; i < k; i++) {
+    currSum += nums[i];
+    map.set(nums[i], map.get(nums[i]) + 1 || 1);
+  }
+
+  if (map.size === k) maxSum = Math.max(maxSum, currSum);
+
+  let r = k,
+    l = 0;
+  while (r < n) {
+    currSum += nums[r] - nums[l];
+
+    if (map.get(nums[l]) > 1) map.set(nums[l], map.get(nums[l]) - 1);
+    else map.delete(nums[l]);
+
+    map.set(nums[r], map.get(nums[r]) + 1 || 1);
+
+    if (map.size === k) maxSum = Math.max(maxSum, currSum);
+
+    l++;
+    r++;
+  }
+  console.log(maxSum);
+}
+// maxSumSubAr2(7, [1, 5, 4, 2, 9, 9, 9], 3);
+// maxSumSubAr2(3, [4, 4, 4], 3);
+// maxSumSubAr2(3, [1, 2, 2], 2);
+// maxSumSubAr2([9, 9, 9, 1, 2, 3], 3);
+
+//-----------------------------------------------------
+
+/*
+Problem Description
+Given a string, find the length of the longest substring 
+which has no repeating characters.
+*/
+
+function longestSubStr(s) {
+  let set = new Set();
+  let l = 0,
+    r = 0;
+  let maxLen = 0;
+  while (r < s.length) {
+    if (set.has(s[r])) {
+      //shrink the window
+      set.delete(s[l++]);
+    } else {
+      //expand window
+      set.add(s[r++]);
+      maxLen = Math.max(maxLen, set.size);
+    }
+  }
+
+  console.log(maxLen);
+}
+
+longestSubStr(
+  "jyvzhkkodacgpkiegodoasxdsaakbahjdczjatkvpgbheawvdjxiegsoalddbtoxuaataniraqslgbjvgz"
+);
