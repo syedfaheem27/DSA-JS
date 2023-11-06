@@ -35,7 +35,7 @@ function binarySearch(arr, k) {
 //Input - [4 ,5 ,6 ,9, 10,2, 3], 8
 //Output - -1
 
-// Method -1 TC - O(1) and SC - O(1)
+// Method -1 TC - O(logn) and SC - O(1)
 
 function searchSortedArr(arr, target) {
   let pivotIdx = getPivotIdx(arr);
