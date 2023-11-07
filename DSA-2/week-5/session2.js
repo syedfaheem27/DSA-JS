@@ -114,4 +114,85 @@ function findPeak(n, nums) {
     else r = mid - 1;
   }
 }
-console.log(findPeak(8, [1, 1, 1, 1, 1, 1, 1, 2]));
+// console.log(findPeak(8, [1, 1, 1, 1, 1, 1, 1, 2]));
+
+/////////////////////////////////////////////////////////
+/*
+Problem Description
+Given a sorted integer array of length n with possible 
+duplicate elements. Find the number of occurrences of an 
+integer k using binary search.
+
+Input - [-1,2,2,2,2,3,4,5,6]
+output - 4
+*/
+
+function countOccurences(n, nums, k) {
+  return rightOccurence(n, nums, k) === -1 && leftOccurence === -1
+    ? -1
+    : rightOccurence(n, nums, k) - leftOccurence(n, nums, k) + 1;
+}
+
+function leftOccurence(n, nums, k) {
+  let l = 0,
+    r = n - 1,
+    mid;
+  let leftIdx = -1;
+  while (l <= r) {
+    mid = Math.floor((l + r) / 2);
+    if (nums[mid] > k) r = mid - 1;
+    else if (nums[mid] < k) l = mid + 1;
+    else {
+      leftIdx = mid;
+      r = mid - 1;
+    }
+  }
+
+  return leftIdx;
+}
+function rightOccurence(n, nums, k) {
+  let l = 0,
+    r = n - 1,
+    mid;
+  let rightIdx = -1;
+  while (l <= r) {
+    mid = Math.floor((l + r) / 2);
+    if (nums[mid] > k) r = mid - 1;
+    else if (nums[mid] < k) l = mid + 1;
+    else {
+      rightIdx = mid;
+      l = mid + 1;
+    }
+  }
+
+  return rightIdx;
+}
+
+// console.log(countOccurences(10, [-1, 2, 3, 4, 4, 4, 4, 4, 8, 9], 4));
+
+//////////////////////////////////////////////////////////
+/*
+Problem Description
+Ujjwal loves to read story books. 
+There are n piles of books, the ith pile has a[i] books.
+ His mom has gone to market and will come back in h hours.
+
+Ujjwal can decide his books-per-hour reading speed of k. 
+Each hour, he chooses some pile of books and reads k books from 
+that pile. If the pile has less than k books, he reads all of them
+instead and will not read any more books during this hour.
+
+Ujjwal likes to read slowly but still wants to finish reading
+all the books before his mom returns.
+
+Return the minimum integer k such that he can read all the
+books within h hours.
+*/
+/**
+ *
+ * @param {number} n - length of array
+ * @param {number} k - market time of mom
+ * @param {number[]} a -  array of book piles
+ */
+
+function bookReading(n, k, a) {}
