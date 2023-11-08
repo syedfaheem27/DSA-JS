@@ -174,8 +174,8 @@ function rightOccurence(n, nums, k) {
 /*
 Problem Description
 Ujjwal loves to read story books. 
-There are n piles of books, the ith pile has a[i] books.
- His mom has gone to market and will come back in h hours.
+There are n piles of books can be sorted or not, the ith pile has a[i] books.
+His mom has gone to market and will come back in h hours.
 
 Ujjwal can decide his books-per-hour reading speed of k. 
 Each hour, he chooses some pile of books and reads k books from 
@@ -195,4 +195,38 @@ books within h hours.
  * @param {number[]} a -  array of book piles
  */
 
-function bookReading(n, k, a) {}
+function bookReading(n, k, a) {
+  let l = 1,
+    r = 0,
+    mid;
+
+  for (let i = 0; i < n; i++) r = Math.max(r, a[i]);
+
+  let output = r;
+  let hoursTaken;
+  while (l <= r) {
+    mid = Math.floor((l + r) / 2);
+    hoursTaken = getReadingHours(n, mid, a);
+
+    if (hoursTaken <= k) {
+      output = Math.min(output, mid);
+      r = mid - 1;
+    } else l = mid + 1;
+  }
+
+  return output;
+}
+/**
+ *
+ * @param {number} n - length of array
+ * @param {number} currSpeed - current reading speed
+ * @param {number} a - array of book piles
+ */
+
+function getReadingHours(n, currSpeed, a) {
+  let totalReadingHours = 0;
+  for (let i = 0; i < n; i++) totalReadingHours += Math.ceil(a[i] / currSpeed);
+  return totalReadingHours;
+}
+
+// console.log(bookReading(4, 8, [3, 6, 7, 11]));
