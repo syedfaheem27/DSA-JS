@@ -71,4 +71,6 @@ function reverseBits(n) {
   console.log(res);
 }
 
-reverseBits(4);
+// reverseBits(4);
+
+///////////////////////////////////////////////
