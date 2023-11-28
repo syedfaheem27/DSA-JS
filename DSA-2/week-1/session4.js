@@ -19,27 +19,27 @@ Constraints
 1 <= length(S) <= 200000
 
 */
-// function sortColouredObjects(nums) {
-//   //Appraoch-1
-//   let zeroIdx = 0,
-//     twoIdx = nums.length - 1;
-//   let i = 0;
-//   while (i < nums.length) {
-//     //move zeroIdx to an element which is not zero
-//     while (nums[zeroIdx] === 0) zeroIdx++;
+function sortColouredObjects(nums) {
+  //Appraoch-1
+  let zeroIdx = 0,
+    twoIdx = nums.length - 1;
+  let i = 0;
+  while (i < nums.length) {
+    //move zeroIdx to an element which is not zero
+    while (nums[zeroIdx] === 0) zeroIdx++;
 
-//     //move twoIdx to an element which is not two
-//     while (nums[twoIdx] === 2) twoIdx--;
+    //move twoIdx to an element which is not two
+    while (nums[twoIdx] === 2) twoIdx--;
 
-//     if (nums[i] === 0 && i > zeroIdx) {
-//       [nums[i], nums[zeroIdx]] = [nums[zeroIdx], 0];
-//     } else if (nums[i] === 2 && i < twoIdx) {
-//       [nums[i], nums[twoIdx]] = [nums[twoIdx], 2];
-//     } else i++;
-//   }
+    if (nums[i] === 0 && i > zeroIdx) {
+      [nums[i], nums[zeroIdx]] = [nums[zeroIdx], 0];
+    } else if (nums[i] === 2 && i < twoIdx) {
+      [nums[i], nums[twoIdx]] = [nums[twoIdx], 2];
+    } else i++;
+  }
 
-//   console.log(nums);
-// }
+  console.log(nums);
+}
 
 // sortColouredObjects([2, 0, 1, 2, 0, 1, 0, 2]);
 

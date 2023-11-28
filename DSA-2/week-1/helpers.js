@@ -1,11 +1,3 @@
-//Group anagrams -  different approach
-class Word {
-  constructor(string, index) {
-    this.string = string;
-    this.index = index;
-  }
-}
-
 // Create a DupArray object that contains an array
 // of Words
 function createDupArray(string, size) {

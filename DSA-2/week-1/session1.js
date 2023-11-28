@@ -4,47 +4,47 @@ Output - [[1,2,3],[8,9,4],[7,6,5]]
 constraint - 1<=A<=1000
 */
 
-// function printMatrixInSpiral(A) {
-//   let rowStart = 0,
-//     colStart = 0;
-//   let rowEnd = A - 1,
-//     colEnd = A - 1;
+function printMatrixInSpiral(A) {
+  let rowStart = 0,
+    colStart = 0;
+  let rowEnd = A - 1,
+    colEnd = A - 1;
 
-//   let matrix = Array.from({ length: A }, () => []);
+  let matrix = Array.from({ length: A }, () => []);
 
-//   let count = 1;
-//   while (count <= A * A) {
-//     //Populate the first row
-//     for (let i = colStart; i <= colEnd; i++) {
-//       matrix[rowStart][i] = count;
-//       count++;
-//     }
-//     rowStart++;
+  let count = 1;
+  while (count <= A * A) {
+    //Populate the first row
+    for (let i = colStart; i <= colEnd; i++) {
+      matrix[rowStart][i] = count;
+      count++;
+    }
+    rowStart++;
 
-//     //Populate the last column
-//     for (let i = rowStart; i <= rowEnd; i++) {
-//       matrix[i][colEnd] = count;
-//       count++;
-//     }
-//     colEnd--;
+    //Populate the last column
+    for (let i = rowStart; i <= rowEnd; i++) {
+      matrix[i][colEnd] = count;
+      count++;
+    }
+    colEnd--;
 
-//     //Populate the bottom row
-//     for (let i = colEnd; i >= colStart; i--) {
-//       matrix[rowEnd][i] = count;
-//       count++;
-//     }
-//     rowEnd--;
+    //Populate the bottom row
+    for (let i = colEnd; i >= colStart; i--) {
+      matrix[rowEnd][i] = count;
+      count++;
+    }
+    rowEnd--;
 
-//     //populate the first column
-//     for (let i = rowEnd; i >= rowStart; i--) {
-//       matrix[i][colStart] = count;
-//       count++;
-//     }
-//     colStart++;
-//   }
+    //populate the first column
+    for (let i = rowEnd; i >= rowStart; i--) {
+      matrix[i][colStart] = count;
+      count++;
+    }
+    colStart++;
+  }
 
-//   console.log(matrix);
-// }
+  console.log(matrix);
+}
 
 // printMatrixInSpiral(4);
 
@@ -52,40 +52,40 @@ constraint - 1<=A<=1000
 
 //2. Find kth element in a matrix in spiral order
 
-// function findK(a, n, m, k) {
-//   //code here
-//   let count = 0;
-//   let rowEnd = n - 1,
-//     colEnd = m - 1;
-//   let rowStart = 0,
-//     colStart = 0;
-//   let result;
-//   while (count < n * m) {
-//     for (let i = colStart; i <= colEnd; i++) {
-//       count++;
-//       if (count === k) return a[rowStart][i];
-//     }
-//     rowStart++;
+function findK(a, n, m, k) {
+  //code here
+  let count = 0;
+  let rowEnd = n - 1,
+    colEnd = m - 1;
+  let rowStart = 0,
+    colStart = 0;
+  let result;
+  while (count < n * m) {
+    for (let i = colStart; i <= colEnd; i++) {
+      count++;
+      if (count === k) return a[rowStart][i];
+    }
+    rowStart++;
 
-//     for (let i = rowStart; i <= rowEnd; i++) {
-//       count++;
-//       if (count === k) return a[i][colEnd];
-//     }
-//     colEnd--;
+    for (let i = rowStart; i <= rowEnd; i++) {
+      count++;
+      if (count === k) return a[i][colEnd];
+    }
+    colEnd--;
 
-//     for (let i = colEnd; i >= colStart; i--) {
-//       count++;
-//       if (count === k) return a[rowEnd][i];
-//     }
-//     rowEnd--;
+    for (let i = colEnd; i >= colStart; i--) {
+      count++;
+      if (count === k) return a[rowEnd][i];
+    }
+    rowEnd--;
 
-//     for (let i = rowEnd; i >= rowStart; i--) {
-//       count++;
-//       if (count === k) return a[i][colStart];
-//     }
-//     colStart++;
-//   }
-// }
+    for (let i = rowEnd; i >= rowStart; i--) {
+      count++;
+      if (count === k) return a[i][colStart];
+    }
+    colStart++;
+  }
+}
 
 // console.log(
 //   findK(
@@ -103,45 +103,45 @@ constraint - 1<=A<=1000
 //------------------------------
 
 //2. Given a matrix (n*m) - print that in a spiral order
-// function printMatrixInSpiral(matrix, n, m) {
-//   let rowStart = 0,
-//     colStart = 0;
-//   let rowEnd = n - 1,
-//     colEnd = m - 1;
-//   let count = 1;
+function printMatrixInSpiral(matrix, n, m) {
+  let rowStart = 0,
+    colStart = 0;
+  let rowEnd = n - 1,
+    colEnd = m - 1;
+  let count = 1;
 
-//   let resArr = [];
+  let resArr = [];
 
-//   while (count <= n * m) {
-//     for (let i = colStart; i <= colEnd; i++) {
-//       resArr.push(matrix[rowStart][i]);
-//       count++;
-//     }
-//     rowStart++;
+  while (count <= n * m) {
+    for (let i = colStart; i <= colEnd; i++) {
+      resArr.push(matrix[rowStart][i]);
+      count++;
+    }
+    rowStart++;
 
-//     for (let i = rowStart; i <= rowEnd; i++) {
-//       resArr.push(matrix[i][colEnd]);
-//       count++;
-//     }
-//     colEnd--;
+    for (let i = rowStart; i <= rowEnd; i++) {
+      resArr.push(matrix[i][colEnd]);
+      count++;
+    }
+    colEnd--;
 
-//     if (count > m * n) break;
+    if (count > m * n) break;
 
-//     for (let i = colEnd; i >= colStart; i--) {
-//       resArr.push(matrix[rowEnd][i]);
-//       count++;
-//     }
-//     rowEnd--;
+    for (let i = colEnd; i >= colStart; i--) {
+      resArr.push(matrix[rowEnd][i]);
+      count++;
+    }
+    rowEnd--;
 
-//     for (let i = rowEnd; i >= rowStart; i--) {
-//       resArr.push(matrix[i][colStart]);
-//       count++;
-//     }
-//     colStart++;
-//   }
-//   console.log(resArr);
-//   return resArr;
-// }
+    for (let i = rowEnd; i >= rowStart; i--) {
+      resArr.push(matrix[i][colStart]);
+      count++;
+    }
+    colStart++;
+  }
+  console.log(resArr);
+  return resArr;
+}
 // printMatrixInSpiral(
 //   [
 //     [1, 2, 3, 4],
@@ -154,52 +154,52 @@ constraint - 1<=A<=1000
 
 //--------------------------------------
 //3. Generate a matrix n*n using a recursive approach
-// function generateMatrix(n) {
-//   const matrix = Array.from({ length: n }, () => []);
-//   let rowStart = 0,
-//     colStart = 0;
-//   let rowEnd = n - 1,
-//     colEnd = n - 1;
-//   let count = 1;
-//   generateSpiral(rowStart, colStart, rowEnd, colEnd, matrix, count, n);
+function generateMatrix(n) {
+  const matrix = Array.from({ length: n }, () => []);
+  let rowStart = 0,
+    colStart = 0;
+  let rowEnd = n - 1,
+    colEnd = n - 1;
+  let count = 1;
+  generateSpiral(rowStart, colStart, rowEnd, colEnd, matrix, count, n);
 
-//   console.log(matrix);
-//   return;
-// }
-// function generateSpiral(rowStart, colStart, rowEnd, colEnd, matrix, count, n) {
-//   if (rowStart > rowEnd || colStart > colEnd) return;
+  console.log(matrix);
+  return;
+}
+function generateSpiral(rowStart, colStart, rowEnd, colEnd, matrix, count, n) {
+  if (rowStart > rowEnd || colStart > colEnd) return;
 
-//   //fill the spiral
-//   for (let i = colStart; i <= colEnd; i++) {
-//     matrix[rowStart][i] = count;
-//     count++;
-//   }
-//   rowStart++;
+  //fill the spiral
+  for (let i = colStart; i <= colEnd; i++) {
+    matrix[rowStart][i] = count;
+    count++;
+  }
+  rowStart++;
 
-//   for (let i = rowStart; i <= rowEnd; i++) {
-//     matrix[i][colEnd] = count;
-//     count++;
-//   }
-//   colEnd--;
+  for (let i = rowStart; i <= rowEnd; i++) {
+    matrix[i][colEnd] = count;
+    count++;
+  }
+  colEnd--;
 
-//   if (count > n * n) return;
+  if (count > n * n) return;
 
-//   for (let i = colEnd; i >= colStart; i--) {
-//     matrix[rowEnd][i] = count;
-//     count++;
-//   }
-//   rowEnd--;
+  for (let i = colEnd; i >= colStart; i--) {
+    matrix[rowEnd][i] = count;
+    count++;
+  }
+  rowEnd--;
 
-//   for (let i = rowEnd; i >= rowStart; i--) {
-//     matrix[i][colStart] = count;
-//     count++;
-//   }
-//   colStart++;
+  for (let i = rowEnd; i >= rowStart; i--) {
+    matrix[i][colStart] = count;
+    count++;
+  }
+  colStart++;
 
-//   generateSpiral(rowStart, colStart, rowEnd, colEnd, matrix, count, n);
+  generateSpiral(rowStart, colStart, rowEnd, colEnd, matrix, count, n);
 
-//   return;
-// }
+  return;
+}
 
 // generateMatrix(3);
 
@@ -209,38 +209,38 @@ constraint - 1<=A<=1000
 //-------------------------
 
 //4. Maximum Profit in buying and selling stocks optimally
-// function maxProfit(arr) {
-//   let buyingPrice = arr[0];
-//   let maxProfit = 0;
+function maxProfit(arr) {
+  let buyingPrice = arr[0];
+  let maxProfit = 0;
 
-//   for (let i = 1; i < arr.length; i++) {
-//     if (arr[i] > buyingPrice) {
-//       maxProfit += arr[i] - buyingPrice;
-//     }
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > buyingPrice) {
+      maxProfit += arr[i] - buyingPrice;
+    }
 
-//     buyingPrice = arr[i];
-//   }
+    buyingPrice = arr[i];
+  }
 
-//   console.log(maxProfit);
-// }
+  console.log(maxProfit);
+}
 
 // maxProfit([5, 4, 3, 2, 1]);
 
 //-----------------------------------
 
 //5. Increment number represented as an array
-// function incrementArr(nums, num) {
-//   let sum;
-//   for (let i = nums.length - 1; i >= 0; i--) {
-//     sum = nums[i] + num;
-//     nums[i] = sum % 10;
-//     num = Math.floor(sum / 10);
+function incrementArr(nums, num) {
+  let sum;
+  for (let i = nums.length - 1; i >= 0; i--) {
+    sum = nums[i] + num;
+    nums[i] = sum % 10;
+    num = Math.floor(sum / 10);
 
-//     if (num === 0) return nums;
-//   }
+    if (num === 0) return nums;
+  }
 
-//   return num > 0 ? [num, ...nums] : nums;
-// }
+  return num > 0 ? [num, ...nums] : nums;
+}
 
 // console.log(incrementArr([8, 9, 9], 1));
 
@@ -248,36 +248,36 @@ constraint - 1<=A<=1000
 
 //6.Rotate matrix clockwise by 90 degrees
 
-// function rotateMatrixClock(matrix, n) {
-//   let temp;
-//   //Transposing
-//   for (let i = 0; i < n; i++) {
-//     for (let j = i + 1; j < n; j++) {
-//       temp = matrix[i][j];
-//       matrix[i][j] = matrix[j][i];
-//       matrix[j][i] = temp;
-//     }
-//   }
+function rotateMatrixClock(matrix, n) {
+  let temp;
+  //Transposing
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+      temp = matrix[i][j];
+      matrix[i][j] = matrix[j][i];
+      matrix[j][i] = temp;
+    }
+  }
 
-//   //Reversing each row
-//   for (let i = 0; i < n; i++) {
-//     reverseArr(matrix[i]);
-//   }
-//   console.log(matrix);
-// }
+  //Reversing each row
+  for (let i = 0; i < n; i++) {
+    reverseArr(matrix[i]);
+  }
+  console.log(matrix);
+}
 
-// function reverseArr(arr) {
-//   let l = 0,
-//     r = arr.length - 1;
-//   let temp;
-//   while (l < r) {
-//     temp = arr[l];
-//     arr[l] = arr[r];
-//     arr[r] = temp;
-//     l++;
-//     r--;
-//   }
-// }
+function reverseArr(arr) {
+  let l = 0,
+    r = arr.length - 1;
+  let temp;
+  while (l < r) {
+    temp = arr[l];
+    arr[l] = arr[r];
+    arr[r] = temp;
+    l++;
+    r--;
+  }
+}
 
 // rotateMatrixClock(
 //   [
