@@ -121,3 +121,56 @@ Return the two numbers in a sorted manner.
 // function twoNonRepeatingNumbers(N, nums) {}
 
 //TODO: Find out why does numberOfOneBits(4294967295) comes out to be 31 instead of 32
+
+////////////////////////////
+
+/*
+Problem Description
+Given an array in which all numbers except
+two are repeated once. (i.e. we have 2k+2 
+numbers and k numbers are occurring twice 
+and remaining two have occurred once).
+
+Find those two numbers in the most efficient way. 
+Return the two numbers in a sorted manner.
+*/
+
+function twoNonRepeatingNums(nums) {
+  let n = nums.length;
+  let allXOR = 0;
+
+  //taking xor, we will be left with the xor of two different nums
+  for (let i = 0; i < n; i++) allXOR ^= nums[i];
+
+  //now if we find the right most set bit in this xor,
+  //we can infer that in both the numbers that bit is different.
+  //Based on that we can sort such numbers in two groups and take
+  //xor of each group which will give us the two numbers
+
+  let rsbm = allXOR & -allXOR;
+  let num1 = 0,
+    num2 = 0;
+
+  for (let i = 0; i < n; i++) {
+    if ((rsbm & nums[i]) > 0) {
+      //set bit
+      num1 ^= nums[i];
+    } else {
+      num2 ^= nums[i];
+    }
+  }
+
+  return num1 > num2 ? [num2, num1] : [num1, num2];
+}
+
+// console.log(twoNonRepeatingNums([2, 3, 7, 9, 11, 2, 3, 11]));
+
+////////////////////////////////////////
+
+//TODO:
+/*
+Given an integer array nums where every element appears three times except for one, 
+which appears exactly once. Find the single element and return it.
+
+You must implement a solution with a linear runtime complexity and use only constant extra space.
+*/
