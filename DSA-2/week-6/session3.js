@@ -105,7 +105,7 @@ function numberOfOneBitsIII(n) {
   }
 }
 
-numberOfOneBits(4294967295);
+// numberOfOneBits(4294967295);
 ///////////////////////////////////////////////////////
 
 /*
@@ -174,3 +174,36 @@ which appears exactly once. Find the single element and return it.
 
 You must implement a solution with a linear runtime complexity and use only constant extra space.
 */
+
+//There are multiple ways to do this - sorting and grouping,
+//using maps but the efficient one is using bit manipulation
+
+function uniqElII(nums) {
+  let mult3 = 0xffffffff;
+  //or we can use mult3=-1 which has all the 32 bits as set
+  let mult3_1 = 0,
+    mult3_2 = 0;
+
+  let temp1, temp2, temp3;
+
+  for (let i = 0; i < nums.length; i++) {
+    //step-1 find common set bits
+    temp1 = mult3 & nums[i];
+    temp2 = mult3_1 & nums[i];
+    temp3 = mult3_2 & nums[i];
+
+    //Step-2 Toggle set bits
+    mult3 ^= temp1;
+    mult3_1 ^= temp2;
+    mult3_2 ^= temp3;
+
+    //step-3 Setting the bits
+    mult3 |= temp3;
+    mult3_1 |= temp1;
+    mult3_2 |= temp2;
+  }
+
+  return mult3_1;
+}
+
+// uniqElII([2, 2, 2, 3, 3, 3, 4, 5, 4, 6, 6, 6, 4]);
