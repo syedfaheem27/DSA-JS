@@ -65,7 +65,7 @@ class QueueStackII extends QueueStackI {
   }
 
   add(val) {
-    let n = this.mainStack.size();
+    let n = this.size();
 
     for (let i = 0; i < n; i++) this.secStack.push(this.mainStack.pop());
 

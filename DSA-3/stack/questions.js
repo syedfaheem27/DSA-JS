@@ -1,4 +1,5 @@
 const { StackI, StackII } = require("./stack");
+const { StackQueueI, StackQueueII } = require("./stackQueue");
 
 //PROBLEM-1
 //REVERSE A STRING USING A STACK
@@ -85,3 +86,40 @@ const twoStacks = new StackII(12);
 // console.log(twoStacks);
 
 //////////////////////////////////////////////
+//IMPLEMENTING STACK USING TWO QUEUES
+
+//ADD HEAVY
+const stackQI = new StackQueueI();
+
+// stackQI.push(4).push(5).push(6).push(8).push(9);
+
+// console.log(stackQI.size());
+
+// console.log(stackQI.pop());
+// console.log(stackQI.size());
+
+// console.log(stackQI.pop());
+// console.log(stackQI.pop());
+// console.log(stackQI.pop());
+// console.log(stackQI.size());
+
+// console.log(stackQI);
+
+//REMOVE HEAVY
+const stackQII = new StackQueueII();
+// stackQII.push(4).push(5).push(6).push(8).push(9);
+
+// console.log(stackQII.size());
+
+// console.log(stackQII.pop());
+// console.log(stackQII.size());
+
+// console.log(stackQII.pop());
+// console.log(stackQII.pop());
+// console.log(stackQII.pop());
+// console.log(stackQII.size());
+
+// console.log(stackQII);
+// stackQII.pop();
+
+// console.log(stackQII.isEmpty());

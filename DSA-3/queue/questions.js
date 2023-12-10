@@ -63,8 +63,9 @@ const queueII = new QueueStackI();
 const queueIII = new QueueStackII();
 
 // queueIII.add(4).add(3).add(5);
+
+// console.log(queueIII.remove());
 // console.log(queueIII.size());
-// queueIII.remove();
 // queueIII.remove();
 // console.log(queueIII.isEmpty());
 // queueIII.remove();
