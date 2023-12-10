@@ -8,6 +8,6 @@
 - Next Greater/Smaller Element
 - Implement stack using 2 queues
 - Implement the min() function using a Stack
-- Sort the values in a Stack
+- Sort the values in a Stack ✅
 - Find the next day with higher temperature
 - Decode an encoded string (repeating values encoded with a number)

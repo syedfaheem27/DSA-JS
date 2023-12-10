@@ -61,6 +61,10 @@ class StackI {
 
 // module.exports = Stack;
 
+//////////////////////////
+
+//TWO STACKS USING THE SAME ARRAY
+
 class StackII {
   constructor(len) {
     this.arr = Array.from({ length: len });
