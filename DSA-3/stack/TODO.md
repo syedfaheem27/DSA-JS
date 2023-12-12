@@ -5,8 +5,9 @@
 - Postfix, Infix and Prefix conversions
 - Expression evaluation
 - Balanced Parentheses problem
-- Next Greater/Smaller Element
-- Implement stack using 2 queues
+- Next Greater Element✅
+- Next Smaller Element
+- Implement stack using 2 queues✅
 - Implement the min() function using a Stack
 - Sort the values in a Stack ✅
 - Find the next day with higher temperature

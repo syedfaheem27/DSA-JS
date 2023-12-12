@@ -1,63 +1,63 @@
-class StackI {
-  constructor() {
-    this.arr = [];
-    this.idx = -1;
-  }
-
-  push(val) {
-    //simple to understand for others
-    this.idx++;
-    this.arr[this.idx] = val;
-
-    // this.arr[++this.idx]=val;
-    return this;
-  }
-
-  pop() {
-    if (this.idx - 1 < -1)
-      return console.log("Can't pop elements from the stack when it's empty");
-
-    let popNum = this.arr[this.idx];
-    this.idx--;
-    return popNum;
-  }
-
-  size() {
-    return this.idx + 1;
-  }
-
-  peek() {
-    return this.arr[this.idx];
-  }
-  isEmpty() {
-    return this.size() === 0 ? true : false;
-  }
-}
-
-// class Stack {
+// class StackI {
 //   constructor() {
 //     this.arr = [];
+//     this.idx = -1;
 //   }
 
 //   push(val) {
-//     this.arr.push(val);
+//     //simple to understand for others
+//     this.idx++;
+//     this.arr[this.idx] = val;
+
+//     // this.arr[++this.idx]=val;
+//     return this;
 //   }
 
 //   pop() {
-//     return this.arr.pop();
+//     if (this.idx - 1 < -1)
+//       return console.log("Can't pop elements from the stack when it's empty");
+
+//     let popNum = this.arr[this.idx];
+//     this.idx--;
+//     return popNum;
 //   }
 
 //   size() {
-//     return this.arr.length;
+//     return this.idx + 1;
 //   }
 
 //   peek() {
-//     return this.arr[this.size() - 1];
+//     return this.arr[this.idx];
 //   }
 //   isEmpty() {
 //     return this.size() === 0 ? true : false;
 //   }
 // }
+
+class StackI {
+  constructor() {
+    this.arr = [];
+  }
+
+  push(val) {
+    this.arr.push(val);
+  }
+
+  pop() {
+    return this.arr.pop();
+  }
+
+  size() {
+    return this.arr.length;
+  }
+
+  peek() {
+    return this.arr[this.size() - 1];
+  }
+  isEmpty() {
+    return this.size() === 0 ? true : false;
+  }
+}
 
 // module.exports = Stack;
 
