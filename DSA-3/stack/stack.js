@@ -41,6 +41,7 @@ class StackI {
 
   push(val) {
     this.arr.push(val);
+    return this;
   }
 
   pop() {

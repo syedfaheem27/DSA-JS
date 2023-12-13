@@ -1,3 +1,5 @@
+const MinStack = require("../stack/minStack");
+
 /*
 Problem Description
 Given an array of N elements and an integer B, 
@@ -92,3 +94,21 @@ function firstUniqueInteger(n, arr) {
 }
 
 // console.log(firstUniqueInteger(4, [9, 6, 7, 6]));
+
+///////////////////////////////////////////////////////////
+
+//TESTING OUT THE MIN STACK
+
+// const minStack = new MinStack();
+
+// minStack.push(8).push(10).push(6).push(3).push(7);
+
+// // console.log(minStack);
+
+// minStack.pop();
+// minStack.pop();
+
+// console.log(minStack);
+// console.log(minStack.minElement);
+
+////////////////////////////////////////////////////////////
