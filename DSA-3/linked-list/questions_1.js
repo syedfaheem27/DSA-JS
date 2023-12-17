@@ -1,4 +1,4 @@
-const SinglyLinkedListI = require("./linked_list");
+const { SinglyLinkedListI } = require("./linked_list");
 
 /*
 PROBLEM DESCRIPTION 

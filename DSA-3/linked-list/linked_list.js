@@ -56,6 +56,8 @@ class SinglyLinkedListI {
     this.length++;
     return this;
   }
+  //implement remove method,getNodeAtIndex method and others
 }
 
-module.exports = SinglyLinkedListI;
+exports.SinglyLinkedListI = SinglyLinkedListI;
+exports.ListNode = Node;
