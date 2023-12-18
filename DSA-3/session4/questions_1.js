@@ -126,6 +126,27 @@ next_node_1.random = next_node_1;
 next_node_2.random = next_node_2;
 next_node_3.random = dummy_head;
 
+/*
+PROBLEM DESCRIPTION
+
+A linked list is given such that each node contains an additional 
+random pointer which could point to any node in the list or null.
+
+Return a deep copy of the list i.e. the head of the copied linked list.
+
+The deep copy should consist of exactly n brand new nodes, where each 
+new node has its value set to the value of its corresponding original node. 
+Both the next and random pointer of the new nodes should point to new nodes 
+in the copied list such that the pointers in the original list and copied 
+list represent the same list state. None of the pointers in the new list 
+should point to nodes in the original list.
+
+For example, if there are two nodes X and Y in the original list, where X.random --> Y, 
+then for the corresponding two nodes x and y in the copied list, x.random --> y.
+*/
+
+//1.  TC-O(N) & SC-O(N) additional space required is the map.
+
 /**
  * @param {Node} head
  * @return {Node}
@@ -153,4 +174,52 @@ function copyLinkedListWithRandomPointer(head) {
 }
 
 const output_1 = copyLinkedListWithRandomPointer(dummy_head);
-//////////////////////////////////////
+
+//2.  TC-O(N) and SC-O(1) no additional space required. Not taking the
+//copied linked list into consideration
+
+function copyLinkedListWithRandomPointerI(head) {}
+
+//////////////////////////////////////////////
+
+//MERGE TWO SORTED LINKED LISTS
+
+//PROBLEM DESCRIPTION
+
+/*
+Given 2 sorted linked lists, merge them into a new sorted linked list 
+and return head of the merged list. The new list should be made by 
+splicing (adjusting the pointers) together the nodes of the first two lists.
+*/
+
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+
+function mergeLists(l1, l2) {
+  let curr_head = new ListNode(-1),
+    curr_tail = curr_head;
+
+  let l1_pointer = l1,
+    l2_pointer = l2;
+
+  while (l1_pointer !== null && l2_pointer !== null) {
+    if (l1_pointer.val <= l2_pointer.val) {
+      curr_tail.next = l1_pointer;
+      l1_pointer = l1_pointer.next;
+    } else {
+      curr_tail.next = l2_pointer;
+      l2_pointer = l2_pointer.next;
+    }
+
+    curr_tail = curr_tail.next;
+  }
+
+  if (l1_pointer !== null) curr_tail.next = l1_pointer;
+
+  if (l2_pointer !== null) curr_tail.next = l2_pointer;
+
+  return curr_head.next;
+}
