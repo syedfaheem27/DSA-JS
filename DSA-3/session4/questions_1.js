@@ -173,12 +173,58 @@ function copyLinkedListWithRandomPointer(head) {
   return node_map.get(head);
 }
 
-const output_1 = copyLinkedListWithRandomPointer(dummy_head);
+// const output_1 = copyLinkedListWithRandomPointer(dummy_head);
 
 //2.  TC-O(N) and SC-O(1) no additional space required. Not taking the
 //copied linked list into consideration
 
-function copyLinkedListWithRandomPointerI(head) {}
+//TODO: Revisit this problem
+function copyLinkedListWithRandomPointerI(head) {
+  let curr_node, next_node;
+
+  curr_node = head;
+
+  //coupling the two linked lists
+  while (curr_node !== null) {
+    next_node = curr_node.next;
+
+    let new_node = new Node(curr_node.val);
+    curr_node.next = new_node;
+
+    new_node.next = next_node;
+
+    curr_node = next_node;
+  }
+
+  //adding random pointers to the copy list
+  currNode = head;
+  let nextRandom;
+
+  while (currNode !== null && currNode.random !== null) {
+    nextRandom = currNode.random.next;
+
+    currNode.next.random = nextRandom;
+
+    currNode = currNode.next.next;
+  }
+
+  //decoupling the lists
+  let newHead = head.next;
+
+  currNode = head;
+
+  while (currNode !== null && currNode.next !== null) {
+    next_node = currNode.next;
+
+    currNode.next = currNode.next.next;
+
+    currNode = next_node;
+  }
+
+  return newHead;
+}
+
+const new_node = copyLinkedListWithRandomPointerI(dummy_head);
 
 //////////////////////////////////////////////
 
