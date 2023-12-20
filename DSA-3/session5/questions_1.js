@@ -1,3 +1,5 @@
+const { ListNode } = require("../linked-list/linked_list");
+
 /*
 PROBLEM DESCRIPTION
 
@@ -71,4 +73,60 @@ function detectAndRemoveCycle(head) {
   }
 
   return false;
+}
+
+////////////////////////////
+/* 
+SORT LIST IN nlogn time
+
+PROBLEM DESCRIPTION
+
+Given a singly linked list containing N integers, sort it in O(NlogN) time.
+*/
+
+function mergeLists(head1, head2) {
+  let new_head = new ListNode(-1),
+    new_tail = new_head;
+
+  while (head1 !== null && head2 !== null) {
+    if (head1.val <= head2.val) {
+      new_tail.next = head1;
+      head1 = head1.next;
+    } else {
+      new_tail.next = head2;
+      head2 = head2.next;
+    }
+    new_tail = new_tail.next;
+  }
+
+  if (head1 !== null) new_tail.next = head1;
+
+  if (head2 !== null) new_tail.next = head2;
+
+  return new_head.next;
+}
+
+function sortlist(head) {
+  let mid,
+    slow_pointer = head,
+    fast_pointer = head.next;
+
+  ///finding mid using slow and fast pointer and
+  //then partitioning at the mid by setting mid.next=null
+
+  while (fast_pointer !== null && fast_pointer.next !== null) {
+    fast_pointer = fast_pointer.next.next;
+    slow_pointer = slow_pointer.next;
+  }
+
+  mid = slow_pointer;
+  let first_head = head,
+    second_head = mid.next;
+
+  mid.next = null;
+
+  let l1 = sortlist(first_head);
+  let l2 = sortlist(second_head);
+
+  return mergeLists(l1, l2);
 }
