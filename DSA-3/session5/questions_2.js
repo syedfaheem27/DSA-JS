@@ -134,3 +134,83 @@ function oddEvenLinkedList(head) {
 }
 
 ////////////////////////////////////////
+
+//REVERSE CONTIGOUS EVEN ELEMENTS
+
+//PROBLEM DESCRIPTION
+
+/*
+Given a singly linked list of integers, reverse every contiguous 
+set of nodes that have only even values.
+
+Sample Input 1
+1 2 3 3 4 6 8 5
+
+Sample Output 1
+1 2 3 3 8 6 4 5
+
+Sample Input 2
+1 3 2 5 4 6
+
+Sample Output 2
+1 3 2 5 6 4
+*/
+
+function reverseEvenElements(head) {
+  let curr_node = head;
+
+  if (!curr_node || !curr_node.next) return curr_node;
+
+  let prev_node = null,
+    start = null,
+    end = null,
+    new_head = head;
+
+  while (curr_node !== null) {
+    (start = null), (end = null);
+
+    while (curr_node !== null && curr_node.val % 2 === 0) {
+      if (!start) start = curr_node;
+
+      end = curr_node;
+      curr_node = curr_node.next;
+    }
+
+    if (start && end) {
+      reverseSubList(start, end);
+
+      if (prev_node) prev_node.next = end;
+
+      if (curr_node) start.next = curr_node;
+
+      if (head === start) new_head = end;
+
+      prev_node = start;
+    } else {
+      prev_node = curr_node;
+      curr_node = curr_node.next;
+    }
+  }
+
+  return new_head;
+}
+
+function reverseSubList(start_node, end_node) {
+  if (start_node === end_node) return null;
+
+  let prev_node = null,
+    ref;
+  let start = start_node,
+    end = end_node;
+
+  while (start !== end) {
+    ref = start.next;
+    start.next = prev_node;
+
+    prev_node = start;
+    start = ref;
+  }
+
+  start.next = prev_node;
+  return null;
+}
