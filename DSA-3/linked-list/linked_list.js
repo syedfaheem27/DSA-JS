@@ -6,7 +6,7 @@ class Node {
   }
 }
 
-class SinglyLinkedListI {
+class LinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
@@ -148,10 +148,30 @@ class SinglyLinkedListI {
     return currNode;
   }
 
-  //TODO:add reverse method
+  //reverse the whole linked list
+  reverse() {
+    if (this.length === 0) return "The linked list is empty";
+
+    if (this.length === 1) return this.head;
+
+    let prev_node = null,
+      ref,
+      curr_node = this.head;
+
+    while (!curr_node) {
+      prev_node = curr_node;
+      ref = curr_node.next;
+
+      curr_node.next = prev_node;
+
+      curr_node = ref;
+    }
+    this.tail = this.head;
+    this.head = prev_node;
+
+    return this.head;
+  }
 }
 
-//TODO: Implement all the above methods on a singly linked list with only head given
-
-exports.SinglyLinkedListI = SinglyLinkedListI;
+exports.SinglyLinkedListI = LinkedList;
 exports.ListNode = Node;
