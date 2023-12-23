@@ -1,5 +1,8 @@
-//Adding a dynamic queue so that we won't have to check for overflow
-//for checking an overflow, we will implement circular queues
+//This appraoch of using front and back pointers ensures that the dequeue operation is
+//always O(1) but it can result in unnecessary memory usage as we are not freeing the memory
+//overtime as we are just moving the pointers.
+
+//To overcome this and make sure the dequeue stays O(1)- we use circular queues
 
 class Queue {
   constructor() {

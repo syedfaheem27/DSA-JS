@@ -31,7 +31,7 @@
 
 ## LinkedLists
 
-- Add 1 to a number represented by a linked list
+- Add 1 to a number represented by a linked list✅
 - Insert an element into a sorted Circular List✅
 - Delete Kth to last element in a Linked List
 - Rotate a Linked List✅
