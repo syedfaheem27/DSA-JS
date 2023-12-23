@@ -163,3 +163,22 @@ function rightView(root) {
 }
 
 ///////////////////////////////////////////
+
+//Mirror a binary tree and return the root of the mirror tree
+
+/**
+ * @param {TreeNode} root
+ * @return {int}
+ */
+function mirrorBinaryTree(root) {
+  if (!root) return;
+
+  let temp_node = root.left;
+  root.left = root.right;
+  root.right = temp_node;
+
+  mirrorBinaryTree(root.left);
+  mirrorBinaryTree(root.right);
+
+  return root;
+}
