@@ -43,3 +43,17 @@
 
 - Check if linked list is a palindrome or not
 - Reverse the second half of a given linked list
+
+## Binary Trees
+
+**Traversal Techniques**
+
+- Pre-Order
+- In Order
+- Post Order
+
+**Traversals to practice**
+
+- Level Order
+- Zig-Zag Level Order
+- Boundary level traversal
