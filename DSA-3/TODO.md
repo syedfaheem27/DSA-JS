@@ -29,6 +29,9 @@
 
 ## Hashing
 
+- Sort a hash map based on keys
+- Sort a hash map based on values
+
 ## LinkedLists
 
 - Add 1 to a number represented by a linked list✅
