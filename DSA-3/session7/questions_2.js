@@ -136,3 +136,99 @@ function constructBinaryTreeFromPreAndIn(preOrder, inOrder) {
 }
 
 constructBinaryTreeFromPreAndIn(preorder, inorder);
+
+///////////////////////////////////////////
+
+//BOUNDARY TRAVERSAL OF A BINARY TREE IN ANTI CLOCKWISE DIRECTION
+
+//PROBLEM DESCRIPTION
+
+/*
+Given a binary tree, print boundary nodes of the binary tree Anti-Clockwise 
+starting from the root. The boundary includes left boundary, leaves, and right 
+boundary in order.
+
+The left boundary is defined as the path from the root to the left-most node. 
+The right boundary is defined as the path from the root to the right-most node. 
+If the root doesn’t have a left subtree or right subtree, then the root itself is 
+left boundary or right boundary. Note this definition only applies to the input 
+binary tree, and not to any subtrees.
+
+The left-most node is defined as a leaf node you could reach when you always 
+firstly travel to the left subtree if it exists. If not, travel to the right 
+subtree. Repeat until you reach a leaf node.
+
+The right-most node is also defined in the same way with left and right exchanged.
+*/
+
+/* 1. Find the left boundary nodes except the leaf nodes(do a pre-order traversal).
+   2. Get the boundary leaves (can use any traversal - pre,in or post order), handle the
+      edge case when there is only a single node in a tree.
+   3. Do a bottom up traversal of the right boundary nodes except the leaf nodes
+      Here, we need to do a post order traversal because we are moving from bottom to top
+*/
+
+/**
+ *
+ * @param {TreeNode} root
+ * @returns {number[]}
+ */
+
+function boundaryTraversal(root) {
+  if (!root) return [];
+
+  if (root && !root.left && !root.right) return [root.val];
+
+  let resArr = [];
+  resArr.push(root.val);
+
+  leftBoundaryTraversal(root.left, resArr);
+  leafNodesTraversal(root, resArr);
+  rightBoundaryTraversal(root.right, resArr);
+
+  return resArr;
+}
+
+function leftBoundaryTraversal(root, arr) {
+  if (!root) return;
+
+  if (root.left) {
+    arr.push(root.val);
+    leftBoundaryTraversal(root.left);
+  } else if (root.right) {
+    arr.push(root.val);
+    leftBoundaryTraversal(root.right);
+  }
+
+  return;
+}
+
+function leafNodesTraversal(root, arr) {
+  if (!arr) return;
+
+  //Either of the below traversals will work
+
+  // if (!root.left && !root.right) arr.push(root); pre order
+
+  leafNodesTraversal(root.left, arr);
+
+  // if (!root.left && !root.right) arr.push(root); in order
+
+  leafNodesTraversal(root.right, arr);
+
+  if (!root.left && !root.right) arr.push(root.val); //post order
+
+  return;
+}
+
+function rightBoundaryTraversal(root, arr) {
+  if (!arr) return;
+
+  if (root.right) {
+    rightBoundaryTraversal(root.right);
+    arr.push(root.val);
+  } else if (root.left) {
+    rightBoundaryTraversal(root.left);
+    arr.push(root.val);
+  }
+}
