@@ -81,3 +81,58 @@ function commonAncestorI(root, p, q) {
 
   return null;
 }
+
+/////////////////////////////////////////////////////////
+
+//CONSTRUCT A BINARY TREE FROM PRE-ORDER AND IN-ORDER
+
+// PROBLEM DESCRIPTION
+
+// Given preorder and inorder traversal of a tree,
+// construct the binary tree.
+
+// Note: You may assume that duplicates do not
+// exist in the tree.
+
+class TreeNode {
+  constructor(val) {
+    this.val = val;
+    this.left = null;
+    this.right = null;
+  }
+}
+/**
+ *
+ * @param {number[]} preOrder
+ * @param {number[]} inOrder
+ * @return {TreeNode}
+ */
+
+const preorder = [8, 4, 6, 7, 5, 2];
+const inorder = [6, 4, 7, 8, 5, 2];
+
+function constructBinaryTreeFromPreAndIn(preOrder, inOrder) {
+  let preIndex = 0;
+  let map = new Map();
+  let n = preOrder.length;
+
+  for (let i = 0; i < n; i++) map.set(inOrder[i], i);
+
+  let constructTree = function (preOrder, start, end, map) {
+    if (start > end) return null;
+
+    let root = new TreeNode(preOrder[preIndex++]);
+    let idx = map.get(root.val);
+
+    root.left = constructTree(preOrder, start, idx - 1, map);
+    root.right = constructTree(preOrder, idx + 1, end, map);
+
+    return root;
+  };
+
+  let root = constructTree(preOrder, 0, n - 1, map);
+
+  return root;
+}
+
+constructBinaryTreeFromPreAndIn(preorder, inorder);
