@@ -18,8 +18,8 @@
 ## Queues
 
 - Level Order Traversal without using recursion✅
-- BFS without using recursion
-- Queue Implementation using a Linked List
+- BFS without using recursion✅
+- Queue Implementation using a Linked List✅
 - Implement a stack using the queue data structure✅
 - Implement a queue using the stack data structure / 2 stacks✅
 - Reverse first k elements of queue
@@ -41,7 +41,7 @@
 
 ### Reverse pattern in linked lists(example problems)
 
-- Check if linked list is a palindrome or not
+- Check if linked list is a palindrome or not✅
 - Reverse the second half of a given linked list
 
 ## Binary Trees
@@ -57,3 +57,16 @@
 - Level Order
 - Zig-Zag Level Order
 - Boundary level traversal
+
+## Binary Search Trees
+
+- Range Sum of BST
+- Recursive insert in a Binary Search Tree
+- Implement a method to convert a binary search tree into a doubly linked list
+- Flatten binary tree to a Linked List
+- Find kth smallest element in a binary tree
+- Find the next greater number in a BST
+- BST sequences - all input arrays that can lead to this BST
+- Implement Binary Search Tree iterator
+- Check if a BST is a valid BST
+- Find the 2nd largest element in a BST
