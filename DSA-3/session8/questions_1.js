@@ -44,30 +44,6 @@ function inorderTraversal(root, arr) {
 //Method-2: Optimal approach
 //Only one iteration required and SC-O(1), neglecting the recursion stack
 
-//TODO: why is it failing? Find Out?
-function validateBSTI(root) {
-  if (root && !root.left && !root.right) return true;
-
-  return (
-    validateSubTreesI(root.left, root) && validateSubTreesI(root.right, root)
-  );
-}
-
-function validateSubTreesI(root, parent) {
-  if (!root) return true;
-
-  if (root.left?.val > root.val) return false;
-
-  if (root.right?.val < root.val || root.right?.val > parent.val) return false;
-
-  let left_boolean = validateSubTreesI(root.left, root);
-  let right_boolean = validateSubTreesI(root.right, root);
-
-  return left_boolean && right_boolean;
-}
-
-////////////////////////////////
-
 //Error Free code of the same approach
 
 function validateBSTII(root) {
@@ -91,3 +67,57 @@ function validateSubTreesII(root, min, max) {
 }
 
 ///////////////////////////////////////////////////////////
+
+//Balance BST
+
+/*
+PROBLEM DESCRIPTION
+
+Given the root of a binary search tree, return a balanced 
+binary search tree with the same node values. If there is 
+more than one answer, return any of them.
+
+A binary search tree is balanced if the depth of the 
+two subtrees of every node never differs by more than 1.
+*/
+
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+function balanceBST(root) {
+  let in_order = [];
+  inOrderTraversal(root, in_order);
+
+  let n = in_order.length;
+
+  constructBST(in_order, 0, n - 1);
+
+  return in_order[Math.floor((0 + n - 1) / 2)];
+}
+
+function inOrderTraversal(root, arr) {
+  if (!root) return;
+
+  inOrderTraversal(root.left, arr);
+  arr.push(root);
+  inOrderTraversal(root.right, arr);
+
+  return;
+}
+
+function constructBST(arr, l, r) {
+  if (l > r) return null;
+
+  let mid = Math.floor((l + r) / 2);
+
+  let left_node = constructBST(arr, l, mid - 1);
+  let right_node = constructBST(arr, mid + 1, r);
+
+  arr[mid].left = left_node;
+  arr[mid].right = right_node;
+
+  return arr[mid];
+}
+
+///////////////////////////////////////////////////////

@@ -71,7 +71,7 @@ function commonAncestorI(root, p, q) {
   if (root === p || root === q) return root;
 
   let left_node = commonAncestorI(root.left, p, q);
-  let right_node = commonAncestorI(root.left, p, q);
+  let right_node = commonAncestorI(root.right, p, q);
 
   if (left_node && right_node) return root;
 

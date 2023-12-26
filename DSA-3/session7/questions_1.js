@@ -115,12 +115,12 @@ function topViewBinaryTree(root) {
 // Instead, we can sort the map and then push the node.val in
 // the array and return it
 
-//TODO: Some test cases are failing - figure out why
+//Some test cases are failing - Here's Why?
 
 //Reason - In some trees, since we are setting the values in a map
 //based on the first occurence, there might be a case when the distance
 //of a node from the root which has some nodes at the top level might
-//be thr first to be stored in the map and as such some test cases are failing.
+//be the first to be stored in the map and as such some test cases are failing.
 //To correct this we can maintain a level variable
 
 function verticalTraverseMapStoreBuggy(root, map, dist) {
