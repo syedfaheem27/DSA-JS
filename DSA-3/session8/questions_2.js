@@ -97,3 +97,32 @@ function kthLargestElement(root, k) {
 }
 
 /////////////////////////////////////////////
+
+//FIND LOWEST COMMON ANCESTOR IN A BST
+
+//TC-O(N) and SC-O(1) if we exclude the recursion stack
+
+function lowestCommonAncestorInBST(root, p, q) {
+  let lca;
+
+  const findLCA = function (root, p, q) {
+    if (!root) return null;
+
+    if (root === p || root === q) return root;
+
+    let l1 = findLCA(root.left, p, q);
+    let l2 = findLCA(root.right, p, q);
+
+    if (l1 && l2) return root;
+
+    if (l1) return l1;
+
+    if (l2) return l2;
+
+    return null;
+  };
+
+  lca = findLCA(root, p, q);
+
+  return lca;
+}

@@ -37,4 +37,30 @@ function inOrderTraversal(root, arr) {
   return;
 }
 
-//TODO: Optimise it
+// Optimised approach - TC - O(N) and SC-O(1) if we don't take recursion stack into consideration
+
+function inOrderSuccessorI(root, givenNode) {
+  let successor = new TreeNode(Number.MAX_SAFE_INTEGER);
+  let hasSuccessor = false;
+
+  const inOrderTraversal = function (root) {
+    if (!root) return;
+
+    inOrderTraversal(root.left);
+
+    if (root.val > givenNode.val) {
+      successor = successor.val < root.val ? successor : root;
+      hasSuccessor = true;
+    }
+
+    inOrderTraversal(root.right);
+
+    return;
+  };
+
+  inOrderTraversal(root);
+
+  return hasSuccessor ? successor : new TreeNode(-1);
+}
+
+////////////////////////////////////////////////////////////////
