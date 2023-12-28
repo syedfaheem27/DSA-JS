@@ -126,3 +126,56 @@ function lowestCommonAncestorInBST(root, p, q) {
 
   return lca;
 }
+
+//////////////////////////////////////////////////////////
+//Find Whether a binary tree is balanced or not
+
+/*
+Implement a function to check if a binary tree is balanced. 
+For the purposes of this question, a balanced tree is defined 
+to be a tree such that the heights of the two subtrees of any 
+node never differ by more than one.
+*/
+
+/*
+Definition for TreeNode
+class TreeNode {
+    constructor(val) {
+        this.val = val;
+        this.left = null;
+        this.right = null;
+        this.next =null;
+        this.parent = null;
+    }
+}
+*/
+
+/**
+ * @param {TreeNode} root
+ * @return {Boolean}
+ */
+function checkBalanced(root) {
+  let isBalanced = true;
+
+  const checkSubTreeBalance = function (root) {
+    if (!root) return 0;
+
+    let left_height = checkSubTreeBalance(root.left);
+    let right_height = checkSubTreeBalance(root.right);
+
+    if (Math.abs(left_height - right_height) > 1) isBalanced = false;
+
+    return 1 + Math.max(left_height, right_height);
+  };
+
+  checkSubTreeBalance(root);
+
+  return isBalanced;
+
+  //TODO: optimise the above approach so that it returns as soon as it finds a
+  // sub tree which is unbalanced
+}
+
+//////////////////////////////////////////////////////////////
+
+//TODO: Construct a binary tree from inorder and postorder
