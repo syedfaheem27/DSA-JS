@@ -178,4 +178,48 @@ function checkBalanced(root) {
 
 //////////////////////////////////////////////////////////////
 
-//TODO: Construct a binary tree from inorder and postorder
+// Construct a binary tree from inorder and postorder
+
+/*
+Definition for TreeNode
+class TreeNode {
+    constructor(val) {
+        this.val = val;
+        this.left = null;
+        this.right = null;
+        this.next =null;
+        this.parent = null;
+    }
+}
+*/
+/**
+ * @param {number[]} postorder
+ * @param {number[]} inorder
+ * @return {TreeNode}
+ */
+
+function constructBinaryTreeFromPostorderAndInorderTraversal(
+  postorder,
+  inorder
+) {
+  let map = new Map();
+  let n = inorder.length;
+
+  for (let i = 0; i < n; i++) map.set(inorder[i], i);
+
+  let root = buildTree(postorder, 0, n - 1, 0, n - 1, map);
+  return root;
+}
+
+function buildTree(postorder, ps, pe, is, ie, map) {
+  if (ps > pe || is > ie) return null;
+
+  let idx = map.get(postorder[pe]);
+  let numsLeft = idx - is;
+  let node = new TreeNode(postorder[pe]);
+
+  node.left = buildTree(postorder, ps, ps + numsLeft - 1, is, idx - 1, map);
+  node.right = buildTree(postorder, ps + numsLeft, pe - 1, idx + 1, ie, map);
+
+  return node;
+}
