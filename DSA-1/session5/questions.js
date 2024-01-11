@@ -7,6 +7,13 @@
 // TC - O(|a-b|) which is a linear time complexity and thus, it can fail certain tests
 // SC- O(1)
 
+/**
+ *
+ * @param {number} a
+ * @param {number} b
+ * @returns {number}
+ */
+
 function gcdI(a, b) {
   if (a === b) return a;
 
@@ -38,6 +45,13 @@ function gcdI(a, b) {
 
 //SC - O(1)
 
+/**
+ *
+ * @param {number} a
+ * @param {number} b
+ * @returns {number}
+ */
+
 function gcdII(a, b) {
   if (a === b) return a;
 
@@ -67,6 +81,13 @@ function gcdII(a, b) {
 
 //TC - O(log(min(a,b))) and SC - O(min(a,b))
 
+/**
+ *
+ * @param {number} a
+ * @param {number} b
+ * @returns {number}
+ */
+
 function gcdIII(a, b) {
   if (b === 0) return a;
 
@@ -80,4 +101,94 @@ function gcdIII(a, b) {
   //  The second one works perfectly when b is the smallest of the two
   //  and in the case where b is the largest, it flips the numbers and makes
   //  sure that b always becomes the smallest one
+}
+
+//////////////////////////////////////////////////
+
+// PROBLEM 2 LEFT ROTATION OF AN ARRAY
+
+/*
+Problem Description
+
+Given an array of length N, rotate the array to the left by d steps, 
+where d is non-negative.
+
+Smample Input
+3 [1,2,3,4,5,6,7]
+
+Sample Output
+[4,5,6,7,1,2,4]
+*/
+
+// BRUTE FORCE APPROACH
+
+//TC - O(n) and SC - O(n)
+/**
+ *
+ * @param {number[]} arr
+ * @param {number} d
+ * @returns {number}
+ */
+
+function leftRotate(arr, d) {
+  let n = arr.length;
+
+  d = d % n;
+
+  let ans_arr = new Array(n);
+
+  let new_idx;
+
+  for (let i = 0; i < n; i++) {
+    new_idx = n - d + i;
+
+    if (new_idx >= n) ans_arr[new_idx - n] = arr[i];
+    else ans_arr[new_idx] = arr[i];
+  }
+
+  return ans_arr;
+}
+
+// OPTIMAL APPROACH
+// TC - O(n) AND SC - O(1)
+
+/**
+ *
+ * @param {number[]} arr
+ * @param {number} left
+ * @param {number} right
+ */
+
+function reverseArray(arr, left, right) {
+  let temp;
+
+  while (left < right) {
+    temp = arr[left];
+    arr[left] = arr[right];
+    arr[right] = temp;
+
+    left++;
+    right--;
+  }
+}
+
+/**
+ *
+ * @param {number[]} arr
+ * @param {number} d
+ * @returns {number[]}
+ */
+
+function leftRotateI(arr, d) {
+  let n = arr.length;
+
+  d = d % n;
+
+  reverseArray(arr, 0, d - 1);
+
+  reverseArray(arr, d, n - 1);
+
+  reverseArray(arr, 0, n - 1);
+
+  return arr;
 }
