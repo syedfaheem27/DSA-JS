@@ -124,6 +124,12 @@ Do it in-place, that is, modify the same matrix. Do not create a new one.
 
 //TC - O(N*M) and SC - O(N+M)
 
+/**
+ *
+ * @param {number[][]} matrix
+ * @returns {number[][]}
+ */
+
 function setMatrixElsZero(matrix) {
   let m = matrix.length;
   let n = matrix[0].length;
@@ -149,6 +155,100 @@ function setMatrixElsZero(matrix) {
 
   for (let col_idx of col_set)
     for (let i = 0; i < m; i++) matrix[i][col_idx] = 0;
+
+  return matrix;
+}
+
+////////////////////////////////////////////////////////
+
+//PROBLEM 4
+
+//Find the maximum profit by buying and selling stocks optimally
+
+/*
+PROBLEM DESCRIPTION
+
+You have an array in which the ith element is the price of a given stock on day i.
+
+Design an algorithm to find the maximum profit by buying a share on one day and 
+selling it on another day. You may repeat this across the days (i.e., buy one and 
+sell one share of the stock multiple times).
+
+Note: You may not engage in multiple transactions at the same time 
+(i.e., you must sell the stock before you buy again)
+*/
+
+//TC - O(N) and SC - O(1)
+
+/**
+ *
+ * @param {number[]} arr
+ * @returns {number}
+ */
+
+function maxProfStocks(arr) {
+  let bp = arr[0];
+
+  let profit = 0;
+
+  for (let i = 1; i < arr.length; i++) {
+    if (bp < arr[i]) profit += arr[i] - bp;
+
+    bp = arr[i];
+  }
+
+  console.log(profit);
+  return profit;
+}
+
+///////////////////////////////////////////
+
+//PROBLEM 5
+
+//Rotate the matrix by 90 degrees clockwise
+
+/*
+PROBLEM DESCRIPTION
+
+You are given an n x n 2D matrix representing an image.
+
+Rotate the image by 90 degrees (clockwise).
+
+Note:
+You have to rotate the image in-place, which means you have to modify the input 2D matrix directly.
+
+DO NOT allocate another 2D matrix and do the rotation.
+*/
+
+//Approach - Take a transpose and then reverse the rows
+
+//TC - O(N^2) and SC - O(1)
+
+function reverseArray(arr) {
+  let left = 0,
+    right = arr.length - 1;
+
+  while (left < right) {
+    [arr[left], arr[right]] = [arr[right], arr[left]];
+    left++;
+    right--;
+  }
+}
+
+function rotateMatrix(matrix) {
+  let n = matrix.length;
+
+  let temp;
+
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < i; j++) {
+      temp = matrix[i][j];
+      matrix[i][j] = matrix[j][i];
+      matrix[j][i] = temp;
+    }
+  }
+
+  for (let i = 0; i < n; i++) reverseArray(matrix[i]);
 
   return matrix;
 }
