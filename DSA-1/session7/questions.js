@@ -119,3 +119,143 @@ function isPalindrome(str) {
   return true;
 }
 // console.log(isPalindrome("hello"));
+
+//////////////////////////////////////////////////////
+
+//PROBLEM 3
+
+//Reverse order of words in a string
+
+/*
+PROBLEM DESCRIPTION
+
+Input - Hello World
+Output - World Hello
+*/
+
+//APPRAOCH 1
+
+/**
+ *
+ * @param {string} str
+ * @returns {string}
+ */
+
+function reverseOrder(str) {
+  return str.split(/\s+/).reverse().join(" ");
+}
+
+//APPROACH 2
+
+//TC - O(N) and SC - O(N) This approach is slightly better than the stack one
+//despite both having the same TC because we only run a loop once.
+
+function reverseOrderI(str) {
+  let temp_str = "",
+    res_str = "";
+
+  let n = str.length;
+
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] !== " ") {
+      temp_str += str[i];
+
+      if (str?.[i + 1] === " " || i + 1 === n) {
+        res_str =
+          i + 1 === n ? `${temp_str}${res_str}` : ` ${temp_str}${res_str}`;
+
+        temp_str = "";
+      }
+    }
+  }
+
+  return res_str;
+}
+
+// APPROACH 3 Using a stack;
+
+class Stack {
+  constructor() {
+    this.arr = [];
+  }
+
+  push(el) {
+    this.arr.push(el);
+
+    return this;
+  }
+
+  pop() {
+    return this.arr.pop();
+  }
+
+  get size() {
+    return this.arr.length;
+  }
+
+  get isEmpty() {
+    return this.arr.length === 0;
+  }
+}
+
+/**
+ *
+ * @param {string} str
+ * @returns {string}
+ */
+
+function reverseOrderII(str) {
+  let temp_str = "",
+    n = str.length;
+  let temp_stack = new Stack();
+
+  for (let i = 0; i < n; i++) {
+    if (str[i] !== " ") {
+      temp_str += str[i];
+
+      if (!str[i + 1] || str[i + 1] === " ") {
+        temp_stack.push(temp_str);
+        temp_str = "";
+      }
+    }
+  }
+  let res_str = "";
+  while (!temp_stack.isEmpty) res_str = res_str + " " + temp_stack.pop();
+
+  return res_str;
+}
+
+////////////////////////////////////////
+
+//PROBLEM 4
+
+//Find If one string is an anagram of the other
+
+//APPROACH 1 using sorting TC O(nlogn) and SC O(1)
+/**
+ *
+ * @param {string} a
+ * @param {string} b
+ * @returns {boolean}
+ */
+function isAnagram(a, b) {
+  if (a.length !== b.length) return false;
+
+  return a.split("").sort().join("") === b.split("").sort().join("");
+}
+
+//APPRAOCH 2 Using maps TC O(N) and SC O(N)
+
+function isAnagramI(a, b) {
+  if (a.length !== b.length) return false;
+  let map = new Map();
+
+  for (let i = 0; i < a.length; i++) map.set(a[i], map.get(a[i]) + 1 || 1);
+
+  for (let i = 0; i < b.length; i++) {
+    if (!map.has(b[i]) || map.get(b[i]) <= 0) return false;
+    else map.set(b[i], map.get(b[i]) - 1);
+  }
+
+  return true;
+}
