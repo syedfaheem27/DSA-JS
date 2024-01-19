@@ -33,3 +33,5 @@
 - m Coloring of graph nodes
 
 - Connect n ropes with minimum cost
+
+- Find Triplet that sums to a specific target (sorted or unsorted array)
