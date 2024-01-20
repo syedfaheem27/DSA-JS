@@ -114,6 +114,7 @@ function mergeArraysI(arr1, arr2) {
 }
 
 //ANOTHER APPROACH - WITHOUT USING ANY SPACE
+//TC O(m*n)
 
 /**
  *
@@ -150,3 +151,131 @@ function mergeArraysII(arr1, arr2) {
 }
 
 /////////////////////////////////////////
+
+//PROBLEM 3
+
+//REMOVE DUPLICATES SUCH THAT EACH ELEMENT OCCURS ATMOST TWICE IN A SORTED ARRAY
+
+/*
+Problem Description
+
+Given a sorted array, remove the duplicates in-place, 
+such that each element in the array appears at most twice, 
+and return the new length.
+
+Do not allocate extra space for another array, you must do this 
+by modifying the input array in-place with O(1) extra memory.
+*/
+
+/**
+ *
+ * @param {number[]} arr
+ * @returns {object}
+ */
+
+function removeDuplicates(arr) {
+  let n = arr.length;
+  let count = 1;
+  let insert_idx = 0;
+  for (let j = 1; j < n; j++) {
+    if (arr[j] === arr[j - 1]) count++;
+    else count = 1;
+
+    if (count <= 2) {
+      insert_idx++;
+      if (insert_idx !== j) arr[insert_idx] = arr[j];
+    }
+  }
+
+  return {
+    newLength: insert_idx + 1,
+    newArr: arr.slice(0, insert_idx + 1),
+  };
+}
+
+///////////////////////////////////////////////////////
+
+//PROBLEM 4
+
+// Remove Duplicates such that each element exists atmost twice in an unsorted array
+
+//BRUTE FORCE APPROACH - Use two loops and keep an index which will point to the place where the
+//desired element needs to be inserted. TC O(N2) and SC O(1)
+
+//BETTER APPROACH
+
+//USE A MAP
+//TC O(N) AND SC O(N)
+
+function removeDuplicatesI(arr) {
+  let n = arr.length;
+
+  let map = new Map();
+
+  for (let i = 0; i < n; i++) map.set(arr[i], map.get(arr[i]) + 1 || 1);
+
+  let idx = 0;
+
+  for (let [key, val] of map) {
+    val = val > 2 ? 2 : val;
+    for (let i = 0; i < val; i++) arr[idx++] = key;
+  }
+
+  return {
+    newLength: idx,
+    newArr: arr.slice(0, idx),
+  };
+}
+
+const { newArr, newLength } = removeDuplicatesI([
+  1, 25, 2, 3, 4, 2, 2, -1, 8, 9, 10,
+]);
+
+/////////////////////////////////////////////////////////////////
+
+//PROBLEM 5
+
+//FIND PAIR WITH GIVEN SUM IN UNSORTED ARRAY
+
+/*
+Problem Description
+
+Given an array of integers as input, output the indices of 
+two numbers in the array which add up to a specified target.
+
+Assume that each input would have exactly one solution and 
+you cannot use the same element twice. If 2 different 
+elements have the same value, they can be used.
+
+Print the indices in increasing order.
+*/
+
+//BRUTE FORCE APPROACH - USE TWO LOOPS AND RETURN AS SOON AS YOU FIND THE SUM === TARGET
+// TC - O(N2) & SC - O(1)
+
+//BETTER APPROACH - USING MAPS
+//TC O(N) & SC O(N)
+
+/**
+ *
+ * @param {number[]} nums
+ * @param {number[]} target
+ * @returns
+ */
+function pairSumII(nums, target) {
+  let temp;
+
+  let map = new Map();
+  let n = nums.length;
+
+  for (let i = 0; i < n; i++) {
+    temp = target - arr[i];
+
+    if (map.has(temp)) return [map.get(temp), i];
+    else map.set(arr[i], i);
+  }
+
+  return [-1, -1];
+}
+
+///////////////////////////////////////////////////////////////////
