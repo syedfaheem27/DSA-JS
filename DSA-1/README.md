@@ -34,4 +34,4 @@
 
 - Connect n ropes with minimum cost
 
-- Find Triplet that sums to a specific target (sorted or unsorted array)
+- Find Triplet that sums to a specific target (sorted or unsorted array) (Use the suffix array concept)
