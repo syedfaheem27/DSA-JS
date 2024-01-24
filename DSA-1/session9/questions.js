@@ -247,3 +247,75 @@ one after the other.
 
 So, only 2 rooms are required if total for the 3 meetings.
 */
+
+//BRUTE FORCE
+
+//Sorting the intervals based on the starting values and
+//take the first element and mark all those instances as marked (let's say with an X)
+//that can't be merged at all and then taking the second element if it is not marked and
+//marking all the elements with let's say Y that can't be merged at all and so on
+//Then add all these values into the set and calculate the size. That will be the answer
+
+//TODO: Some of the test cases are failing. Figure out why
+function minMettingRooms(arr) {
+  let mark_el = -1,
+    arr_el;
+  let n = arr.length;
+  arr.sort((a, b) => a[0] - b[0]);
+  for (let i = 0; i < n - 1; i++) {
+    if (Array.isArray(arr[i])) {
+      arr_el = arr[i];
+      mark_el++;
+      for (let j = i + 1; j < n; j++) {
+        if (arr_el[1] <= arr[j][0]) {
+          arr_el = arr[j];
+          arr[j] = mark_el;
+        }
+      }
+      arr[i] = mark_el;
+    } else continue;
+  }
+  let set = new Set(arr);
+
+  return set.size;
+}
+
+//BETTER APPROACH
+//TC O(NlogN) & SC O(N)
+
+function minMettingRoomsI(arr) {
+  let times = [];
+
+  arr.forEach((el) => {
+    times.push([el[0], 1]);
+    times.push([el[1], -1]);
+  });
+
+  times.sort((a, b) => {
+    if (a[0] < b[0]) return -1;
+
+    if (a[0] > b[0]) return 1;
+
+    if (a[0] === b[0]) return a[1] - b[1];
+  });
+
+  let meeting_rooms = 0,
+    count = 0;
+
+  for (let i = 0; i < times.length; i++) {
+    count += times[i][1];
+
+    meeting_rooms = Math.max(count, meeting_rooms);
+  }
+
+  return meeting_rooms;
+}
+
+minMettingRoomsI([
+  [0, 10],
+  [2, 7],
+  [6, 9],
+  [10, 15],
+  [15, 20],
+  [18, 24],
+]);
