@@ -4,7 +4,7 @@
 
 - Job scheduling based on deadlines and profits
 
-- Meeting rooms - choose the minimum number required (greedy on end time)
+- Meeting rooms - choose the minimum number required (greedy on end time) ✅
 
 - Find the time when all employees are free
 
