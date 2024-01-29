@@ -106,7 +106,7 @@ function generateMatrixI(n) {
   return res_arr;
 }
 
-////////////////////////////////////////////////////
+/* -------------------------------------------------------------------- */
 
 //PROBLEM 2
 
@@ -114,6 +114,8 @@ function generateMatrixI(n) {
 
 //Iterative Approach - a better one over the traditional iterative
 //reduces the number of iterations
+
+//TODO: Find TC
 
 function findK(a, n, m, k) {
   if (k > n * m) return "Enter a valid position";
@@ -166,4 +168,91 @@ function findK(a, n, m, k) {
   }
 }
 
-//////////////////////////////////////////////////////////////////
+/* -------------------------------------------------------------------- */
+
+// PROBLEM 3
+
+//PRINT THE MATRIX IN A SPIRAL ORDER
+
+//TC - O(n*m) & SC - O(1) only for additional memory used
+
+function printSpiralMatrix(matrix, n, m) {
+  let res_arr = [];
+
+  let left_col = 0,
+    right_col = m - 1,
+    top_row = 0,
+    bottom_row = n - 1;
+
+  while (left_col <= right_col && top_row <= bottom_row) {
+    //Print the top row
+    for (let i = left_col; i <= right_col; i++)
+      res_arr.push(matrix[top_row][i]);
+
+    top_row++;
+
+    //Print the right column
+    for (let i = top_row; i <= bottom_row; i++)
+      res_arr.push(matrix[i][right_col]);
+
+    right_col--;
+
+    if (top_row > bottom_row) break;
+
+    //Print the bottom row
+    for (let i = right_col; i >= left_col; i--)
+      res_arr.push(matrix[bottom_row][i]);
+
+    bottom_row--;
+
+    //Print the left column
+    for (let i = bottom_row; i >= top_row; i--)
+      res_arr.push(matrix[i][left_col]);
+
+    left_col++;
+  }
+
+  return res_arr;
+}
+
+/* -------------------------------------------------------------------- */
+
+// PROBLEM 4
+
+//Rotate matrix by 90 degree anti clockwise
+//DO AN IN-PLACE ROTATION
+
+//TC - O(N2) & SC O(1)
+
+/**
+ *
+ * @param {number[][]} matrix
+ * @returns {number[][]}
+ */
+
+function rotateAntiMatrix(matrix) {
+  let n = matrix.length;
+
+  //Transpose the matrix
+  for (let i = 0; i < n - 1; i++) {
+    for (let j = i + 1; j < n; j++)
+      [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
+  }
+
+  //Reverse the rows
+  let start = 0,
+    end = n - 1;
+
+  let temp;
+
+  while (start < end) {
+    temp = matrix[start];
+    matrix[start] = matrix[end];
+    matrix[end] = temp;
+
+    start++;
+    end--;
+  }
+
+  return matrix;
+}
