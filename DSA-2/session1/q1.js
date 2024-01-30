@@ -49,10 +49,14 @@ function generateMatrix(n) {
 //TC - O(n) & SC O(1) excluding auxillary space and including only the additional memory used
 
 /**
- *
- * @typedef {Object} array_ops
+ * @typedef {Object} options
  * @property {number[][]} res_arr
  * @property {number} count
+ */
+
+/**
+ *
+ *@param {options} array_ops
  * @param {number} top_row
  * @param {number} right_col
  * @param {number} bottom_row
@@ -117,6 +121,14 @@ function generateMatrixI(n) {
 
 //TODO: Find TC
 
+/**
+ *
+ * @param {number[][]} a
+ * @param {number} n
+ * @param {number} m
+ * @param {number} k
+ * @returns {number}
+ */
 function findK(a, n, m, k) {
   if (k > n * m) return "Enter a valid position";
 
@@ -176,6 +188,13 @@ function findK(a, n, m, k) {
 
 //TC - O(n*m) & SC - O(1) only for additional memory used
 
+/**
+ *
+ * @param {number[][]} matrix
+ * @param {number} n
+ * @param {number} m
+ * @returns {number[]}
+ */
 function printSpiralMatrix(matrix, n, m) {
   let res_arr = [];
 
