@@ -188,6 +188,31 @@ function maxSumSubArrI(arr) {
   };
 }
 
+//Other way for Brute force
+/**
+ *
+ * @param {number[][]} arr
+ * @returns {number}
+ */
+function maxSumSubArrIII(arr) {
+  let n = arr.length;
+
+  let max_sum = Number.MIN_SAFE_INTEGER;
+
+  for (let i = 0; i < n; i++) {
+    let sum = arr[i];
+    max_sum = Math.max(max_sum, sum);
+
+    for (let j = i + 1; j < n; j++) {
+      sum += arr[j];
+
+      max_sum = Math.max(max_sum, sum);
+    }
+  }
+
+  return max_sum;
+}
+
 //BETTER APPROACH
 
 //KADANE'S ALGORITHM
@@ -207,37 +232,85 @@ next large number or larger if the sum_so_far is already positive
 */
 //TC O(N) & SC O(N)
 
+//TODO:
+
+/**
+ *
+ * @param {number[][]} arr
+ * @returns {number}
+ */
 function maxSumSubArrII(arr) {
   let n = arr.length;
 
   let max_sum = arr[0],
     sum_so_far = 0;
 
-  let start = 0,
-    end = 0;
-
   for (let i = 0; i < n; i++) {
     sum_so_far += arr[i];
 
-    if (max_sum < sum_so_far) {
-      max_sum = sum_so_far;
-      start = i;
-    }
+    max_sum = Math.max(max_sum, sum_so_far);
 
-    if (sum_so_far < 0) {
-      sum_so_far = 0;
-      end = i;
-    }
+    sum_so_far = sum_so_far < 0 ? 0 : sum_so_far;
   }
 
-  console.log(end);
-  return {
-    subArr: arr.slice(start, end),
-    maxSum: max_sum,
-  };
+  return max_sum;
 }
 
 console.log(maxSumSubArrII([-2, -3, 4, -1, -2, 1, 5, -3]));
 
 /*----------------------------------------------------*/
-//TODO: max sum subarray of size k
+
+//PROBLEM 4
+
+//FIND IF THERE EXISTS A SUB ARRAY WITH A SUM 0
+
+/*
+Problem Description
+
+Given an array of positive and negative numbers, 
+you need to find if there is any subarray with 0 sum.
+
+Note: A subarray of an array is a set of contiguous 
+elements having a size of at least 1.
+*/
+
+//Brute force
+//TC O(N2) & SC O(1)
+function zeroSumSubArr(arr) {
+  let n = arr.length;
+
+  for (let i = 0; i < n; i++) {
+    let sum = arr[i];
+
+    if (sum === 0) return "Yes";
+
+    for (let j = i + 1; j < n; j++) {
+      sum += arr[j];
+
+      if (sum === 0) return "Yes";
+    }
+  }
+
+  return "No";
+}
+
+//Better Approach - Using prefix sum
+//TC O(N) & SC O(N)
+
+function zeroSumSubArr(arr) {
+  let n = arr.length;
+
+  let pref_map = new Map();
+
+  let pref_sum = 0;
+  for (let i = 0; i < n; i++) {
+    pref_sum += arr[i];
+
+    if (pref_sum === 0) return "Yes";
+
+    if (pref_map.has(pref_sum)) return "Yes";
+    else pref_map.set(pref_sum, i);
+  }
+
+  return "No";
+}
