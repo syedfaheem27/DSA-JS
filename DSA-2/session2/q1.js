@@ -213,16 +213,31 @@ function maxSumSubArrII(arr) {
   let max_sum = arr[0],
     sum_so_far = 0;
 
+  let start = 0,
+    end = 0;
+
   for (let i = 0; i < n; i++) {
     sum_so_far += arr[i];
 
-    max_sum = Math.max(max_sum, sum_so_far);
+    if (max_sum < sum_so_far) {
+      max_sum = sum_so_far;
+      start = i;
+    }
 
-    sum_so_far = sum_so_far < 0 ? 0 : sum_so_far;
+    if (sum_so_far < 0) {
+      sum_so_far = 0;
+      end = i;
+    }
   }
 
-  return max_sum;
+  console.log(end);
+  return {
+    subArr: arr.slice(start, end),
+    maxSum: max_sum,
+  };
 }
+
+console.log(maxSumSubArrII([-2, -3, 4, -1, -2, 1, 5, -3]));
 
 /*----------------------------------------------------*/
 //TODO: max sum subarray of size k
