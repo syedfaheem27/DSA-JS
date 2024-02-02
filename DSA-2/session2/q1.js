@@ -143,3 +143,71 @@ The subarray [4, -1, -2, 1, 5] has sum 7, which is the maximum possible.
 */
 
 //BRUTE FORCE APPROACH
+//TC - O(N2) & SC O(N)
+
+/**
+ *
+ * @typedef {Object} arrResult
+ * @property {number[][]} subArr
+ * @property {number} maxSum
+ */
+
+/**
+ *
+ * @param {number[][]} arr
+ * @returns {arrResult}
+ */
+
+function maxSumSubArrI(arr) {
+  let n = arr.length;
+
+  let sum = 0;
+
+  for (let i = 0; i < n; i++) sum += arr[i];
+
+  let temp_sum, start, end;
+  let max_sum = Number.MIN_SAFE_INTEGER;
+
+  for (let i = 0; i < n; i++) {
+    sum = i === 0 ? sum : sum - arr[i - 1];
+    temp_sum = sum;
+
+    for (let j = n - 1; j >= i; j--) {
+      if (max_sum < temp_sum) {
+        max_sum = temp_sum;
+        (start = i), (end = j);
+      }
+
+      temp_sum -= arr[j];
+    }
+  }
+
+  return {
+    subArr: arr.slice(start, end + 1),
+    maxSum: max_sum,
+  };
+}
+
+//BETTER APPROACH
+
+//KADANE'S ALGORITHM
+//INSTEAD OF ITERATING OVER A SUB-ARRAY MULTIPLE TIMES,
+//WE CALCULATE THE MAXSUM AND THE MAXSUM TILL THE POINT WE HAVE ITERATED.
+//IF THE MAXSUM IS LESS THAN THE MAXSUM SO FAR, WE UPDATE IT AND MOVE FORWARD,
+//IF NOT, WE MOVE FORWARD
+
+//TC O(N) & SC O(N)
+
+function maxSumSubArrII(arr) {
+  let n = arr.length;
+
+  let max_sum = arr[0],
+    sum_so_far = arr[0];
+
+  for (let i = 1; i < n; i++) {
+    sum_so_far += arr[i];
+  }
+}
+
+/*----------------------------------------------------*/
+//TODO: max sum subarray of size k
