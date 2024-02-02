@@ -191,22 +191,37 @@ function maxSumSubArrI(arr) {
 //BETTER APPROACH
 
 //KADANE'S ALGORITHM
-//INSTEAD OF ITERATING OVER A SUB-ARRAY MULTIPLE TIMES,
-//WE CALCULATE THE MAXSUM AND THE MAXSUM TILL THE POINT WE HAVE ITERATED.
-//IF THE MAXSUM IS LESS THAN THE MAXSUM SO FAR, WE UPDATE IT AND MOVE FORWARD,
-//IF NOT, WE MOVE FORWARD
+// Instead of iterating over a sub-array multiple times,
+// we calculate the maxsum and the maxsum till the point we have iterated.
+// if the maxsum is less than the maxsum so far, we update it and move forward,
+// if not, we move forward
 
+/*
+LOGIC 
+
+If the sum_so_far becomes negative, reset the sum to 0
+because if the next number is positive, then the sum will
+ become less than that number but resetting the sum_so_far
+ensures that the cumulative sum remains equal to the
+next large number or larger if the sum_so_far is already positive
+*/
 //TC O(N) & SC O(N)
 
 function maxSumSubArrII(arr) {
   let n = arr.length;
 
   let max_sum = arr[0],
-    sum_so_far = arr[0];
+    sum_so_far = 0;
 
-  for (let i = 1; i < n; i++) {
+  for (let i = 0; i < n; i++) {
     sum_so_far += arr[i];
+
+    max_sum = Math.max(max_sum, sum_so_far);
+
+    sum_so_far = sum_so_far < 0 ? 0 : sum_so_far;
   }
+
+  return max_sum;
 }
 
 /*----------------------------------------------------*/
