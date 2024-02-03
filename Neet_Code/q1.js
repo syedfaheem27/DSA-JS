@@ -32,3 +32,42 @@ function containsDuplicate(nums) {
 
   // return false;
 }
+
+/*-----------------------------------------*/
+
+//PROBLEM 2
+
+//CONCATENTATION OF AN ARRAY
+
+/*
+Given an integer array nums of length n, you want to create an array ans of 
+length 2n where ans[i] == nums[i] and ans[i + n] == nums[i] for 0 <= i < n (0-indexed).
+
+Specifically, ans is the concatenation of two nums arrays.
+
+Return the array ans.
+
+Input: nums = [1,2,1]
+Output: [1,2,1,1,2,1]
+*/
+
+/**
+ *
+ * @param {number[]} nums
+ * @returns {number[]}
+ */
+function concatenateArray(nums) {
+  //Method 1
+  // return [...nums, ...nums]
+  //Method 2 : Not considered good to modify the input
+  // let n = nums.length;
+  // for (let i = n; i < 2 * n; i++) nums[i] = nums[i - n];
+  // return nums;
+
+  let res_arr = [];
+  for (let i = 0; i < nums.length; i++) res_arr.push(nums[i]);
+
+  return nums.concat(res_arr);
+}
+
+/*-----------------------------------------*/
