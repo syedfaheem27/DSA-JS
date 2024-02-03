@@ -256,8 +256,6 @@ function maxSumSubArrII(arr) {
   return max_sum;
 }
 
-console.log(maxSumSubArrII([-2, -3, 4, -1, -2, 1, 5, -3]));
-
 /*----------------------------------------------------*/
 
 //PROBLEM 4
@@ -276,6 +274,12 @@ elements having a size of at least 1.
 
 //Brute force
 //TC O(N2) & SC O(1)
+
+/**
+ *
+ * @param {number[]} arr
+ * @returns {string}
+ */
 function zeroSumSubArr(arr) {
   let n = arr.length;
 
@@ -297,7 +301,12 @@ function zeroSumSubArr(arr) {
 //Better Approach - Using prefix sum
 //TC O(N) & SC O(N)
 
-function zeroSumSubArr(arr) {
+/**
+ *
+ * @param {number[]} arr
+ * @returns {string}
+ */
+function zeroSumSubArrI(arr) {
   let n = arr.length;
 
   let pref_map = new Map();
@@ -314,3 +323,37 @@ function zeroSumSubArr(arr) {
 
   return "No";
 }
+
+//TODO: Return the array with the longest length with sum 0
+
+function zeroSumSubArrII(arr) {
+  let n = arr.length;
+
+  let pref_map = new Map();
+  let max_len = -1;
+
+  let pref_sum = 0,
+    start;
+
+  for (let i = 0; i < n; i++) {
+    pref_sum += arr[i];
+
+    if (pref_sum === 0) {
+      max_len = i + 1;
+      start = i;
+    }
+
+    if (pref_map.has(pref_sum)) {
+      let len = i - pref_map.get(pref_sum);
+
+      if (max_len < len) {
+        max_len = len;
+        start = pref_map.get(pref_sum) + 1;
+      }
+    } else pref_map.set(pref_sum, i);
+  }
+
+  return arr.slice(start, start + max_len);
+}
+
+zeroSumSubArrII([4, 2, -4, 8, 2, -10, 5]);
