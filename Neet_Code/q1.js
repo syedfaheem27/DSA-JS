@@ -71,3 +71,79 @@ function concatenateArray(nums) {
 }
 
 /*-----------------------------------------*/
+
+//PROBLEM 3
+
+//Replace Elements with Greatest Element on Right Side
+
+/*
+Given an array arr, replace every element in that array with the 
+greatest element among the elements to its right, and replace the last element with -1.
+
+After doing so, return the array.
+
+Input: arr = [17,18,5,4,6,1]
+Output: [18,6,6,6,1,-1]
+*/
+
+//BRUTE FORCE
+
+//TC O(N2)  & SC O(N)
+
+function replaceElementsI(arr) {
+  let n = arr.length;
+
+  let res_arr = [];
+  let max_num;
+
+  for (let i = 0; i < n - 1; i++) {
+    max_num = Number.MIN_SAFE_INTEGER;
+
+    for (let j = i + 1; j < n; j++) max_num = Math.max(max_num, arr[j]);
+
+    res_arr.push(max_num);
+  }
+
+  res_arr.push(-1);
+
+  return res_arr;
+}
+
+//Better approach using a stack
+
+//TC O(N) & SC O(N)
+
+function replaceElementsII(arr) {
+  let n = arr.length;
+
+  let max_stack = [-1];
+
+  for (let i = n - 1; i > 0; i--) {
+    let num = max_stack[max_stack.length - 1];
+
+    if (arr[i] > num) max_stack.push(arr[i]);
+    else max_stack.push(num);
+  }
+
+  return max_stack.reverse();
+}
+
+//Best Appraoch TC O(N) & SC O(1)
+
+function replaceElementsIII(arr) {
+  let n = arr.length;
+
+  let max_num = -1;
+  let temp_num;
+
+  for (let i = n - 1; i >= 0; i--) {
+    temp_num = arr[i];
+    arr[i] = max_num;
+
+    max_num = Math.max(max_num, temp_num);
+  }
+
+  return arr;
+}
+
+/*-----------------------------------------*/
