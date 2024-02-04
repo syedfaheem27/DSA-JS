@@ -145,34 +145,130 @@ function longestSubStrKDistinctI(str, k) {
 //Optimal Approach : TC O(N) & SC O(1) using hash map and sliding window pattern
 // dynamic window size
 
-// function longestSubStrKDistinctII(str, k) {
-//   let n = str.length;
+/**
+ * @typedef {Object} result
+ * @property {string} subStr
+ * @property {number} len
+ */
 
-//   let map = new Map();
+/**
+ *
+ * @param {string} str
+ * @param {number} k
+ * @returns {result}
+ */
 
-//   let front = 0,
-//     back = 0;
+function longestSubStrKDistinctII(str, k) {
+  let n = str.length;
+  let left_idx;
+  let max_len = -1;
 
-//   let len = 0,
-//     max_len = -1;
+  let map = new Map();
 
-//   while (front < n && back < n) {
-//     if (map.size <= k) {
-//       map.set(str[front], map.get(str[front]) + 1 || 1);
-//       len++;
-//       front++;
-//     }
+  let front = 0,
+    back = 0;
+  while (front < n) {
+    map.set(str[front], map.get(str[front]) + 1 || 1);
 
-//     if (map.size > k) {
-//       if (map.get(str[back]) === 1) map.delete(str[back]);
-//       else map.set(str[back], map.get(str[back]) - 1);
+    while (map.size > k) {
+      let val = map.get(str[back]);
 
-//       len--;
-//       back++;
-//       max_len = Math.max(max_len, len);
-//     }
-//   }
-//   return max_len;
-// }
+      if (val === 1) map.delete(str[back]);
+      else map.set(str[back], map.get(str[back]) - 1);
 
-// console.log(longestSubStrKDistinctII("eceba", 2));
+      back++;
+    }
+    let len = front - back + 1;
+
+    if (max_len < len) {
+      max_len = len;
+      left_idx = back;
+    }
+
+    front++;
+  }
+
+  return {
+    subStr: str.slice(left_idx, left_idx + max_len),
+    len: max_len,
+  };
+}
+
+/*--------------------------------------*/
+
+//PROBLEM 3
+
+//FIND THE MAXIMUM SUM AND THAT SUBARRAY POSSIBLE OUT OF ALL THE SUBARRAYS OF SIZE K
+
+/*
+Problem Description
+
+Given an array of integers and a number k, find the maximum sum of a subarray of size k and the subarray.
+*/
+
+//BRUTE FORCE
+//TC O(N*K) & SC O(K)
+/**
+ * @typedef {Object} result
+ * @property {number[]} resArr
+ * @property {number} maxSum
+ */
+/**
+ *
+ * @param {number[]} arr
+ * @param {number} k
+ * @returns {result}
+ */
+
+function maxSumKI(arr, k) {
+  let n = arr.length;
+  let start;
+  let max_sum = -1;
+
+  for (let i = 0; i < n; i++) {
+    let sum = arr[i];
+    for (let j = i + 1; j < i + k; j++) sum += arr[j];
+
+    if (max_sum < sum) {
+      max_sum = sum;
+      start = i;
+    }
+  }
+
+  return {
+    resArr: arr.slice(start, start + k),
+    maxSum: max_sum,
+  };
+}
+
+//Optimal Approach - Sliding window
+//TC O(N) & SC O(K)
+
+function maxSumKII(arr, k) {
+  let n = arr.length;
+
+  let sum = 0,
+    max_sum;
+
+  for (let i = 0; i < k; i++) sum += arr[i];
+
+  max_sum = sum;
+
+  let start = 0,
+    front = k,
+    back = 0;
+
+  while (front < n) {
+    sum += arr[front++] - arr[back++];
+
+    if (max_sum < sum) {
+      start = back;
+      max_sum = sum;
+    }
+  }
+
+  return {
+    resArr: arr.slice(start, start + k),
+    maxSum: max_sum,
+  };
+}

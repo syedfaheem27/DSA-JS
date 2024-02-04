@@ -245,18 +245,13 @@ function longestLastWordLenI(str) {
   let i = str.length - 1;
   let len = 0;
 
-  while (i >= 0) {
-    if (str[i] !== " ") {
-      while (str[i] !== " ") {
-        len++;
-        i++;
-      }
+  while (str[i] === " ") i++;
 
-      return len;
-    }
-
+  while (i >= 0 && str[i] !== " ") {
+    len++;
     i--;
   }
+  return len;
 }
 
-console.log(longestLastWordLen("Hello world"));
+/*------------------------------------*/
