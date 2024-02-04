@@ -272,3 +272,82 @@ function maxSumKII(arr, k) {
     maxSum: max_sum,
   };
 }
+
+/*----------------------------------------*/
+
+//PROBLEM 4
+
+//FIND THE LONGEST SUBSTRING WITHOUT A REPEATING CHARACTER
+
+/*
+
+PROBLEM DESCRIPTION
+
+Given a string, find the length of the longest substring which has no repeating characters.
+
+Input : aabccccd
+Output : abc 3
+
+*/
+
+//BRUTE FORCE
+//TC O(N2) & SC O(N)
+
+function subStrDistinctI(str) {
+  let n = str.length;
+
+  let max_len = -1,
+    start;
+
+  for (let i = 0; i < n; i++) {
+    let set = new Set();
+
+    for (let j = i; j < n; j++) {
+      if (set.has(str[j])) break;
+
+      set.add(str[j]);
+    }
+
+    if (max_len < set.size) {
+      max_len = set.size;
+      start = i;
+    }
+  }
+
+  return {
+    subStr: str.slice(start, start + max_len),
+    maxLen: max_len,
+  };
+}
+
+//OPTIMAL APPROACH
+
+function subStrDistinctII(str) {
+  let n = str.length;
+
+  let left_idx;
+
+  let set = new Set();
+  let front = 0,
+    back = 0;
+  let max_len = 0;
+  while (front < n) {
+    if (set.has(str[front])) set.delete(str[back++]);
+    else set.add(str[front++]);
+
+    if (max_len < set.size) {
+      max_len = set.size;
+      left_idx = back;
+    }
+  }
+
+  return left_idx === undefined
+    ? {
+        subStr: "",
+        maxLen: max_len,
+      }
+    : {
+        subStr: str.slice(left_idx, left_idx + max_len),
+        maxLen: max_len,
+      };
+}
