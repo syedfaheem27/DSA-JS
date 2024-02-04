@@ -147,3 +147,116 @@ function replaceElementsIII(arr) {
 }
 
 /*-----------------------------------------*/
+
+//PROBLEM 4
+
+/*
+PROBLEM DESCRIPTION
+
+Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+
+A subsequence of a string is a new string that is formed from the original string by deleting 
+some (can be none) of the characters without disturbing the relative positions of the remaining 
+characters. (i.e., "ace" is a subsequence of "abcde" while "aec" is not).
+
+*/
+
+//BRUTE FORCE
+//TC O(m*n) & SC O(1)
+
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+function isSubsequence(s, t) {
+  for (let i = 0; i < s.length; i++) {
+    let isFound = false;
+
+    for (let j = i; j < t.length; j++) {
+      if (s[i] === t[j]) {
+        isFound = true;
+        break;
+      }
+    }
+
+    if (!isFound) return false;
+  }
+
+  return true;
+}
+
+//Optimised Approach
+//Using two pointers
+//TC O(max(m,n)) & SC O(1)
+
+function isSubsequenceI(s, t) {
+  let s_ptr = 0,
+    t_ptr = 0;
+
+  while (s_ptr < s.length && t_ptr < t.length) {
+    if (s[s_ptr] === t[t_ptr]) {
+      s_ptr++;
+      t_ptr++;
+    } else t_ptr++;
+  }
+
+  return s_ptr === s.length;
+}
+
+/*-----------------------------------------*/
+
+//PROBLEM 5
+
+/*
+PROBLEM DESCRIPTION
+
+Given a string s consisting of words and spaces, return the length of the last word in the string.
+
+A word is a maximal 
+substring
+ consisting of non-space characters only.
+ */
+
+//TC O(N) & SC O(1)
+//Iterating from start - less efficient
+
+function longestLastWordLen(str) {
+  let n = str.length;
+  let len = 0,
+    res_len;
+
+  for (let i = 0; i < n; i++) {
+    if (str[i] !== " ") {
+      len++;
+    } else {
+      res_len = len === 0 ? res_len : len;
+      len = 0;
+    }
+  }
+
+  return len !== 0 ? len : res_len;
+}
+
+//Optimal approach
+
+//Efficient one
+function longestLastWordLenI(str) {
+  let i = str.length - 1;
+  let len = 0;
+
+  while (i >= 0) {
+    if (str[i] !== " ") {
+      while (str[i] !== " ") {
+        len++;
+        i++;
+      }
+
+      return len;
+    }
+
+    i--;
+  }
+}
+
+console.log(longestLastWordLen("Hello world"));
