@@ -49,7 +49,7 @@ function kMostFreqEls(arr, k) {
 // Given an integer numRows, return the first numRows of Pascal's triangle.
 
 //Input: numRows = 5
-// Output: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
+//Output: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
 
 //TC O(n2) & SC O(n2)
 
@@ -70,3 +70,50 @@ function pyramidPrinting(k) {
 }
 
 /*-------------------------------------------*/
+
+//PROBLEM 3
+
+//REMOVE ELEMENT
+
+/*
+Input: nums = [3,2,2,3], val = 3
+Output: 2, nums = [2,2,_,_]
+Explanation: Your function should return k = 2, with the first two elements of nums being 2.
+It does not matter what you leave beyond the returned k (hence they are underscores).
+*/
+
+//OPTIMAL APPROACH
+//TC O(N) & SC O(1)
+
+function removElement(nums, val) {
+  let n = nums.length;
+
+  for (let i = 0; i < n; i++) if (nums[i] === val) nums[i] = "_";
+
+  let front = 0,
+    back = 0;
+
+  while (front < n) {
+    if (nums[front] !== "_") {
+      nums[back] = nums[front];
+      back++;
+    }
+
+    front++;
+  }
+
+  return back;
+}
+
+//Best Approach
+//Although the TC didn't change but we're using a single loop here
+function remEl(nums, val) {
+  let n = nums.length;
+  let ptr = 0;
+
+  for (let i = 0; i < n; i++) {
+    if (nums[i] !== val) nums[ptr++] = nums[i];
+  }
+
+  return ptr;
+}
