@@ -117,3 +117,144 @@ function remEl(nums, val) {
 
   return ptr;
 }
+
+/*------------------------------*/
+
+//PTOBLEM 4
+
+//Unique Email Address - Leercode
+
+//Using In-built functions
+
+function uniqueEmailAddressI(emailArr) {
+  let n = emailArr.length;
+  let set = new Set();
+
+  for (let i = 0; i < n; i++) {
+    let [local, domain] = emailArr[i].split("@");
+    let [local_mod] = local.split(".").join("").split("+");
+    set.add(local_mod.concat("@", domain));
+  }
+
+  return set.size;
+}
+
+//Method 2
+
+function uniqueEmailAddressII(emails) {
+  let n = emails.length;
+
+  let set = new Set();
+
+  for (let i = 0; i < n; i++) {
+    let temp_str = "";
+    let has_found = false;
+
+    let j = 0;
+
+    while (j < emails[i].length) {
+      if (emails[i][j] === "@") has_found = true;
+
+      if (!has_found && emails[i][j] === "+") {
+        while (emails[i][j] !== "@") j++;
+        has_found = true;
+      }
+
+      if ((!has_found && emails[i][j] !== ".") || has_found)
+        temp_str += emails[i][j];
+
+      j++;
+    }
+
+    set.add(temp_str);
+  }
+
+  return set.size;
+}
+
+/*------------------------*/
+
+//PROBLEM 5 : PRODUCT OF ARRAY EXCEPT SELF
+
+//Using the division operation : TC O(N) & SC O(1) - in-place modification can be done
+
+//Without using division
+
+/*
+Given an integer array nums, return an array answer such that answer[i] 
+is equal to the product of all the elements of nums except nums[i].
+
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+
+You must write an algorithm that runs in O(n) time and without using the division operation
+*/
+
+//APPROACH 1 : TC O(N) & SC O(N)
+function prodArrSelf(nums) {
+  let n = nums.length;
+
+  let pref_prod = [],
+    suff_prod = [];
+
+  let pref_product = 1,
+    suff_product = 1;
+
+  for (let i = 0; i < n; i++) {
+    pref_product *= nums[i];
+    suff_product *= nums[n - 1 - i];
+    pref_prod.push(pref_product);
+    suff_prod.push(suff_product);
+  }
+
+  suff_prod.reverse();
+
+  let res_arr = [];
+
+  for (let i = 0; i < n; i++) {
+    if (i === 0) {
+      res_arr.push(suff_prod[1]);
+      continue;
+    }
+    if (i === n - 1) {
+      res_arr.push(pref_prod[n - 2]);
+      continue;
+    }
+
+    res_arr.push(pref_prod[i - 1] * suff_prod[i + 1]);
+  }
+
+  return res_arr;
+}
+
+//Best approach : TC O(n) & SC O(1)
+
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+function productExceptSelf(nums) {
+  let res_arr = [];
+
+  let pref_product = 1;
+
+  ///Makes sure that prefixProduct array
+  //has elements that are shifted one step ahead
+  //as compared to the normal prefix product array where
+  // the first element of this array is 1
+
+  //This makes sure that while traversing in reverse we just multiply the
+  //suffix product lagging by an element to the element in this array
+  //at the respective position to give us the desired result
+  for (let i = 0; i < nums.length; i++) {
+    res_arr.push(pref_product);
+    pref_product *= nums[i];
+  }
+
+  let suff_product = 1;
+  for (let i = nums.length - 1; i >= 0; i--) {
+    res_arr[i] *= suff_product;
+    suff_product *= nums[i];
+  }
+
+  return res_arr;
+}
