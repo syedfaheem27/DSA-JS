@@ -258,3 +258,5 @@ function productExceptSelf(nums) {
 
   return res_arr;
 }
+
+//TODO: Create a suffix product array in a single traversal

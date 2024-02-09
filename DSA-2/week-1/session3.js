@@ -1,28 +1,3 @@
-/* 
-1.Problem Description
-Given a sorted array of integers and a target, find if there’s 
-a pair of elements that add up to the target. Return true if 
-such a pair can be found, and false otherwise. 
-*/
-// Brute-force Two loops and calculate sum - TC-O(N2) and SC-O(1)
-
-//Efficient way - TC-O(N) and SC-O(1)
-function findTarget(n, arr, target) {
-  let l = 0,
-    r = n - 1;
-  let tempSum;
-  while (l < r) {
-    tempSum = arr[l] + arr[r];
-    if (tempSum < target) l++;
-    else if (tempSum > target) r--;
-    else return true;
-  }
-  return false;
-}
-// console.log(findTarget(5, [2, 4, 5, 8, 9], 7));
-
-//-------------------------------------------------------
-
 /*
 2. Problem Description
 Given an array nums, you need to find the maximum sum of 
@@ -60,39 +35,6 @@ function maxTripletSum(n, arr) {
     rightEl = -1;
   }
   return maxSum;
-}
-
-//-------------------------------------------------
-
-/*
-3. Problem Description
-Given two sorted arrays of size M and N, 
-merge the two arrays and return the final array, sorted.
-*/
-
-//TC - O(M+N) and SC - O(M+N)
-function mergeSortedArr(arr1, arr2) {
-  let n = arr1.length,
-    m = arr2.length;
-  let i = 0,
-    j = 0;
-
-  let resArr = [];
-  while (i < n && j < m) {
-    if (arr1[i] <= arr2[j]) {
-      resArr.push(arr1[i]);
-      i++;
-    } else {
-      resArr.push(arr2[j]);
-      j++;
-    }
-  }
-
-  for (; i < n; i++) resArr.push(arr1[i]);
-  for (; j < m; j++) resArr.push(arr2[j]);
-
-  console.log(resArr);
-  return resArr;
 }
 
 //------------------------------------------------------
