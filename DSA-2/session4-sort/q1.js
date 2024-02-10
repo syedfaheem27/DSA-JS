@@ -128,3 +128,82 @@ function mergeII(arr, left, mid, right) {
 /*--------------------------------*/
 
 //QUICK SORT
+
+//APPROACH 1 : Choosing the last element as the pivot
+//It has it's downsides - can make TC O(n2)
+
+function quickSortI(arr) {
+  let n = arr.length;
+
+  quick(arr, 0, n - 1);
+
+  return arr;
+}
+
+function quickI(arr, l, r) {
+  if (l >= r) return;
+
+  const pivotIdx = findPivotAndReArrange(arr, l, r);
+
+  quickI(arr, l, pivotIdx - 1);
+  quickI(arr, pivotIdx + 1, r);
+
+  return;
+}
+
+function findPivotAndReArrange(arr, l, r) {
+  let pivot_el = arr[r];
+  let leftIdx = l;
+
+  let temp;
+  for (let i = l; i < r; i++) {
+    if (arr[i] <= pivot_el) {
+      temp = arr[leftIdx];
+      arr[leftIdx] = arr[i];
+      arr[i] = temp;
+      leftIdx++;
+    }
+  }
+
+  //final swap
+  temp = arr[leftIdx];
+  arr[leftIdx] = pivot_el;
+  arr[r] = temp;
+
+  return leftIdx;
+}
+
+//APPROACH 2 : Choosing a random Pivot;
+// Choosing a random pivot can be seen in two ways
+//Inside the function where we choose a pivot and rearrange the array
+//according to that pivot, we make sure that we always choose  a random pivot
+// and then rearrange according to that. Then return the pivot index
+//This method needs some bits of addition to ensure that we're always giving out the pivot Index
+
+//Other method is to choose a random index and swap the last element with the element at
+// that index and the rest will remain same
+
+function quickSortII(arr) {
+  let n = arr.length;
+
+  quickII(arr, 0, n - 1);
+
+  return arr;
+}
+function quickII(arr, l, r) {
+  if (l >= r) return;
+
+  const randomIndex = Math.floor(Math.random() * (r - l + 1)) + l;
+
+  //swapping the last element which we will choose as our pivot
+  let temp = arr[randomIndex];
+  arr[randomIndex] = arr[r];
+  arr[r] = temp;
+  const pivotIdx = findPivotAndReArrange(arr, l, r);
+  quickII(arr, l, pivotIdx - 1);
+  quickII(arr, pivotIdx + 1, r);
+
+  return;
+}
+
+quickSortII([1, 2, -9, 0, 100, -10, -99]);
