@@ -8,6 +8,16 @@ PROBLEM DESCRIPTION
 Given an integer array nums and an integer k, 
 return the k most frequent elements. You may return the answer in any order.
 
+
+Example 1:
+
+Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1,2]
+Example 2:
+
+Input: nums = [1], k = 1
+Output: [1]
+
 CONSTRAINTS
 
 -  k is in the range [1, the number of unique elements in the array].
@@ -41,7 +51,106 @@ function kMostFreqEls(arr, k) {
   return res_arr;
 }
 
-//TODO: Go through bucket sort to add the optimised solution for this
+//BUCKET SORT
+//Approach 2 : TC O(n)
+
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+
+  add(value) {
+    const new_node = new Node(value);
+
+    if (!this.head) {
+      this.head = new_node;
+      this.tail = new_node;
+    } else {
+      this.tail.next = new_node;
+      this.tail = new_node;
+    }
+
+    this.length++;
+    return this;
+  }
+}
+
+//Appraoch 3 : TC O(n)
+
+function kMostFreqElsI(arr, k) {
+  let n = arr.length;
+  let map = new Map();
+
+  for (let i = 0; i < n; i++) map.set(arr[i], map.get(arr[i]) + 1 || 1);
+
+  let bucket_arr = Array.from({ length: n });
+
+  for (let [key, val] of map) {
+    if (!bucket_arr[val - 1]) {
+      let new_ll = new LinkedList();
+      new_ll.add(key);
+
+      bucket_arr[val - 1] = new_ll;
+    } else {
+      bucket_arr[val - 1].add(key);
+    }
+  }
+
+  let res_arr = [];
+
+  for (let i = n - 1; i >= 0 && k > 0; i--) {
+    if (!bucket_arr[i]) continue;
+    else {
+      let len = bucket_arr[i].length;
+
+      let j = 1;
+      let curr_node = bucket_arr[i].head;
+      while (j <= len && curr_node !== null && k > 0) {
+        res_arr.push(curr_node.value);
+
+        curr_node = curr_node.next;
+        k--;
+      }
+    }
+  }
+
+  return res_arr;
+}
+
+function kMostFreqElsII(nums, k) {
+  const freqMap = new Map();
+  const bucket = [];
+  const result = [];
+
+  for (let num of nums) {
+    freqMap.set(num, (freqMap.get(num) || 0) + 1);
+  }
+
+  for (let [num, freq] of freqMap) {
+    bucket[freq] = (bucket[freq] || new Set()).add(num);
+  }
+
+  for (let i = bucket.length - 1; i >= 0 && k > 0; i--) {
+    if (bucket[i]) {
+      let res_arr = [...bucket[i]];
+      let j = 0;
+      while (j < res_arr.length && k > 0) {
+        result.push(res_arr.pop());
+        k--;
+      }
+    }
+    return result;
+  }
+}
 
 /*---------------------------------------*/
 //PROBLEM 2
