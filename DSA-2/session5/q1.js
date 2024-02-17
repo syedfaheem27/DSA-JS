@@ -120,3 +120,61 @@ function nextGreaterElement(num) {
 
   return +return_arr.join("");
 }
+
+/*-----------------------------------*/
+
+//PROBLEM 3
+
+//COUNT SORT
+
+//A non-comparison based sorting algorithm that can be used when you know
+//the range of the input values and that range is smaller than the number of
+//input values. It makes use of extra space but reduces the time complexity
+//and makes it linear.
+
+//Note : Iterating from the reverse while populating the resultant array makes it stable
+
+//PROBLEM DESCRIPTION
+
+//Sort a string of alphabets(uppercase and lowercase) using the count sort algorithm
+
+//TC O(N) & SC O(1) - we will always need an array of 52 elements and as such require constant
+//space
+
+function countSort(str) {
+  let count_arr = Array.from({ length: 52 }, () => 0);
+  let res_arr = Array.from({ length: 52 });
+
+  for (let i = 0; i < str.length; i++) {
+    let char_code = str[i].charCodeAt(0);
+    let idx;
+
+    //upper case letters
+    if (char_code < 97) {
+      idx = char_code - 65;
+      count_arr[idx] += 1;
+      continue;
+    }
+
+    //lower case letters
+    idx = char_code - 71;
+    count_arr[idx] += 1;
+  }
+
+  //Make a pref_sum array of the count_sort which helps in
+  //determing the exact position of each element
+
+  for (let i = 1; i < 52; i++) count_arr[i] += count_arr[i - 1];
+
+  //Populating the result array
+  for (let i = str.length - 1; i >= 0; i--) {
+    let char_code = str[i].charCodeAt(0);
+    let idx = char_code >= 97 ? char_code - 71 : char_code - 65;
+
+    let insert_idx = count_arr[idx] - 1;
+    res_arr[insert_idx] = str[i];
+    count_arr[idx] -= 1;
+  }
+
+  return res_arr.filter((el) => el !== undefined).join("");
+}
