@@ -77,4 +77,52 @@ function uniqueTriplet(arr) {
 
   return res_arr;
 }
-uniqueTriplet([-1, 0, 1, 2, -1, -4]);
+
+/*------------------------------------*/
+
+//PROBLEM 3
+
+//FIND THE LONGEST SUB ARRAY WITH SUM K
+
+/*
+Given an array containing N integers and an integer K, Your task is to find 
+the length of the longest subarray and the array itself with the sum of the 
+elements equal to the given value K.
+*/
+
+//Brute force - use two loops for the same TC O(N2) & SC O(1)
+
+function longestSubArr(arr, k) {
+  let n = arr.length;
+
+  let prefix_sum = 0;
+  let max_len = -1;
+
+  let start_idx = 0;
+
+  let map = new Map();
+  for (let i = 0; i < n; i++) {
+    prefix_sum += arr[i];
+
+    if (prefix_sum === k) max_len = i + 1;
+
+    if (!map.has(prefix_sum)) map.set(prefix_sum, i);
+
+    let temp = prefix_sum - k;
+
+    if (map.has(temp)) {
+      start_idx = map.get(temp) + 1;
+      max_len = Math.max(i - map.get(temp), max_len);
+    }
+  }
+
+  return {
+    maxLen: max_len,
+    resArr: arr.slice(start_idx, start_idx + max_len),
+  };
+}
+
+const { maxLen, resArr } = longestSubArr(
+  [10, 5, 2, 7, 1, 9, -5, 5, 5, 5, 5],
+  15
+);
