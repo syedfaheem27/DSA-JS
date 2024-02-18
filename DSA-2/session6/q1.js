@@ -111,8 +111,10 @@ function longestSubArr(arr, k) {
     let temp = prefix_sum - k;
 
     if (map.has(temp)) {
-      start_idx = map.get(temp) + 1;
-      max_len = Math.max(i - map.get(temp), max_len);
+      if (max_len < i - map.get(temp)) {
+        max_len = i - map.get(temp);
+        start_idx = map.get(temp) + 1;
+      }
     }
   }
 
@@ -123,6 +125,6 @@ function longestSubArr(arr, k) {
 }
 
 const { maxLen, resArr } = longestSubArr(
-  [10, 5, 2, 7, 1, 9, -5, 5, 5, 5, 5],
+  [10, 5, 2, 7, 1, 9, -5, 5, 5, 5, 5, 1, 2, 3, 10, 5],
   15
 );
