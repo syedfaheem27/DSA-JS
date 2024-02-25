@@ -154,7 +154,8 @@ function countOccurences(arr, k) {
   let l = 0,
     r = n - 1;
 
-  let left_idx, right_idx;
+  let left_idx = null,
+    right_idx = null;
 
   //Find the left index
 
@@ -169,7 +170,8 @@ function countOccurences(arr, k) {
     }
   }
 
-  (l = 0), (r = n - 1);
+  l = 0;
+  r = n - 1;
 
   //Find the right index
   while (l <= r) {
@@ -182,5 +184,5 @@ function countOccurences(arr, k) {
       l = mid + 1;
     }
   }
-  return left_idx && right_idx ? right_idx - left_idx + 1 : 0;
+  return left_idx !== null && right_idx !== null ? right_idx - left_idx + 1 : 0;
 }

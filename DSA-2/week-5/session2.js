@@ -1,34 +1,3 @@
-//Find the first one
-/*
-Problem Description
-Given a sorted array consisting of 0s and 1s only,
- find the index of the first 1. If there’s no 1 present in the array, return -1
-*/
-
-function zeroOnes(n, arr) {
-  let l = 0,
-    r = n - 1;
-  let mid;
-
-  let zeroIdx = -1;
-
-  while (l <= r) {
-    mid = Math.floor((l + r) / 2);
-    if (arr[mid] === 0) l = mid + 1;
-    if (arr[mid] === 1) {
-      zeroIdx = mid;
-      r = mid - 1;
-    }
-  }
-
-  return zeroIdx;
-}
-
-// console.log(zeroOnes(7, [0, 0, 0, 0, 0, 0, 1]));
-// console.log(zeroOnes(16, [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]));
-
-////////////////////////////////////////////////////////////
-
 //Find First and Last Position of Element in Sorted Array
 /*
 Given an array of integers nums sorted in non-decreasing order,
