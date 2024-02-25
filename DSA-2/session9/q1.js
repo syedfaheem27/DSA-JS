@@ -130,3 +130,60 @@ function findRank(matrix, el) {
   return rank + 1;
 }
 /*------------------------------------*/
+
+//PROBLEM 3
+
+//FIND THE MISSING NUMBER IN THE ARRAY
+
+/*
+PROBLEM DESCRIPTION
+
+Given an array nums containing n distinct numbers in the range [0, n], 
+return the only number in the range that is missing from the array.
+*/
+
+//Brute force - sort and find TC O(nlogn) & SC O(1)
+//Another approach - utilize an array TC O(n) & SC O(n)
+
+function missingNumber(arr) {
+  let n = arr.length;
+
+  let curr_sum = 0,
+    req_sum = ((n + 1) / 2) * n;
+
+  for (let i = 0; i < n; i++) curr_sum += arr[i];
+
+  return req_sum - curr_sum;
+}
+
+/*----------------------------------*/
+
+//PROBLEM 4
+
+//FORM LARGEST NUMBER USING ARRAY ELEMENTS
+
+/*
+PROBLEM DESCRIPTION
+
+Given an array of non negative integers, arrange the elements, 
+such that if made into a number, they form the largest number.
+
+For instance,
+Given the array [1, 3, 10] , this should be arranged to [3, 1, 10] - 
+since the largest possible number formed by these numbers is 3110.
+*/
+
+//TODO: What will be the brute force for this
+
+function largestNum(arr) {
+  arr.sort((a, b) => {
+    let num1 = a + "" + b;
+    let num2 = b + "" + a;
+
+    if (num1 > num2) return -1;
+    else return 1;
+  });
+  let str_num = arr.join("");
+
+  return +str_num;
+}
