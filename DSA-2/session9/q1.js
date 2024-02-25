@@ -60,3 +60,73 @@ function getTotalReadingTime(arr, s) {
 }
 
 /*----------------------------------*/
+
+//PROBLEM 2
+
+//FIND THE Kth SMALLEST ELEMENT IN A MATRIX
+
+/*
+PROBLEM DESCRIPTION
+
+Given nxn matrix where each of the rows and columns are sorted in 
+ascending order, find the kth smallest element in the matrix.
+
+Note that it is the kth smallest element in the sorted order, 
+not the kth distinct element.
+
+*/
+
+//Brute force - spread the matrix in a linear array and then sort and then
+//traverse - TC O(n^2log(n)) & SC )(n^2)
+
+//Optimal Approach
+function kthSmallestEl(matrix, k) {
+  let n = matrix.length;
+
+  let l = matrix[0][0],
+    r = matrix[n - 1][n - 1];
+
+  let result;
+
+  while (l <= r) {
+    let mid = Math.floor((l + r) / 2);
+    let rank = findRank(matrix, mid);
+
+    if (rank <= k) {
+      result = mid;
+      l = mid + 1;
+    } else {
+      r = mid - 1;
+    }
+  }
+
+  return result;
+}
+
+function findRank(matrix, el) {
+  let n = matrix.length;
+
+  let rank = 0;
+
+  for (let i = 0; i < n; i++) {
+    if (el > matrix[i][n - 1]) {
+      rank += n;
+      continue;
+    }
+
+    //Perform a binary search to find the element
+    let l = 0,
+      r = n - 1;
+
+    while (l <= r) {
+      let mid = Math.floor((l + r) / 2);
+
+      if (matrix[i][mid] < el) l = mid + 1;
+      else r = mid - 1;
+    }
+    rank += l;
+  }
+
+  return rank + 1;
+}
+/*------------------------------------*/
