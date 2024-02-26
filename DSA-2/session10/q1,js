@@ -1,0 +1,61 @@
+//PROBLEM 1
+
+//SWAPPING EVEN AND ODD BITS
+
+/*
+PROBLEM DESCRIPTION
+
+Given an unsigned integer N, swap all odd bits with even bits. 
+Every even position bit is swapped with the adjacent bit on the 
+right side and every odd position bit is swapped with adjacent 
+on the left side. Assume a 32 bit integer.
+
+Hint: To avoid negative values caused by integer overflow, 
+utilize BigInt in your JavaScript code for handling large 
+integer computations.BigInt is a JavaScript built-in object 
+used to represent integers larger than the range supported 
+by the Number primitive.
+*/
+
+//BRUTE FORCE APPROACH
+//TC O(1) & SC O(1)
+function swapOddEven(n) {
+  let num = BigInt(n);
+
+  for (let i = 1; i <= 32; i += 2) {
+    let mask_1 = BigInt(1 << i);
+    let mask_2 = BigInt(1 << (i - 1));
+
+    let num_1 = num & mask_1;
+    let num_2 = num & mask_2;
+
+    if (num_1 > 0) num_1 = 1;
+    if (num_2 > 0) num_2 = 1;
+
+    if (num_1 !== num_2) {
+      num = num ^ mask_1;
+      num = num ^ mask_2;
+    }
+  }
+
+  return num;
+}
+
+//Better Approach
+
+//Apply a bit mask over all even bits and then over all odd bits
+//Shift the even bit mask right by 1 and left bit mask left by 1
+
+function swapOddEvenI(n) {
+  let num = BigInt(n);
+
+  let even_mask = BigInt(0xaaaaaaaa) & num;
+  let odd_mask = BigInt(0x55555555) & num;
+
+  even_mask = even_mask >> 1n;
+  odd_mask = odd_mask << 1n;
+
+  return even_mask | odd_mask;
+}
+
+/*----------------------------*/
