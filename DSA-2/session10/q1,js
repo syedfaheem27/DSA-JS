@@ -59,3 +59,26 @@ function swapOddEvenI(n) {
 }
 
 /*----------------------------*/
+
+//PROBLEM 2
+
+//Reverse the bits of a given number
+//TC O(logN) & SC O(1)
+
+function reverseBits(n) {
+  let num = BigInt(n);
+
+  let res_num = 0n;
+  let count = 32n;
+
+  while (num) {
+    res_num = res_num << 1n;
+    if ((num & 1n) > 0) res_num = res_num | 1n;
+
+    num = num >> 1n;
+    count--;
+  }
+
+  return res_num << count;
+}
+/*----------------------------*/
