@@ -82,3 +82,51 @@ function reverseBits(n) {
   return res_num << count;
 }
 /*----------------------------*/
+
+//PROBLEM 3
+
+//FIND THE NUMBER OF BITS TO BE FLIPPED TO CONVERT ONE
+//NUMBER TO THE OTHER
+
+//BRUTE FORCE
+
+//TC O(logN) & SC O(1)
+function flippedBitsI(a, b) {
+  let num1 = BigInt(a);
+  let num2 = BigInt(b);
+
+  let count = 0;
+
+  while (num1 && num2) {
+    let mask = 1n;
+
+    if ((num1 & mask) !== (num2 & mask)) count++;
+
+    num1 = num1 >> 1n;
+    num2 = num2 >> 1n;
+  }
+
+  return count;
+}
+
+//Efficient algorithm
+
+//Kernighan's algorithm
+//TC O(no.of set bits) & SC O(1)
+
+function flippedBitsII(a, b) {
+  let num1 = BigInt(a);
+  let num2 = BigInt(b);
+
+  let num3 = num1 ^ num2;
+
+  let rsbm = num3 & -num3;
+  let count = 0;
+  while (num3 !== 0n) {
+    num3 = num3 ^ rsbm;
+    rsbm = num3 & -num3;
+    count++;
+  }
+
+  return count;
+}
