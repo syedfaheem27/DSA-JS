@@ -19,3 +19,24 @@ function onesCompliment(n) {
 function rightSet(n) {
   return n & -n;
 }
+
+/*------------------------*/
+
+//PROBLEM 3
+
+//FIND THE NUMBER OF ON BITS
+
+function numOnBits(n) {
+  let num = BigInt(n);
+
+  let count = 0;
+  let rsbm = num & -num;
+
+  while (num !== 0n) {
+    num = num ^ rsbm;
+    rsbm = num & -num;
+    count++;
+  }
+
+  return count;
+}
