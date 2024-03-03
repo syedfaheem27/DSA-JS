@@ -46,7 +46,7 @@ class CircularQueue {
     this.length = 0;
     this.front = 0;
     this.back = 0;
-    this.queue = Array.from({ length: size });
+    this.queue = Array.from({ length: size }, () => null);
   }
 
   add(el) {
@@ -63,6 +63,7 @@ class CircularQueue {
     if (this.isEmpty) return console.log("The queue is empty!");
 
     let num = this.queue[this.front];
+    this.queue[this.front] = null;
     this.length--;
     this.front = (this.front + 1) % this.size;
 
