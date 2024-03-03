@@ -81,3 +81,100 @@ class CircularQueue {
 }
 
 /*--------------------------*/
+
+//TODO: Implement a Doubly ended queue using a linked list
+
+//PROBLEM
+
+//Implement a Queue using two stacks
+
+//Pop heavy implementation - TC O(n)
+//Peek - TC O(n)
+//Push implementation - TC O(1)
+class QueueII {
+  constructor() {
+    this.length = 0;
+    this.stackOne = [];
+    this.stackTwo = [];
+  }
+
+  add(el) {
+    this.stackOne.push(el);
+    this.length++;
+
+    return this;
+  }
+
+  remove() {
+    if (this.isEmpty) return console.log("The Queue is empty!");
+
+    while (this.stackOne.length !== 0) {
+      this.stackTwo.push(this.stackOne.pop());
+    }
+
+    let num = this.stackTwo.pop();
+
+    while (this.stackTwo.length !== 0) this.stackOne.push(this.stackTwo.pop());
+
+    this.length--;
+    return num;
+  }
+
+  get isEmpty() {
+    return this.length === 0 ? true : false;
+  }
+
+  peek() {
+    if (this.isEmpty) return console.log("The Queue is empty!");
+
+    while (this.stackOne.length !== 0) this.stackTwo.push(this.stackOne.pop());
+
+    let num = this.stackTwo[this.length - 1];
+
+    while (this.stackTwo.length !== 0) this.stackOne.push(this.stackTwo.pop());
+
+    return num;
+  }
+}
+
+/*-------------------------------*/
+
+//Second Implementation
+//Push heavy implementation
+
+//Push TC O(n)
+//Pop TC O(1)
+
+class QueueIII {
+  constructor() {
+    this.length = 0;
+    this.stackOne = [];
+    this.stackTwo = [];
+  }
+
+  add(el) {
+    while (this.stackOne.length !== 0) this.stackTwo.push(this.stackOne.pop());
+
+    this.stackOne.push(el);
+
+    while (this.stackTwo.length !== 0) this.stackOne.push(this.stackTwo.pop());
+    this.length++;
+
+    return this;
+  }
+
+  remove() {
+    if (this.length === 0) return console.log("The Queue is empty!");
+
+    this.length--;
+    return this.stackOne.pop();
+  }
+
+  peek() {
+    if (this.length === 0) return console.log("The Queue is empty!");
+
+    return this.stackOne[this.length - 1];
+  }
+}
+
+/*------------------------*/
