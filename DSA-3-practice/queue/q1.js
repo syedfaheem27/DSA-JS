@@ -8,27 +8,25 @@ class Queue {
   }
 
   add(el) {
-    this.queue[this.end] = el;
-    this.end++;
+    this.queue[this.end++] = el;
     return this;
   }
 
   remove() {
     if (this.isEmpty) return console.log("The queue is empty");
 
-    let num = this.queue[this.start];
-    this.start++;
+    let num = this.queue[this.start++];
     return num;
   }
 
   peek() {
+    if (this.isEmpty) return console.log("The queue is empty!");
     return this.queue[this.start];
   }
 
   get isEmpty() {
     return this.length === 0 ? true : false;
   }
-
   get length() {
     return this.end - this.start;
   }
@@ -39,3 +37,46 @@ class Queue {
 //a circular queue
 
 /*-------------------------------------*/
+
+//Circular Queue of a fixed size
+
+class CircularQueue {
+  constructor(size) {
+    this.size = size;
+    this.length = 0;
+    this.front = 0;
+    this.back = 0;
+    this.queue = Array.from({ length: size });
+  }
+
+  add(el) {
+    if (this.length === this.size) return console.log("The Queue is full!");
+
+    this.queue[this.back] = el;
+    this.length++;
+    this.back = (this.back + 1) % this.size;
+
+    return this;
+  }
+
+  remove() {
+    if (this.isEmpty) return console.log("The queue is empty!");
+
+    let num = this.queue[this.front];
+    this.length--;
+    this.front = (this.front + 1) % this.size;
+
+    return num;
+  }
+
+  peek() {
+    if (this.isEmpty) return console.log("The Queue is empty!");
+    return this.queue[this.front];
+  }
+
+  get isEmpty() {
+    return this.length === 0 ? true : false;
+  }
+}
+
+/*--------------------------*/
