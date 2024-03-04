@@ -30,3 +30,31 @@ function nextSmallerEl(arr) {
 
   return arr;
 }
+
+/*-----------------------------*/
+
+//PROBLEM 2
+//FIND THE NEXT LARGER ELEMENT
+
+//Brute force - use two loops
+
+//Efficient approach TC O(N) & SC O(N)
+function nextGreaterEl(arr) {
+  let n = arr.length;
+  let stack = [];
+
+  for (let i = 0; i < n; i++) {
+    let el = arr[i];
+
+    for (; stack.length !== 0 && arr[stack[stack.length - 1]] < el; )
+      arr[stack.pop()] = el;
+
+    stack.push(i);
+  }
+
+  while (stack.length !== 0) arr[stack.pop()] = -1;
+
+  return arr;
+}
+
+/*--------------------*/

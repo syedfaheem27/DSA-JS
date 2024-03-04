@@ -42,41 +42,51 @@ class Queue {
 
 class CircularQueue {
   constructor(size) {
-    this.size = size;
     this.length = 0;
-    this.front = 0;
-    this.back = 0;
-    this.queue = Array.from({ length: size }, () => null);
+    this.queue = Array.from({ length: k }, () => null);
+    this.front = -1;
+    this.back = -1;
+    this.size = size;
   }
 
-  add(el) {
-    if (this.length === this.size) return console.log("The Queue is full!");
+  enQueue(el) {
+    if (this.isFull()) return console.log("The Queue is full!");
 
-    this.queue[this.back] = el;
+    this.back = ++this.back % this.size;
+    this.queue[this.back] = value;
     this.length++;
-    this.back = (this.back + 1) % this.size;
-
     return this;
   }
 
-  remove() {
-    if (this.isEmpty) return console.log("The queue is empty!");
+  deQueue() {
+    if (this.isEmpty()) return console.log("The Queue is empty!");
 
     let num = this.queue[this.front];
+    this.front = ++this.front % this.size;
     this.queue[this.front] = null;
     this.length--;
-    this.front = (this.front + 1) % this.size;
 
     return num;
   }
 
-  peek() {
-    if (this.isEmpty) return console.log("The Queue is empty!");
-    return this.queue[this.front];
+  Front() {
+    if (this.isEmpty()) return -1;
+
+    return this.queue[(this.front + 1) % this.size];
   }
 
-  get isEmpty() {
+  Rear() {
+    if (this.isEmpty()) return -1;
+
+    return this.queue[this.back];
+  }
+
+  isEmpty() {
     return this.length === 0 ? true : false;
+  }
+
+  isFull() {
+    return this.length === this.size ? true : false;
   }
 }
 
@@ -176,5 +186,8 @@ class QueueIII {
     return this.stackOne[this.length - 1];
   }
 }
+
+//Note: However, if we look at the average TC of the two appraoches while taking
+//all the operations into account, we see that the push heavy approach is more efficient
 
 /*------------------------*/
