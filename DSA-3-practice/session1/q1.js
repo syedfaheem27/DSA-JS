@@ -140,3 +140,112 @@ function nextGreaterElII(nums) {
   new_nums.length = nums.length;
   return new_nums;
 }
+
+/*-----------------------------*/
+
+//PROBLEM 5
+//COMPARE STRINGS
+
+/*
+PROBLEM DESCRIPTION
+
+Given 2 strings S and T containing lowercase and '#' characters. 
+You have to check whether these 2 strings are same or not when 
+typed into an editor('#' being the backspace character).
+
+
+Note: Backspacing an empty string remains an empty string only.
+*/
+
+//BRUTE FORCE APPROACH
+//TC O(N^2) & SC O(N)
+
+//TC O(N^2) because the second loop where we
+//remove elements or move back the idx pointer
+//that in worst case can go for additional n times
+//which makes the TC O(N^2)
+
+//This Approach does make use of an array
+//but the implementation would be same if we use a queue
+
+//When there are '#' symbols, remove characters from the queue
+//and when not, add characters
+function compareStrings(S, T) {
+  let n = S.length;
+  let m = T.length;
+
+  let result_1 = [];
+  let idx = 0;
+
+  for (let i = 0; i < n; i++) {
+    let count = 0;
+    while (S[i] === "#") {
+      count++;
+      i++;
+    }
+
+    while (count > 0 && idx > 0) {
+      idx--;
+      count--;
+    }
+    if (i < n) result_1[idx++] = S[i];
+  }
+
+  result_1.length = idx;
+
+  let result_2 = [];
+  idx = 0;
+
+  for (let i = 0; i < m; i++) {
+    let count = 0;
+    while (T[i] === "#") {
+      count++;
+      i++;
+    }
+
+    while (count > 0 && idx > 0) {
+      idx--;
+      count--;
+    }
+    if (i < m) result_2[idx++] = T[i];
+  }
+
+  result_2.length = idx;
+  if (result_1.length !== result_2.length) return false;
+
+  return result_1.join("") === result_2.join("");
+}
+
+//Better Approach
+
+//Better optimised when it comes to space
+//A stack based approach
+
+function compareStringsI(s, t) {
+  let stack_1 = [];
+
+  for (let i = 0; i < s.length; i++) {
+    if (stack_1.length !== 0 && s[i] === "#") {
+      stack_1.pop();
+      continue;
+    }
+    if (s[i] !== "#") stack_1.push(s[i]);
+  }
+
+  let stack_2 = [];
+  for (let i = 0; i < t.length; i++) {
+    if (stack_2.length !== 0 && t[i] === "#") {
+      stack_2.pop();
+      continue;
+    }
+    if (t[i] !== "#") stack_2.push(t[i]);
+  }
+
+  if (stack_1.length !== stack_2.length) return false;
+
+  while (stack_1.length !== 0) {
+    if (stack_1.pop() !== stack_2.pop()) return false;
+  }
+
+  return true;
+}
