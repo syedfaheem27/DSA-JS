@@ -112,3 +112,81 @@ function distinctElInWindowI(n, b, arr) {
 }
 
 /*-----------------------*/
+
+//PROBLEM 3
+
+//FIND MINIMUM ELEMENT IN STACK
+
+/*
+PROBLEM DESCRIPTION
+
+You are given to implement a stack which performs pushing, popping, 
+and has a function findMin() which returns the minimum element present in the stack.
+
+Push, pop and min should all operate in 0(1) time.
+*/
+
+function encodeEl(el, min) {
+  return 2n * el - min;
+}
+
+class MinStack {
+  constructor() {
+    this.stack = [];
+    this.minEl = -1n;
+  }
+
+  push(el) {
+    el = BigInt(el);
+    if (this.stack.length === 0) {
+      this.stack.push(el);
+      this.minEl = el;
+    } else if (this.minEl >= el) {
+      let encodedEl = encodeEl(el, this.minEl);
+      this.stack.push(encodedEl);
+      this.minEl = el;
+    } else this.stack.push(el);
+  }
+
+  pop() {
+    if (this.stack.length === 0) {
+      return "The stack is empty!!";
+    }
+
+    if (this.stack.length === 1) {
+      this.minEl = -1n;
+      return this.stack.pop();
+    }
+
+    let el = this.stack[this.stack.length - 1];
+    if (el <= this.minEl) {
+      let prev_min = 2n * this.minEl - el;
+      let to_be_popped = this.minEl;
+      this.minEl = prev_min;
+      this.stack.pop();
+      return to_be_popped;
+    }
+
+    return this.stack.pop();
+  }
+
+  get getMin() {
+    return this.minEl;
+  }
+  get top() {
+    if (this.stack.length === 0) return "The stack is empty!";
+
+    let el = this.stack[this.stack.length - 1];
+
+    if (el < this.minEl) {
+      return this.minEl;
+    }
+
+    return el;
+  }
+}
+
+//Since, we are encoding the values to be put in the array, we need to use BIgInt
+//to cater for the precision errors
+
+/*--------------------------*/
