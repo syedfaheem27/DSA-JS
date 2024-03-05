@@ -63,3 +63,52 @@ function validParenII(str) {
 }
 
 /*-----------------------*/
+
+//PROBLEM 2
+
+/*
+PROBLEM DESCRIPTION
+
+Given an array of N elements and an integer B, you have
+ to find the count of distinct numbers in all windows of size B.
+
+You have to return an array of size N-B+1 where i'th element in 
+the array is the number of distinct elements in sequence Ai, 
+Ai+1 ,..., Ai+B-1. If B > N, return an empty array.
+*/
+
+//Efficient approach
+//Using sliding window pattern and a map
+
+/**
+ *
+ * @param {number} n
+ * @param {number} b
+ * @param {number[]} a
+ * @returns {number[]}
+ */
+
+function distinctElInWindowI(n, b, arr) {
+  let map = new Map();
+
+  let res_arr = [];
+
+  for (let i = 0; i < b; i++) map.set(arr[i], map.get(arr[i]) + 1 || 1);
+
+  res_arr.push(map.size);
+
+  for (let i = b; i < n; i++) {
+    map.set(arr[i], map.get(arr[i]) + 1 || 1);
+
+    let l = i - b;
+
+    if (map.get(arr[l]) === 1) map.delete(arr[l]);
+    else map.set(arr[l], map.get(arr[l]) - 1);
+
+    res_arr.push(map.size);
+  }
+
+  return res_arr;
+}
+
+/*-----------------------*/
