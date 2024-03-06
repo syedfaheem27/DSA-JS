@@ -4,6 +4,7 @@
 //2. Zig-Zag Level Order Traversal
 
 const TreeNode = require("./TreeNode");
+const { Queue } = require("../queue/queue");
 
 //Sample tree
 const root = new TreeNode(1);
@@ -69,3 +70,125 @@ function pushNodeVal({ root, level, arr }) {
 
   return;
 }
+
+/*---------------------------------------------------*/
+
+//Efficient Approach
+
+//Using Queues
+
+//TC O(N) & SC O(N)
+
+function levelOrderII(root) {
+  let queue = new Queue();
+  let res_arr = [];
+
+  queue.add(root);
+
+  while (!queue.isEmpty) {
+    let el = queue.remove();
+
+    if (el.left !== null) queue.add(el.left);
+
+    if (el.right !== null) queue.add(el.right);
+
+    res_arr.push(el.val);
+  }
+
+  return res_arr;
+}
+
+/*---------------------------------------------*/
+
+//PROBLEM 3
+
+//A different variation
+
+/*
+Input: root = [3,9,20,null,null,15,7]
+Output: [[3],[9,20],[15,7]]
+
+The value of nodes at each level should be in the same array
+
+*/
+
+//TC O(H*N) & SC O(N) - Auxillary space
+function levelOrderIII(root) {
+  let res_arr = [];
+
+  let height = calcHeight(root);
+  for (let i = 1; i <= height; i++) {
+    pushNodeValI({
+      root,
+      level: i,
+      arr: res_arr,
+      height,
+      curr_level: 1,
+    });
+  }
+
+  return res_arr;
+}
+
+function pushNodeValI({ root, level, arr, height, curr_level }) {
+  if (curr_level > level || root === null || curr_level > height) return;
+
+  if (curr_level === level) {
+    if (!arr[level - 1]) arr[level - 1] = [];
+
+    arr[level - 1].push(root.val);
+    return;
+  }
+
+  pushNodeValI({
+    root: root.left,
+    level,
+    height,
+    curr_level: curr_level + 1,
+    arr,
+  });
+
+  pushNodeValI({
+    root: root.right,
+    level,
+    height,
+    curr_level: curr_level + 1,
+    arr,
+  });
+
+  return;
+}
+
+//Using Queues
+
+// Input: root = [3, 9, 20, null, null, 15, 7];
+// Output: [[3], [9, 20], [15, 7]];
+
+function levelOrderIV(root) {
+  if (root === null) return [];
+
+  let queue = new Queue();
+  let res_arr = [];
+
+  queue.add(root);
+
+  while (!queue.isEmpty) {
+    let count = queue.length;
+    let row = [];
+
+    for (let i = 0; i < count; i++) {
+      let el = queue.remove();
+
+      if (el.left !== null) queue.add(el.left);
+
+      if (el.right !== null) queue.add(el.right);
+
+      row.push(el.val);
+    }
+
+    res_arr.push(row);
+  }
+  return res_arr;
+}
+
+/*----------------------------------*/
