@@ -190,3 +190,32 @@ class MinStack {
 //to cater for the precision errors
 
 /*--------------------------*/
+
+//PROBLEM 4
+
+//FIRST UNIQUE INTEGER
+
+/*
+PROBLEM DESCRIPTION
+
+Given an array of integers, return the first integer with no duplicate.
+If there's no such integer, return -1
+*/
+
+//Brute force - use two loops TC O(N2) & SC O(1)
+
+//Efficient Approach - TC O(N) & SC O(N)
+function uniqueNumbers(arr) {
+  let n = arr.length;
+  let map = new Map();
+
+  for (let i = 0; i < n; i++) map.set(arr[i], map.get(arr[i]) + 1 || 1);
+
+  for (let [key, value] of map) {
+    if (value === 1) return key;
+  }
+
+  return -1;
+}
+
+/*------------------------------*/
