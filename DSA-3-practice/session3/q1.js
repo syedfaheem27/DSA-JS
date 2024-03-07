@@ -140,3 +140,52 @@ function longestPalindrome(str) {
 /*-------------------------------*/
 
 //TODO: Find the longest palindromic substring in a string - leetcode
+
+//PROBLEM 3
+
+//TOP K MOST FREQUENT WORDS
+
+/*
+Problem Description
+
+You are given a list of words present in a book. 
+Your younger brother is really curious to know the 
+K most frequent words in the book, you have to find them.
+
+Your answer should be sorted by frequency from highest to lowest. 
+If two words have the same frequency, then the word with the lower
+alphabetical order should come first.
+
+Sample Input
+car bus car
+2
+
+Sample Output
+car 
+bus
+*/
+
+//Efficient appraoch using hashing
+
+//TC O(nlog(n)) & SC O(n)
+function topK(words, k) {
+  let map = new Map();
+  for (let i = 0; i < words.length; i++)
+    map.set(words[i], map.get(words[i]) + 1 || 1);
+
+  let res_arr = Array.from(map.entries());
+
+  res_arr.sort((a, b) => {
+    if (a[1] !== b[1]) return b[1] - a[1];
+    else {
+      if (a[0] <= b[0]) return -1;
+      else return 1;
+    }
+  });
+
+  let new_arr = res_arr.map((el) => el[0]);
+  new_arr.length = k;
+  return new_arr;
+}
+
+/*------------------------------_*/
