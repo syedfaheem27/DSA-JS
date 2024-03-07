@@ -98,3 +98,45 @@ function areEqualMaps(map1, map2) {
 }
 
 /*--------------------------------------*/
+
+//PROBLEM 2
+
+//FIND THE LONGEST PALINDROME FROM A STRING
+
+/*
+PROBLEM DESCRIPTION
+
+You are given a string consisting of lower and upper case characters.
+You need to find the length of the longest palindrome which you can create by using the characters from the string.
+Note: Upper case and lower case characters are different from each other i.e, "Aa" is not a palindrome as 'A' != 'a'.
+*/
+
+//brute force - to check all the possible substrings - TC O(N2)
+
+//Efficient Approach Using Maps
+
+//TC O(N) & SC O(N)
+function longestPalindrome(str) {
+  let n = str.length;
+  let map = new Map();
+
+  for (let i = 0; i < n; i++) map.set(str[i], map.get(str[i]) + 1 || 1);
+
+  let max_len = 0;
+  let isUnique = false;
+
+  for (let [_, val] of map) {
+    if (val % 2 === 0) {
+      max_len += val;
+    } else {
+      isUnique = true;
+      max_len += val - 1;
+    }
+  }
+
+  return isUnique ? max_len + 1 : max_len;
+}
+
+/*-------------------------------*/
+
+//TODO: Find the longest palindromic substring in a string - leetcode
