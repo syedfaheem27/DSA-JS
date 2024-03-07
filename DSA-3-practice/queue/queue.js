@@ -191,3 +191,5 @@ class QueueIII {
 //all the operations into account, we see that the push heavy approach is more efficient
 
 /*------------------------*/
+
+exports.Queue = Queue;

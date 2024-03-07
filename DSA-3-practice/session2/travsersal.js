@@ -164,6 +164,7 @@ function pushNodeValI({ root, level, arr, height, curr_level }) {
 // Input: root = [3, 9, 20, null, null, 15, 7];
 // Output: [[3], [9, 20], [15, 7]];
 
+//TC O(N) & SC O(N)
 function levelOrderIV(root) {
   if (root === null) return [];
 
@@ -192,3 +193,45 @@ function levelOrderIV(root) {
 }
 
 /*----------------------------------*/
+
+//PROBLEM 4
+
+//ZIG ZAG LEVEL ORDER TRAVERSAL
+
+/*
+PROBLEM DESCRIPTION
+
+Given a binary tree, return the zigzag level order traversal of 
+its nodes' values.
+
+(i.e. from left to right, then right to left for the next level 
+  and alternate for every level).
+*/
+
+function zigzagLevelOrderTraversal(root) {
+  let queue = new Queue();
+  let res_arr = [];
+  queue.add(root);
+  let height = 1;
+  while (!queue.isEmpty) {
+    let len = queue.length;
+    let row = [];
+    for (let i = 0; i < len; i++) {
+      let el = queue.remove();
+
+      if (el.left !== null) queue.add(el.left);
+
+      if (el.right !== null) queue.add(el.right);
+
+      row.push(el.val);
+    }
+    if (height % 2 === 0) row.reverse();
+    res_arr.push(...row);
+
+    height++;
+  }
+
+  console.log(res_arr);
+}
+
+zigzagLevelOrderTraversal(root);
