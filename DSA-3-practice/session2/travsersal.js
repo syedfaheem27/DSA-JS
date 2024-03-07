@@ -208,6 +208,7 @@ its nodes' values.
   and alternate for every level).
 */
 
+//TC O(N) & SC O(N)
 function zigzagLevelOrderTraversal(root) {
   let queue = new Queue();
   let res_arr = [];
@@ -233,5 +234,3 @@ function zigzagLevelOrderTraversal(root) {
 
   console.log(res_arr);
 }
-
-zigzagLevelOrderTraversal(root);

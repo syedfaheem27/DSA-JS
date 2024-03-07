@@ -30,7 +30,7 @@ function anagramPatternI(s, p) {
   let front = n - 1,
     back = 0;
   let resArr = [];
-  let _s = s.split("").sort().join("");
+  let s_ = s.split("").sort().join("");
   let temp;
   while (front < p.length) {
     temp = p
@@ -39,7 +39,7 @@ function anagramPatternI(s, p) {
       .sort()
       .join("");
 
-    if (temp === _s) {
+    if (temp === s_) {
       resArr.push(back);
       front++;
       back++;
