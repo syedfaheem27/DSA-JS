@@ -15,30 +15,29 @@ class LinkedList {
 
   insertElement(idx, val) {
     if (idx < 0 || idx > this.length) return console.log("Enter a valid index");
-    else {
-      let newNode = new Node(val);
 
-      if (idx === 0) {
-        newNode.next = this.head;
-        this.head = newNode;
-      } else if (idx === this.length) {
-        this.tail.next = newNode;
-        this.tail = newNode;
-      } else {
-        let currNode = this.head;
-        let nextNode = currNode.next;
+    let newNode = new Node(val);
 
-        for (let i = 1; i < idx; i++) {
-          currNode = nextNode;
-          nextNode = nextNode.next;
-        }
+    if (idx === 0) {
+      newNode.next = this.head;
+      this.head = newNode;
+    } else if (idx === this.length) {
+      this.tail.next = newNode;
+      this.tail = newNode;
+    } else {
+      let currNode = this.head;
+      let nextNode = currNode.next;
 
-        currNode.next = newNode;
-        newNode.next = nextNode;
+      for (let i = 1; i < idx; i++) {
+        currNode = nextNode;
+        nextNode = nextNode.next;
       }
 
-      this.length++;
+      currNode.next = newNode;
+      newNode.next = nextNode;
     }
+
+    this.length++;
   }
 
   //add element at the end

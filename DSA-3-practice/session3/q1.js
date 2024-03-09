@@ -189,3 +189,72 @@ function topK(words, k) {
 }
 
 /*------------------------------_*/
+
+//PROBLEM 4
+
+//REMOVE DUPLICATES FROM THE STRING
+
+/*
+PROBLEM DESCRIPTION
+
+You are given a string s, consisting of lowercase letters. You need to make duplicate removal on s until you no longer can.
+
+A duplicate removal consists of choosing two adjacent equal characters and removing both of them.
+Return the final string after all such duplicate removals have been made. 
+
+Sample Input 
+abbaca
+
+Sample Output
+ca
+
+*/
+
+//TC O(N) & SC O(N)
+function removeDuplicates(str) {
+  let stack = [];
+
+  for (let i = 0; i, str.length; i++) {
+    if (stack?.[stack.length] === str[i]) {
+      stack.pop();
+      continue;
+    }
+
+    stack.push(str[i]);
+  }
+
+  return stack.join("");
+}
+
+/*----------------------------------------------*/
+
+//PROBLEM 5
+
+/*
+PROBLEM DESCRIPTION
+
+Problem Description
+
+You are given two strings and an integer k,find whether the given two strings 
+are similar or not. Two given strings s1 and s2 are similar if for each character 
+the difference between the frequency of that character in s1 and s2 is at most k. 
+If the given strings are similar then print Yes otherwise print No. 
+(Note : Both strings s1 and s2 are in lowercase )
+*/
+
+//TC O(N) & SC O(1)
+function checkSimilarStrings(str1, str2, k) {
+  let map = new Map();
+
+  for (let i = 0; i < n; i++) map.set(str1[i], map.get(str1[i]) + 1 || 1);
+
+  for (let i = 0; i < m; i++) {
+    if (!map.has(str2[i])) map.set(str2[i], 0);
+
+    map.set(str2[i], map.get(str2[i]) - 1);
+  }
+
+  for (let [_, val] of map) if (Math.abs(val) > k) return false;
+
+  return true;
+}
