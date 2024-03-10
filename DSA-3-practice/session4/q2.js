@@ -109,3 +109,41 @@ function deleteNodeI(node) {
 
   prev_node.next = null;
 }
+
+/*-------------------------------------*/
+
+//PROBLEM 3
+
+//DELETE Kth Node from the end
+
+/*
+Problem Description
+
+Given a linked list, remove the Kth node from the end of the list and return its head.
+
+Note: the given K will always be a valid node.
+*/
+
+function deleteKthNodeEnd(head, k) {
+  let curr_node = head;
+
+  for (let i = 0; i < k; i++) curr_node = curr_node.next;
+
+  //Handling the case when k===n
+
+  if (curr_node === null) {
+    head = head.next;
+    return head;
+  }
+
+  let prev_node = head;
+
+  while (curr_node.next !== null) {
+    curr_node = curr_node.next;
+    prev_node = prev_node.next;
+  }
+
+  prev_node.next = prev_node.next.next;
+
+  return head;
+}
