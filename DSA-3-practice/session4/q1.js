@@ -43,17 +43,6 @@ function removeDuplicatesI(head) {
   return head;
 }
 
-const ll = new ListNode(3);
-const ll_1 = new ListNode(1);
-const ll_2 = new ListNode(3);
-const ll_3 = new ListNode(1);
-const ll_4 = new ListNode(4);
-
-ll.next = ll_1;
-ll_1.next = ll_2;
-ll_2.next = ll_3;
-ll_3.next = ll_4;
-
 //Efficient Approach
 //Using maps
 
@@ -101,5 +90,3 @@ function removeDuplicatesIII(head) {
 
   return head;
 }
-
-console.log(removeDuplicatesIII(ll));

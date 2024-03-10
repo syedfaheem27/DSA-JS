@@ -103,4 +103,30 @@ class LinkedList {
     this.length--;
     return;
   }
+
+  reverse() {
+    if (this.length === 0) return "The Linked List is Empty!";
+    if (this.length === 1) return this.head;
+
+    let prev_head = this.head;
+
+    let prev_node = null;
+    let curr_node = this.head;
+    let next_node;
+
+    while (curr_node !== null) {
+      next_node = curr_node.next;
+      curr_node.next = prev_node;
+      prev_node = curr_node;
+      curr_node = next_node;
+    }
+
+    this.head = prev_node;
+    this.tail = prev_head;
+
+    return this.head;
+  }
 }
+
+exports.LinkedList = LinkedList;
+exports.Node = Node;
