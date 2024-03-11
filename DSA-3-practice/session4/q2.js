@@ -17,31 +17,31 @@ In the case of a list with an even number of nodes, use the second middle one.
 
 function middleNodeI(head) {
   let len = 0;
-  let curr_node = head;
+  let prev = head;
 
-  while (curr_node !== null) {
+  while (prev !== null) {
     len++;
-    curr_node = curr_node.next;
+    prev = prev.next;
   }
 
   let desired_pos = len % 2 === 0 ? len / 2 + 1 : Math.ceil(len / 2);
 
   let pos = 1;
 
-  let prev_node = null;
-  curr_node = head;
+  let curr = null;
+  prev = head;
 
   while (pos !== desired_pos) {
-    prev_node = curr_node;
-    curr_node = curr_node.next;
+    curr = prev;
+    prev = prev.next;
     pos++;
   }
 
-  prev_node.next = curr_node.next;
+  curr.next = prev.next;
 
-  curr_node.next = head;
+  prev.next = head;
 
-  return curr_node;
+  return prev;
 }
 
 const ll = new Node(1);
@@ -98,16 +98,16 @@ function deleteNodeI(node) {
   let currNode = node,
     nextNode = node.next;
 
-  let prev_node;
+  let curr;
 
   while (nextNode !== null) {
     currNode.val = nextNode.val;
-    prev_node = currNode;
+    curr = currNode;
     currNode = currNode.next;
     nextNode = nextNode.next;
   }
 
-  prev_node.next = null;
+  curr.next = null;
 }
 
 /*-------------------------------------*/
@@ -125,25 +125,92 @@ Note: the given K will always be a valid node.
 */
 
 function deleteKthNodeEnd(head, k) {
-  let curr_node = head;
+  let prev = head;
 
-  for (let i = 0; i < k; i++) curr_node = curr_node.next;
+  for (let i = 0; i < k; i++) prev = prev.next;
 
   //Handling the case when k===n
 
-  if (curr_node === null) {
+  if (prev === null) {
     head = head.next;
     return head;
   }
 
-  let prev_node = head;
+  let curr = head;
 
-  while (curr_node.next !== null) {
-    curr_node = curr_node.next;
+  while (prev.next !== null) {
+    prev = prev.next;
+    curr = curr.next;
+  }
+
+  curr.next = curr.next.next;
+
+  return head;
+}
+
+/*-----------------------------------------------*/
+
+//PROBLEM 4
+
+//INSERT INTO A SORTED CIRCULAR LINKED LIST
+
+/*
+PROBLEM DESCRIPTION
+
+Given a pointer to a node in a sorted circular singly linked 
+list( sorted in ascending order), write a function to insert 
+a value K into the list such that the linked list still 
+remains a sorted circular list.
+
+Note1: If the given pointer is null i.e. empty list, 
+create a circular list with a new node and return the 
+reference to the new node. Otherwise,return the initial 
+input pointer given.
+
+Note2: The list could have duplicate values. 
+You can insert the new value in any place 
+which will keep the list sorted.
+*/
+
+function insertIntoSortedList(head, data) {
+  if (head === null) {
+    return new Node(data);
+  }
+
+  let prev_node = head,
+    curr_node = null;
+
+  while (prev_node.next !== head) {
+    curr_node = prev_node.next;
+
+    //Case I : If the node to be inserted lies in between the head
+    // and the point where rotation happens
+    if (prev_node.val <= data && curr_node.val >= data) {
+      insertNewNode(prev_node, curr_node, data);
+      return head;
+    }
+
+    //Case II : If the node to be inserted is at the point of rotation
+    if (prev_node.val > curr_node.val) {
+      if (prev_node.val <= data || data <= curr_node.val) {
+        insertNewNode(prev_node, curr_node, data);
+        return head;
+      }
+    }
+
     prev_node = prev_node.next;
   }
 
-  prev_node.next = prev_node.next.next;
-
+  //CASE-III: In cases where there is only a single node or all the values of nodes are equal
+  //and the value to be inserted is greater or less than the node values
+  //if equal - it will be handled in the while loop above
+  insertNewNode(prev_node, head, data);
   return head;
+}
+
+function insertNewNode(prev, curr, val) {
+  let node = new Node(val);
+  node.next = curr;
+  prev.next = node;
+  return;
 }
