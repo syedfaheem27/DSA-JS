@@ -190,3 +190,93 @@ function deepCopyLinkedList(head) {
 }
 
 /*-----------------------------*/
+
+//PROBLEM 3 : MERGE 2 SORTED LINKED LIST
+
+/*
+PROBLEM DESCRIPTION
+
+Given 2 sorted linked lists, merge them into a new sorted linked list 
+and return head of the merged list. The new list should be made by 
+splicing (adjusting the pointers) together the nodes of the first two lists.
+*/
+
+//BRUTE FORCE - CREATE A NEW LINKED LIST - TC O(M+N) & SC O(1)
+
+//EFFICIENT APPROACH - TC O(M+N) & SC O(1)
+
+function mergeLists(head1, head2) {
+  let head, p1, p2;
+
+  if (head1.val <= head2.val) {
+    head = head1;
+    p1 = head.next;
+    p2 = head2;
+  } else {
+    head = head2;
+    p1 = head.next;
+    p2 = head1;
+  }
+
+  let prev_node = head;
+
+  while (p1 !== null && p2 !== null) {
+    if (p1.val <= p2.val) {
+      prev_node.next = p1;
+      prev_node = prev_node.next;
+      p1 = p1.next;
+    } else {
+      prev_node.next = p2;
+      prev_node = prev_node.next;
+      p2 = p2.next;
+    }
+  }
+
+  while (p1 !== null) {
+    prev_node.next = p1;
+    prev_node = prev_node.next;
+    p1 = p1.next;
+  }
+
+  while (p2 !== null) {
+    prev_node.next = p2;
+    prev_node = prev_node.next;
+    p2 = p2.next;
+  }
+
+  return head;
+}
+
+//Better readable code
+function mergeListsI(l1, l2) {
+  let head = new Node(-1);
+
+  let p1 = l1,
+    p2 = l2;
+  let prev = head;
+
+  while (p1 !== null && p2 !== null) {
+    if (p1.val <= p2.val) {
+      prev.next = p1;
+      p1 = p1.next;
+    } else {
+      prev.next = p2;
+      p2 = p2.next;
+    }
+    prev = prev.next;
+  }
+
+  while (p1 !== null) {
+    prev.next = p1;
+    prev = prev.next;
+    p1 = p1.next;
+  }
+
+  while (p2 !== null) {
+    prev.next = p2;
+    prev = prev.next;
+    p2 = p2.next;
+  }
+
+  return head.next;
+}
