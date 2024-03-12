@@ -122,3 +122,71 @@ function reOrderListI(head, x) {
   great_tail.next = null;
   return small_head.next;
 }
+
+/*------------------------------------*/
+
+//PROBLEM 2: CREATE A COPY OF THE GIVEN LINKED LIST
+
+/*
+PROBLEM DESCRIPTION
+
+A linked list is given such that each node contains an additional random 
+pointer which could point to any node in the list or null.
+
+Return a deep copy of the list i.e. the head of the copied linked list.
+
+The deep copy should consist of exactly n brand new nodes, where each new 
+node has its value set to the value of its corresponding original node. 
+Both the next and random pointer of the new nodes should point to new 
+nodes in the copied list such that the pointers in the original list 
+and copied list represent the same list state. None of the pointers 
+in the new list should point to nodes in the original list.
+
+For example, if there are two nodes X and Y in the original list, 
+where X.random --> Y, then for the corresponding two nodes x and y 
+in the copied list, x.random --> y.
+
+The original list should be restored if modified.
+*/
+
+//Brute force approach
+//TC O(N) - 2 traversals and SC O(N)
+function deepCopyLinkedList(head) {
+  let node_copy = new Node(-1);
+  let prev_node = node_copy;
+
+  let curr_node = head;
+
+  while (curr_node !== null) {
+    prev_node.next = new Node(curr_node.val);
+    prev_node = prev_node.next;
+
+    curr_node.copy = prev_node;
+    curr_node = curr_node.next;
+  }
+
+  curr_node = head;
+
+  while (curr_node !== null) {
+    let copy_node = curr_node.copy;
+    if (curr_node.random === null) {
+      copy_node.random = null;
+    } else {
+      copy_node.random = curr_node.random.copy;
+    }
+
+    curr_node = curr_node.next;
+  }
+
+  //Restoring the original list
+
+  curr_node = head;
+  while (curr_node !== null) {
+    delete curr_node.copy;
+    curr_node = curr_node.next;
+  }
+
+  return node_copy.next;
+}
+
+/*-----------------------------*/
