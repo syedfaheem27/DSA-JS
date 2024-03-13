@@ -350,3 +350,98 @@ function getLengthOfList(head) {
 }
 
 /*--------------------------------------*/
+
+//PROBLEM 5 : ADD TWO NUMBERS REPRESENTED AS LINKED LISTS
+
+/*
+Problem Description
+
+You’re given two numbers represented by two linked lists, where each node contains 
+a single digit. The digits are stored in forward order i.e the one’s digit is at 
+the tail of the list. Write a function that adds the two numbers and returns the 
+sum as a linked list in the same order.
+*/
+
+//BRUTE FORCE TC O(N) 3 traversals and SC O(1) if the original structure of the linked lists
+//shouldn't be maintained
+
+function addLists(headA, headB) {
+  let { length: lenA, head: rev_A } = reverseList(headA);
+  let { length: lenB, head: rev_B } = reverseList(headB);
+
+  let long_head = lenA >= lenB ? rev_A : rev_B;
+
+  let short_head = long_head === rev_A ? rev_B : rev_A;
+
+  let carry = 0;
+
+  let res_head = new Node(-1),
+    ref = res_head;
+
+  while (long_head !== null && short_head !== null) {
+    let sum = carry + long_head.val + short_head.val;
+
+    ref.next = new Node(sum % 10);
+    carry = Math.floor(sum / 10);
+
+    long_head = long_head.next;
+    short_head = short_head.next;
+
+    ref = ref.next;
+  }
+
+  while (long_head !== null) {
+    let sum = carry + long_head.val;
+
+    ref.next = new Node(sum % 10);
+
+    carry = Math.floor(sum / 10);
+
+    long_head = long_head.next;
+    ref = ref.next;
+  }
+
+  if (carry !== 0) {
+    ref.next = new Node(carry);
+    ref = ref.next;
+  }
+
+  return reverseList(res_head.next).head;
+}
+
+function reverseList(head) {
+  if (head === null) return head;
+
+  let prev_node = null,
+    next_node,
+    curr_node = head;
+
+  let len = 0;
+
+  while (curr_node !== null) {
+    next_node = curr_node.next;
+    curr_node.next = prev_node;
+    prev_node = curr_node;
+
+    curr_node = next_node;
+    len++;
+  }
+
+  return { head: prev_node, length: len };
+}
+
+const a1 = new Node(9);
+const a2 = new Node(8);
+const a3 = new Node(7);
+
+const a4 = new Node(9);
+const a5 = new Node(8);
+const a6 = new Node(7);
+
+a1.next = a2;
+a2.next = a3;
+
+a4.next = a5;
+a5.next = a6;
+
+console.log(addLists(a1, a4));
