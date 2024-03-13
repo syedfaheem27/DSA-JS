@@ -280,3 +280,73 @@ function mergeListsI(l1, l2) {
 
   return head.next;
 }
+
+/*-------------------------------------*/
+
+//PROBLEM 4: FIND THE INTERSECTION POINT OF TWO LISTS
+
+/*
+PROBLEM DESCRIPTION
+
+There are 2 LLs, and they intersect at a node N, after which they merge into 1 list.
+
+Write a program to find the node at which the intersection of two singly linked lists begins.
+
+Note :
+
+    If the two linked lists have no intersection at all, return null.
+
+    The linked lists must retain their original structure after the function returns.
+
+    You may assume there are no cycles anywhere in the entire linked structure.
+
+    Your code should preferably run in O(M + N) time where M and N are the lengths of given lists and use only O(1) memory.
+
+*/
+
+//If we didn't care about retaining the original structure of the linked lists
+//we would have used the mark and verify pattern. The first marked node would have been
+//the intersection and in case of equal length lists, we just compare the addresses of the
+//nodes after checking if the node is marked or not
+
+//TC O(max(M,N)) & SC O(M+N)
+
+//Constant space approach
+
+function intersectionOfLists(head1, head2) {
+  let len1 = getLengthOfList(head1),
+    len2 = getLengthOfList(head2);
+
+  let long_head = len1 >= len2 ? head1 : head2;
+  let short_head = long_head === head1 ? head2 : head1;
+
+  let diff = Math.abs(len1 - len2);
+
+  let ref_long = long_head;
+
+  for (let i = 0; i < diff; i++) ref_long = ref_long.next;
+
+  let ref_short = short_head;
+
+  while (ref_short !== null && ref_long !== null) {
+    if (ref_long === ref_short) return ref_long;
+
+    ref_long = ref_long.next;
+    ref_short = ref_short.next;
+  }
+
+  return null;
+}
+
+function getLengthOfList(head) {
+  let ref = head;
+  let len = 0;
+  while (ref !== null) {
+    len++;
+    ref = ref.next;
+  }
+
+  return len;
+}
+
+/*--------------------------------------*/
