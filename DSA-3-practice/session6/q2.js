@@ -150,3 +150,93 @@ function reverseList(head, tail) {
 
   return null;
 }
+
+/*-----------------------------------*/
+
+//PROBLEM 3 : GROUP NODES BASED ON THEIR INDICES IN THE LINKED LIST
+
+/*
+PROBLEM DESCRIPTION
+
+Given the head of a singly linked list, group all the nodes with odd indices 
+together followed by the nodes with even indices, and return the reordered list.
+
+The first node is considered odd, and the second node is even, and so on.
+
+Note that the relative order inside both the even and odd groups should remain 
+as it was in the input.
+
+Sample Input 
+
+1 5 3 4 8
+Sample Output 
+
+1 3 8 5 4
+*/
+
+//Approach 1
+//TC O(n) & SC O(1)
+function reArrange(head) {
+  if (head === null || head.next === null || head.next.next === null)
+    return head;
+
+  let even_prev = null,
+    odd_prev = null;
+
+  let even_head = head.next;
+
+  let bool_odd = false;
+
+  let curr = head,
+    next;
+
+  while (curr !== null && curr.next !== null) {
+    bool_odd = !bool_odd;
+
+    next = curr.next;
+    curr.next = curr.next.next;
+
+    if (bool_odd) odd_prev = curr;
+    else even_prev = curr;
+
+    curr = next;
+  }
+
+  //If even length list
+  if (curr === even_prev.next) {
+    odd_prev.next = even_head;
+    return head;
+  } else {
+    curr.next = even_head;
+    return head;
+  }
+}
+
+//Approach 2 : Different approach but with same TC
+
+function reArrangeI(head) {
+  if (!head || !head.next) return head;
+
+  let first_even = head.next;
+
+  let curr_odd = head,
+    curr_even = head.next;
+
+  let next_even = null,
+    next_odd = null;
+
+  while (curr_even !== null && curr_even.next !== null) {
+    next_odd = curr_even.next;
+    next_even = next_odd.next;
+
+    curr_odd.next = next_odd;
+    curr_even.next = next_even;
+
+    curr_odd = next_odd;
+    curr_even = next_even;
+  }
+
+  curr_odd.next = first_even;
+
+  return head;
+}
