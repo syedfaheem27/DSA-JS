@@ -27,7 +27,7 @@ function getDiameter(obj, root) {
   let left_height = getDiameter(obj, root.left);
   let right_height = getDiameter(obj, root.right);
 
-  obj.dia = Math.max(obj.dia, 2 * (left_height + right_height));
+  obj.dia = Math.max(obj.dia, left_height + right_height);
 
   return Math.max(left_height, right_height) + 1;
 }
