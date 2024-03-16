@@ -120,3 +120,64 @@ function rightViewI(root) {
 
   return res;
 }
+
+/*----------------------------------------*/
+
+//PROBLEM 3: CREATE A MIRROR BINARY TREE
+
+/*
+PROBLEM DESCRIPTION
+
+Given a binary tree, return the root of the mirror binary tree. 
+Mirror binary tree of a binary tree is a binary tree with left and right children of all nodes interchanged.
+*/
+
+//Invert a binary tree with a root node having only left and right node
+//Simply do this at each node.
+//Use a pre-order traversal
+
+//TC O(N) & SC O(N) since we're creating new nodes-excluding auxillary space
+class TreeNode {
+  constructor(val) {
+    this.val = val;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+function mirrorTree(root) {
+  if (root === null) return root;
+
+  let root_copy = new TreeNode(root.val);
+
+  createMirror(root, root_copy);
+}
+
+function createMirror(root, root_copy) {
+  if (root === null) return;
+
+  if (root.left !== null) root_copy.right = new TreeNode(root.left.val);
+
+  if (root.right !== null) root_copy.left = new TreeNode(root.right.val);
+
+  createMirror(root.left, root_copy.right);
+  createMirror(root.right, root_copy.left);
+
+  return;
+}
+
+//Using constant space SC O(1)
+
+function mirrorTreeI(root) {
+  if (root === null) return root;
+
+  let temp;
+  temp = root.left;
+  root.left = root.right;
+  root.right = temp;
+
+  mirrorTreeI(root.left);
+  mirrorTreeI(root.right);
+
+  return root;
+}
