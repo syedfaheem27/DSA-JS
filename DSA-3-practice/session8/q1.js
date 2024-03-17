@@ -110,3 +110,31 @@ function topViewI(root) {
 
   return res;
 }
+
+/*----------------------------------------*/
+
+//PROBLEM 2: FIND THE LCA OF THE BINARY TREE
+
+/*
+PROBLEM DESCRIPTION
+
+Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree. 
+LCA between two nodes p and q is defined as the lowest node in the tree that has both p and 
+q as descendants (where we allow a node to be a descendant of itself)
+*/
+
+function lowestCommonAncestor(root, p, q) {
+  if (root === null) return null;
+
+  if (root === p || root === q) return root;
+
+  let l1 = lowestCommonAncestor(root.left, p, q);
+  let l2 = lowestCommonAncestor(root.right, p, q);
+
+  if (l1 !== null && l2 !== null) return root;
+
+  if (l1 !== null) return l1;
+  if (l2 !== null) return l2;
+
+  return null;
+}
