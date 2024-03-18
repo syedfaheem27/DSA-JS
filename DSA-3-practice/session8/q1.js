@@ -179,3 +179,83 @@ function constructBinaryTree(preorder, inorder) {
     return root;
   };
 }
+
+/*---------------------------------*/
+
+//PROBLEM 4 : BOUNDARY LEVEL TRAVERSAL OF A BINARY TREE
+
+/*
+PROBLEM DESCRIPTION
+
+Given a binary tree, print boundary nodes of the binary tree Anti-Clockwise 
+starting from the root. The boundary includes left boundary, leaves, and right boundary in order.
+*/
+
+function boundaryLevelTraversal(root) {
+  if (root === null) return [];
+
+  //This case needs to be added if there's only one node
+  //In that case we will push it first in the main function
+  //and then since in leafNodeTraversal function, it will be pushed
+  //into the array again because it's also a leaf node
+  if (root !== null && root.left === null && root.right === null)
+    return [root.val];
+
+  let res_arr = [];
+
+  res_arr.push(root.val);
+
+  leftSubTreeTraversal(root.left, res_arr);
+  leafNodeTraversal(root, res_arr);
+  rightSubTreeTraversal(root.right, res_arr);
+
+  return res_arr;
+}
+
+function leftSubTreeTraversal(root, arr) {
+  if (root === null) return;
+
+  if (root.left !== null) {
+    arr.push(root.val);
+    leftSubTreeTraversal(root.left, arr);
+    return;
+  }
+
+  if (root.right !== null) {
+    arr.push(root.val);
+    leftSubTreeTraversal(root.right, arr);
+    return;
+  }
+
+  return;
+}
+
+function leafNodeTraversal(root, arr) {
+  if (root === null) return;
+
+  if (root.left === null && root.right === null) {
+    arr.push(root.val);
+    return;
+  }
+
+  leafNodeTraversal(root.left, arr);
+  leafNodeTraversal(root.right, arr);
+}
+
+function rightSubTreeTraversal(root, arr) {
+  if (root === null) return;
+
+  if (root.right !== null) {
+    rightSubTreeTraversal(root.right, arr);
+    arr.push(root.val);
+    return;
+  }
+
+  if (root.left !== null) {
+    rightSubTreeTraversal(root.left, arr);
+    arr.push(root.val);
+    return;
+  }
+
+  return;
+}
