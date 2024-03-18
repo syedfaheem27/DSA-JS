@@ -138,3 +138,44 @@ function lowestCommonAncestor(root, p, q) {
 
   return null;
 }
+
+/*---------------------------------------------*/
+
+//PROBLEM 3: CONSTRUCT A BINARY TREE FROM PRE-ORDER AND IN-ORDER
+class TreeNode {
+  constructor(val) {
+    this.val = val;
+    this.left = null;
+    this.right = null;
+  }
+}
+/*
+PROBLEM DESCRIPTION
+
+Given preorder and inorder traversal of a tree, construct the binary tree.
+
+Note: You may assume that duplicates do not exist in the tree.
+*/
+
+//TODO: Do the same question when duplicates are also present
+
+function constructBinaryTree(preorder, inorder) {
+  let map = new Map();
+
+  let n = inorder.length;
+  let pre_idx = 0;
+
+  for (let i = 0; i < n; i++) map.set(inorder[i], i);
+
+  const constructTree = (start, end) => {
+    if (start > end) return null;
+
+    let idx = map.get(inorder[pre_idx]);
+    let root = new TreeNode(preorder[pre_idx++]);
+
+    root.left = constructTree(start, idx - 1);
+    root.right = constructTree(idx + 1, end);
+
+    return root;
+  };
+}
