@@ -39,3 +39,49 @@ function isValid(root, min, max) {
 
   return l1 && l2;
 }
+
+/*----------------------------------------------*/
+
+//PROBLEM 2: BALANCE A BST
+
+/*
+PROBLEM DESCRIPTION
+
+Given the root of a binary search tree, return a balanced binary search tree 
+with the same node values. If there is more than one answer, return any of them.
+
+A binary search tree is balanced if the depth of the two subtrees of every node never differs by more than 1.
+*/
+
+//Get the inorder array and make a BST out of it
+function balanceBST(root) {
+  let in_order = [];
+
+  inOrderBST(root, in_order);
+
+  let balanced_root = createBalancedBST(0, in_order.length - 1, in_order);
+
+  return balanced_root;
+}
+
+function inOrderBST(root, arr) {
+  if (root === null) return;
+
+  inOrderBST(root.left);
+  arr.push(root.val);
+  inOrderBST(root.right, arr);
+
+  return;
+}
+
+function createBalancedBST(start, end, in_order) {
+  if (start > end) return null;
+
+  let mid = Math.floor((start + end) / 2);
+  let root = new TreeNode(in_order[mid]);
+
+  root.left = createBalancedBST(start, mid - 1, in_order);
+  root.right = createBalancedBST(mid + 1, end, in_order);
+
+  return root;
+}
