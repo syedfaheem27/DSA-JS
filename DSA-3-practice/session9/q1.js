@@ -116,3 +116,34 @@ function kthSmallestEl(root, k) {
 //TODO: Do it in a TC O(logn)
 
 /*---------------------------------------*/
+
+//PROBLEM 4: FIND THE LCA IN A BST
+
+/*
+PROBLEM DESCRIPTION
+
+Given a binary search tree (BST), find the lowest common ancestor (LCA) of 
+two given nodes in the BST.
+
+The lowest common ancestor is defined between two nodes p and q as the 
+lowest node in the tree that has both p and q as descendants 
+(where we allow a node to be a descendant of itself).
+*/
+
+//TC O(n) & SC O(1)
+function lcaBST(root, node_p, node_q) {
+  if (root === null) return null;
+
+  if (root === node_p || root === node_q) return root;
+
+  let l1 = lcaBST(root.left, node_p, node_q);
+  let l2 = lcaBST(root.right, node_p, node_q);
+
+  if (l1 !== null && l2 !== null) return root;
+
+  if (l1 !== null) return l1;
+
+  if (l2 !== null) return null;
+
+  return null;
+}
