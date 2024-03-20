@@ -85,3 +85,34 @@ function createBalancedBST(start, end, in_order) {
 
   return root;
 }
+
+/*-------------------------------------------*/
+
+//PROBLEM 3: FIND THE Kth SMALLEST ELEMENT IN THE BST
+
+//Brute force - get inorder and then return arr[k-1]
+
+//Optimal approach - TC O(K) & SC O(1)
+function kthSmallestEl(root, k) {
+  let pos = k;
+  const getKthSmallestEl = (root) => {
+    if (root === null) return null;
+
+    let l1 = getKthSmallestEl(root.left);
+    pos--;
+
+    if (pos === 0) return root.val;
+
+    let l2 = getKthSmallestEl(root.right);
+
+    return l1 ?? l2;
+  };
+
+  let el = getKthSmallestEl(root);
+
+  return el;
+}
+
+//TODO: Do it in a TC O(logn)
+
+/*---------------------------------------*/
