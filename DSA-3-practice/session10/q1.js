@@ -32,3 +32,37 @@ function generateBT(postOrder, inOrder) {
 
   return root;
 }
+
+/*------------------------------------------------------*/
+
+//PROBLEM 2: CHECK IF THE BINARY TREE IS BALANCED OR NOT
+
+/*
+PROBLEM DESCRIPTION
+
+Implement a function to check if a binary tree is balanced. For the purposes of 
+this question, a balanced tree is defined to be a tree such that the heights of 
+the two subtrees of any node never differ by more than one.
+*/
+
+function isBalanced(root) {
+  let ans = true;
+
+  const helper = (node) => {
+    if (node === null) return 0;
+
+    let h1 = isBalancedBinaryTree(node.left);
+    let h2 = isBalancedBinaryTree(node.right);
+
+    if (Math.abs(h1 - h2) > 1) {
+      ans = false;
+      return;
+    }
+
+    return Math.max(h1, h2) + 1;
+  };
+
+  helper(root);
+
+  return ans;
+}
