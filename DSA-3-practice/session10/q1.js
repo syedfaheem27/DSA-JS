@@ -7,18 +7,18 @@ Given postorder and inorder traversal of a tree, construct the binary tree and
 return its root. Note: You may assume that duplicates do not exist in the tree.
 */
 
-function generateBT(postOrder, inOrder) {
+function generateBT(postorder, inorder) {
   const map = new Map();
-  let n = inOrder.length;
-  for (let i = 0; i < n; i++) map.set(inOrder[i], i);
+  let n = inorder.length;
+  for (let i = 0; i < n; i++) map.set(inorder[i], i);
 
   let post_idx = n - 1;
 
   const getBinaryTree = (start, end) => {
     if (start > end) return null;
 
-    let inorder_idx = map.get(postOrder[post_idx]);
-    let root = new TreeNode(postOrder[post_idx--]);
+    let inorder_idx = map.get(postorder[post_idx]);
+    let root = new TreeNode(postorder[post_idx--]);
 
     //There is a catch - instead of going left first,
     //go to the right here as it is a post order traversal
@@ -46,16 +46,16 @@ the two subtrees of any node never differ by more than one.
 */
 
 function isBalanced(root) {
-  let ans = true;
+  let isBalanced = true;
 
   const helper = (node) => {
     if (node === null) return 0;
 
-    let h1 = isBalancedBinaryTree(node.left);
-    let h2 = isBalancedBinaryTree(node.right);
+    let h1 = helper(node.left);
+    let h2 = helper(node.right);
 
     if (Math.abs(h1 - h2) > 1) {
-      ans = false;
+      isBalanced = false;
       return;
     }
 
@@ -64,5 +64,38 @@ function isBalanced(root) {
 
   helper(root);
 
-  return ans;
+  return isBalanced;
+}
+
+/*------------------------------------*/
+
+//PROBLEM 3: FIND THE KTH LARGEST ELEMENT IN THE BST
+
+/*
+PROBLEM DESCRIPTION
+
+Given a Binary Search Tree (BST) and a positive integer k, 
+find the k’th largest element in the Binary Search Tree.
+*/
+
+//Do a reverse inorder traversal
+function kThLargest(root, k) {
+  let num = k;
+
+  const getKthLargest = (root) => {
+    if (root === null || num < 0) return null;
+
+    let l1 = getKthLargest(root.right);
+    num--;
+
+    if (num === 0) return root.val;
+
+    let l2 = getKthLargest(root.left);
+
+    return l1 ?? l2;
+  };
+
+  const res = getKthLargest(root);
+
+  return res;
 }
