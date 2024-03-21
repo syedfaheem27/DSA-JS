@@ -147,3 +147,80 @@ function lcaBST(root, node_p, node_q) {
 
   return null;
 }
+
+/*--------------------------------------------------*/
+
+//PROBLEM 5 : FIND THE INORDER SUCCESSOR OF A NODE IN A BST
+
+/*
+PROBLEM DESCRIPTION
+
+Write an algorithm to find the "next" node (i.e., in-order successor) of a given 
+node in a binary search tree. You may assume that each parent has a link to its child.
+*/
+
+//Brute force - Get the inorder array and find the successor of the given node which will
+//be on the immediate right of the array - TC O(N) & SC O(N)
+
+//Approach 1: TC O(N) & SC O(1)
+//Do an inorder,preorder or a post order traversal and maintain a value that is greater than the given node's value
+//but as close to it
+
+function inOrderSuccessor(root, givenNode) {
+  if (!root || !givenNode) return null;
+
+  let hasSuccessor = false;
+  let val = Number.MAX_SAFE_INTEGER;
+
+  const getSuccessor = (root) => {
+    if (!root) return null;
+
+    if (root.val > givenNode.val) {
+      hasSuccessor = true;
+      val = val > root.val ? root.val : val;
+    }
+
+    getSuccessor(root.left);
+    getSuccessor(root.right);
+  };
+
+  getSuccessor(root);
+
+  return hasSuccessor ? new TreeNode(val) : new TreeNode(-1);
+}
+
+//Better Approach - Based on where the successor can be, discard one half of the tree
+// and consider the other half. TC O(h) where h is the height of the tree
+
+function inOrderSuccessorI(root, givenNode) {
+  if (!root || !givenNode) return null;
+
+  if (root.val === givenNode.val) return getMin(root.right);
+
+  let successor = null;
+
+  const getSuccessor = (node) => {
+    if (!node) return;
+
+    if (node.val > givenNode.val) {
+      if (!successor || node.val < successor.val) successor = node;
+
+      getSuccessor(node.left);
+    } else {
+      getSuccessor(node.right);
+    }
+  };
+
+  getSuccessor(root);
+
+  return successor !== null ? successor : new TreeNode(-1);
+}
+
+function getMin(root) {
+  if (!root) return new TreeNode(-1);
+
+  let node = root;
+  while (node.left !== null) node = node.left;
+
+  return node;
+}
