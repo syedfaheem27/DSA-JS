@@ -36,6 +36,7 @@ class Queue {
 //TC O(nlogn) & SC O(n)
 function topView(root) {
   if (root === null) return root;
+  let queue = new Queue();
 
   queue.add({
     node: root,
