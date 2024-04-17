@@ -89,7 +89,42 @@ var reorderList = function (head) {
     bool = !bool;
   }
   rear.next = null;
-  return head;
 };
 
 //TODO: DO IT IN CONSTANT SPACE
+
+/*----------------------------------------------*/
+
+//MEDIUM: Remove Nth Node from end of the list
+
+//Approach 1: Traverse the list and find length, then traverse again and remove
+//2 iterations
+
+//Efficient approach: TC O(N) - 1 iteration, SC O(1)
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function (head, n) {
+  let curr_node = head;
+
+  for (let i = 0; i < n; i++) curr_node = curr_node.next;
+
+  //If the first node is to be deleted
+  if (curr_node === null) {
+    head = head.next;
+    return head;
+  }
+
+  let prev_node = head;
+
+  while (curr_node.next !== null) {
+    prev_node = prev_node.next;
+    curr_node = curr_node.next;
+  }
+
+  prev_node.next = prev_node.next.next;
+
+  return head;
+};
