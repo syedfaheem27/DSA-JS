@@ -91,7 +91,47 @@ var reorderList = function (head) {
   rear.next = null;
 };
 
-//TODO: DO IT IN CONSTANT SPACE
+// Approach 2 : SC O(1)
+
+function reorderListI(head) {
+  let fast = head,
+    slow = head;
+
+  let tail = null;
+
+  while (fast !== null && fast.next !== null) {
+    tail = fast.next;
+
+    fast = fast.next.next;
+    slow = slow.next;
+  }
+
+  //If the fast pointer is null, tail will point to the last node
+  //and if not, the tail will point to the second last node and thus
+  //fast will point to the last node
+
+  //Decouple the lists
+  slow.next = null;
+
+  //Reverse the second half of the list
+
+  if (fast !== null) tail = fast;
+}
+
+function reverseLinkedList(head) {
+  let prev_node = null,
+    curr_node = head,
+    ref_node;
+
+  while (curr_node !== null) {
+    ref_node = curr_node.next;
+    curr_node.next = prev_node;
+    prev_node = curr_node;
+    curr_node = ref_node;
+  }
+
+  return prev_node === null ? curr_node : prev_node;
+}
 
 /*----------------------------------------------*/
 
