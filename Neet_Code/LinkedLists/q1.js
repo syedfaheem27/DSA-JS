@@ -97,25 +97,41 @@ function reorderListI(head) {
   let fast = head,
     slow = head;
 
-  let tail = null;
-
   while (fast !== null && fast.next !== null) {
-    tail = fast.next;
-
     fast = fast.next.next;
     slow = slow.next;
   }
 
-  //If the fast pointer is null, tail will point to the last node
-  //and if not, the tail will point to the second last node and thus
-  //fast will point to the last node
+  let second_head = slow.next;
 
   //Decouple the lists
   slow.next = null;
 
   //Reverse the second half of the list
+  let reversed_head = reverseLinkedList(second_head);
 
-  if (fast !== null) tail = fast;
+  let bool = true;
+
+  let front = head,
+    tail = reversed_head;
+
+  let temp_front, temp_tail;
+
+  while (front !== null && tail !== null) {
+    if (bool) {
+      temp_front = front.next;
+      front.next = tail;
+      front = temp_front;
+    } else {
+      temp_tail = tail.next;
+      tail.next = front;
+      tail = temp_tail;
+    }
+
+    bool = !bool;
+  }
+
+  return head;
 }
 
 function reverseLinkedList(head) {
@@ -168,3 +184,50 @@ var removeNthFromEnd = function (head, n) {
 
   return head;
 };
+
+/*-------------------------------*/
+//MEDIUM: Find the duplicate number
+
+/*
+Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
+
+There is only one repeated number in nums, return this repeated number.
+
+You must solve the problem without modifying the array nums and uses only constant extra space.
+*/
+
+//Approach 1: O(N) & SC O(1) but modifying the input array
+
+function duplicateNumber(nums) {
+  let n = nums.length;
+  for (let i = 0; i < nums.length; i++) {
+    let index = (nums[i] % n) - 1;
+
+    if (nums[index] > n) return nums[i] % n;
+    nums[index] += n;
+  }
+}
+
+//Approach 2: O(N) & SC O(1). Using floyd's algorithm by treating the array values as indices
+//and visualising a linked list. Thus, the duplicate number will point at the same place, thus forming a cycle
+
+function duplicateNumberII(nums) {
+  let slow = 0,
+    fast = 0;
+
+  while (true) {
+    slow = nums[slow];
+    fast = nums[nums[fast]];
+
+    if (slow === fast) break;
+  }
+
+  fast = 0;
+
+  while (nums[fast] !== nums[slow]) {
+    fast = nums[fast];
+    slow = nums[slow];
+  }
+
+  return nums[slow];
+}
