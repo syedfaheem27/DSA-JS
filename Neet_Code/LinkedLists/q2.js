@@ -99,3 +99,60 @@ function reverseBetween(head, left, right) {
 
   return head;
 }
+
+/*-------------------------------*/
+
+//MEDIUM: Sort a linked list
+
+/*
+Given the head of a linked list, return the list after sorting it in ascending order.
+*/
+
+function sortList(head) {
+  if (head === null || head.next === null) return head;
+
+  let fast = head.next;
+  let slow = head;
+
+  while (fast !== null && fast.next !== null) {
+    fast = fast.next.next;
+    slow = slow.next;
+  }
+
+  let head_2 = slow.next;
+  slow.next = null;
+
+  const mergeLists = (head_1, head_2) => {
+    let head = new ListNode(-1);
+    let tail = head;
+    let curr_1 = head_1,
+      curr_2 = head_2;
+
+    while (curr_1 !== null && curr_2 !== null) {
+      if (curr_1.val <= curr_2.val) {
+        tail.next = curr_1;
+        curr_1 = curr_1.next;
+      } else {
+        tail.next = curr_2;
+        curr_2 = curr_2.next;
+      }
+      tail = tail.next;
+    }
+
+    while (curr_1 !== null) {
+      tail.next = curr_1;
+      curr_1 = curr_1.next;
+      tail = tail.next;
+    }
+
+    while (curr_2 !== null) {
+      tail.next = curr_2;
+      curr_2 = curr_2.next;
+      tail = tail.next;
+    }
+
+    return head.next;
+  };
+
+  return mergeLists(sortList(head), sortList(head_2));
+}
