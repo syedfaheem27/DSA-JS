@@ -31,3 +31,71 @@ function swapNodes(head, k) {
 
   return head;
 }
+
+/*-------------------------*/
+
+//MEDIUM: Reverse Linked List in between
+
+/*
+Given the head of a singly linked list and two integers left and right 
+where left <= right, reverse the nodes of the list from position left 
+to position right, and return the reversed list.
+*/
+
+function reverseBetween(head, left, right) {
+  if (left === right) return head;
+
+  let count = 1;
+
+  let curr_node = head;
+  let prev_node = null;
+
+  let start = null;
+  let next = null;
+
+  while (curr_node !== null) {
+    if (count === left) start = prev_node;
+
+    if (count === right) {
+      next = curr_node.next;
+      break;
+    }
+
+    prev_node = curr_node;
+    curr_node = curr_node.next;
+    count++;
+  }
+
+  const reverseLinkedList = function (start, end) {
+    let curr = start;
+    let prev = null,
+      ref = null;
+
+    while (curr !== end) {
+      ref = curr.next;
+      curr.next = prev;
+      prev = curr;
+      curr = ref;
+    }
+    curr.next = prev;
+  };
+
+  curr_node.next = null;
+
+  if (left === 1) {
+    reverseLinkedList(head, curr_node);
+    head.next = next;
+
+    return curr_node;
+  }
+
+  let rev_start = start.next;
+
+  start.next = null;
+  reverseLinkedList(rev_start, curr_node);
+
+  start.next = curr_node;
+  rev_start.next = next;
+
+  return head;
+}
