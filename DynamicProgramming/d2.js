@@ -26,6 +26,7 @@ function frogJump(n, heights) {
   minEnergyTillTop[n - 1] = 0;
 
   fillMinEnergyPaths(n, heights, 0, minEnergyTillTop);
+  console.log(minEnergyTillTop[0]);
   return minEnergyTillTop[0];
 }
 
@@ -78,4 +79,60 @@ frogJump(arr2.length, arr2);
 frogJump(arr3.length, arr3);
 frogJump(arr4.length, arr4);
 
-/*----------------------------------------------*/
+//Tabulation Approach
+
+//TC O(N) & SC O(N)
+
+function frogJumpI(n, heights) {
+  let dp = Array.from({ length: n });
+
+  dp[n - 1] = 0;
+
+  for (let i = n - 2; i >= 0; i--) {
+    let left_jump = dp[i + 1];
+    let right_jump = dp[i + 2];
+
+    if (left_jump !== undefined && right_jump !== undefined) {
+      dp[i] = Math.min(
+        left_jump + Math.abs(heights[i] - heights[i + 1]),
+        right_jump + Math.abs(heights[i] - heights[i + 2])
+      );
+    } else if (left_jump !== undefined) {
+      dp[i] = left_jump + Math.abs(heights[i] - heights[i + 1]);
+    }
+  }
+
+  console.log(dp[0]);
+  return dp[0];
+}
+
+// Optimising Space in tabulation approach
+
+//In this case, we will look at the problem in a different way
+//In the previous approaches, the elements of the dp array used to hold
+//the minEnergy it would take from that index to the top.
+/*
+
+
+
+  */
+//However, here we would say that, for each step, we will view it as the
+//min energy required to reach that step.
+
+function frogJumpII(n, heights) {
+  let prev = 0,
+    prev_prev = 0;
+
+  for (let i = 1; i < n; i++) {
+    let left = prev + Math.abs(heights[i] - heights[i - 1]);
+    let right;
+    if (i > 1) right = prev_prev + Math.abs(heights[i - 2] - heights[i]);
+    else right = Number.MAX_SAFE_INTEGER;
+
+    let curr = Math.min(left, right);
+    prev_prev = prev;
+    prev = curr;
+  }
+
+  return prev;
+}
