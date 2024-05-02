@@ -145,6 +145,7 @@ function frogJumpII(n, heights) {
 //the frog can jump from the ith step to i+1,i+2,i+3,....i+k
 
 //Memoization
+//TC O(k*N) & SC O(N)
 
 function kFrogJump(n, k, heights) {
   let minEnergy = Array.from({ length: n });
@@ -193,4 +194,34 @@ function populateMinEnergy(jumpInfo) {
   }
   minEnergy[currIndex] = currEnergy;
   return currEnergy;
+}
+
+//Tabulation
+
+//Space will be optimised because we are eliminating the stack space
+//TC O(N) & SC O(N)
+
+function kFrogJumpI(n, heights, k) {
+  /*
+  Each element represents the minimum energy required to reach
+   that particular step at that index
+  */
+
+  let minEnergy = Array.from({ length: n });
+
+  minEnergy[0] = 0;
+
+  for (let i = 1; i < n; i++) {
+    let jumpEnergy = Number.MAX_SAFE_INTEGER;
+
+    for (let j = 1; j <= k; j++) {
+      if (i - j >= 0) {
+        let energy = Math.abs(heights[i - j] - heights[i]) + minEnergy[i - j];
+        jumpEnergy = Math.min(energy, jumpEnergy);
+      }
+    }
+
+    minEnergy[i] = jumpEnergy;
+  }
+  return minEnergy[n - 1];
 }
