@@ -74,10 +74,10 @@ const arr2 = convert(str2);
 const arr3 = convert(str3);
 const arr4 = convert(str4);
 
-frogJump(arr1.length, arr1);
-frogJump(arr2.length, arr2);
-frogJump(arr3.length, arr3);
-frogJump(arr4.length, arr4);
+// frogJump(arr1.length, arr1);
+// frogJump(arr2.length, arr2);
+// frogJump(arr3.length, arr3);
+// frogJump(arr4.length, arr4);
 
 //Tabulation Approach
 
@@ -135,4 +135,62 @@ function frogJumpII(n, heights) {
   }
 
   return prev;
+}
+
+/*------------------------------------------------*/
+
+//2. Frog Jump
+
+//Instead of the frog jumping from the ith to i+1 and ith to i+2,
+//the frog can jump from the ith step to i+1,i+2,i+3,....i+k
+
+//Memoization
+
+function kFrogJump(n, k, heights) {
+  let minEnergy = Array.from({ length: n });
+
+  //Each element denotes the min energy it would take from that index to the top
+
+  //From the top position, it would take 0 energy to reach the top
+  minEnergy[n - 1] = 0;
+
+  let jumpInfo = {
+    n,
+    heights,
+    k,
+    minEnergy,
+    currIndex: 0,
+  };
+
+  populateMinEnergy(jumpInfo);
+
+  return minEnergy[0];
+}
+
+function populateMinEnergy(jumpInfo) {
+  let { n, heights, minEnergy, k, currIndex } = jumpInfo;
+
+  if (currIndex >= n) return Number.MAX_SAFE_INTEGER;
+
+  if (minEnergy[currIndex] !== undefined) return minEnergy[currIndex];
+
+  let currEnergy = Number.MAX_SAFE_INTEGER;
+
+  for (let i = 1; i <= k; i++) {
+    let kthJumpEn = heights?.[currIndex + i] ?? Number.MAX_SAFE_INTEGER;
+
+    let totalJumpEn = Math.abs(heights[currIndex] - kthJumpEn);
+    currEnergy = Math.min(
+      currEnergy,
+      populateMinEnergy({
+        n,
+        heights,
+        k,
+        currIndex: currIndex + i,
+        minEnergy,
+      }) + totalJumpEn
+    );
+  }
+  minEnergy[currIndex] = currEnergy;
+  return currEnergy;
 }
