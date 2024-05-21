@@ -42,3 +42,34 @@ function trapRainWater(heights) {
 
   return maxWater;
 }
+
+// Two pointer approach
+// TC O(N) & SC O(1)
+
+function trapRainWaterI(heights) {
+  let n = heights.length;
+
+  let i = 0,
+    j = n - 1;
+  let maxLeft = heights[0],
+    maxRight = heights[n - 1];
+
+  let maxWater = 0;
+
+  while (i <= j) {
+    if (maxLeft <= maxRight) {
+      maxWater =
+        maxLeft >= heights[i] ? maxWater + (maxLeft - heights[i]) : maxWater;
+
+      maxLeft = Math.max(maxLeft, heights[i]);
+      i++;
+    } else {
+      maxWater =
+        maxRight >= heights[j] ? maxWater + (maxRight - heights[j]) : maxWater;
+      maxRight = Math.max(maxRight, heights[j]);
+      j--;
+    }
+  }
+
+  return maxWater;
+}
