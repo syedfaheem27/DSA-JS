@@ -81,7 +81,7 @@ function minWindow(s, t) {
 
       freq_map.set(s[start], freq_map.get(s[start]) - 1);
 
-      if (map.has(s[start]) && freq_map.get(s[start]) !== map.get(s[start]))
+      if (map.has(s[start]) && freq_map.get(s[start]) < map.get(s[start]))
         frequency--;
 
       start++;
