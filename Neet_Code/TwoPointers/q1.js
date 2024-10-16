@@ -2,13 +2,14 @@
 
 // Method-1: Stack
 //TC O(N) & SC O(N)
-function trapRainWater(heights) {
-  let n = heights.length;
 
-  let maxWater = 0;
+function trapRainWater(height) {
+  let n = height.length;
+
   let stack = [];
-
   let i = 0;
+
+  let totalWater = 0;
 
   while (i < n) {
     if (stack.length === 0) {
@@ -19,28 +20,28 @@ function trapRainWater(heights) {
 
     let top_index = stack[stack.length - 1];
 
-    if (heights[top_index] > heights[i]) {
+    //keeping a montonously decreasing stack largest at bottom
+    if (height[top_index] >= height[i]) {
       stack.push(i);
       i++;
       continue;
     }
 
-    // I already have that index, so no need to store it
+    //i already have that index - top_index
     stack.pop();
 
     if (stack.length === 0) continue;
 
-    let curr_top_index = stack[stack.length - 1];
+    //bounding height will always be greater than height[top_index] as it is
+    // the minimum of height[i] > height[stack[stack.length-1]] and
+    //height[stack[stack.length-1]] is greater than height[top_index] as
+    // the stack is monotnously decreasing with the largest index element at the bottom
+    let boundingHeight = Math.min(height[i], height[stack[stack.length - 1]]);
+    let heightOfWaterCol = boundingHeight - height[top_index];
 
-    let min_bound = Math.min(heights[i], heights[curr_top_index]);
-
-    maxWater =
-      min_bound >= heights[top_index]
-        ? maxWater + (min_bound - heights[top_index]) * (i - curr_top_index - 1)
-        : maxWater;
+    totalWater += heightOfWaterCol * (i - stack[stack.length - 1] - 1);
   }
-
-  return maxWater;
+  return totalWater;
 }
 
 // Two pointer approach
