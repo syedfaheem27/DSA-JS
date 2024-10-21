@@ -126,3 +126,33 @@ function mergeII(arr, left, mid, right) {
 }
 
 /*--------------------------------*/
+
+// Quick Sort
+//TC O(nlogn) & SC O(1)
+
+function quickSort(arr, start, end) {
+  if (start >= end) return;
+  //helper
+  const getPivot = (arr, start, end) => {
+    let pivot = start;
+    let pivotEl = arr[pivot];
+    let insertionIdx = start;
+
+    for (let i = start + 1; i <= end; i++) {
+      if (arr[i] < pivotEl) {
+        if (arr[insertionIdx] === pivotEl) pivot = i;
+
+        [arr[insertionIdx], arr[i]] = [arr[i], arr[insertionIdx]];
+        insertionIdx++;
+      }
+    }
+
+    [arr[insertionIdx], arr[pivot]] = [arr[pivot], arr[insertionIdx]];
+
+    return insertionIdx;
+  };
+
+  let pivotIdx = getPivot(arr, start, end);
+  quickSort(arr, start, pivotIdx - 1);
+  quickSort(arr, pivotIdx + 1, end);
+}
