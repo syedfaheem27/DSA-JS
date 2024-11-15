@@ -96,6 +96,11 @@ function distinctNums(nums) {
   return res_map.size;
 }
 
+//Using sets
+function distinctNumsI(nums){
+  return new Set(nums).size;
+}
+
 /////////////////////////////////////////////
 
 // PROBLEM 3
